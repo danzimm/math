@@ -1,0 +1,73 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dztex}[2022/03/03 danzimm custom macros]
+
+% For dzenum declaration
+\RequirePackage{enumitem}
+
+% For DeclarePairedDelimiter
+\RequirePackage{mathtools}
+
+% Custom color decl
+\RequirePackage{color}
+
+% Custom spacing, lets kill whitespace
+\RequirePackage[left=0.75in, right=0.75in, bottom=1.5in]{geometry}
+
+% mathbb{0}, mathbb{1}
+\RequirePackage{bbold}
+
+% patchcmd to enable auto-sized DeclarePairedDelimiter
+\RequirePackage{etoolbox}
+
+% Better header control
+\RequirePackage{fancyhdr}
+
+% \upgamma
+\RequirePackage[Symbol]{upgreek}
+
+% It me
+\author{Dan Zimmerman}
+
+% My color
+\definecolor{dzcol}{RGB}{127, 65, 148}
+
+% Lists
+\newlist{dzenum}{enumerate}{2}
+\setlist[dzenum,1]{label={\color{dzcol} (\alph*)}}
+\setlist[dzenum,2]{label={\color{dzcol} (\roman*)}}
+
+% Auto-sized DeclarePairedDelimiter
+\newcommand\swapifbranches[3]{#1{#3}{#2}}
+\makeatletter
+\MHInternalSyntaxOn
+\patchcmd{\DeclarePairedDelimiter}{\@ifstar}{\swapifbranches\@ifstar}{}{}
+\MHInternalSyntaxOff
+\makeatother
+
+% Convenience paired delims
+\DeclarePairedDelimiter\parens{(}{)}
+\DeclarePairedDelimiter\braces{\{}{\}}
+\DeclarePairedDelimiter\iproddelim{\langle}{\rangle}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\newcommand{\iprod}[2]{\iproddelim{#1, #2}}
+
+\makeatletter
+\let\inserttitle\@title
+\let\insertauthor\@author%
+% I prefer upgamma
+\def\gamma{\@ifstar{\gamma}{\upgamma}}
+\makeatother
+
+\newcommand{\dzhdr}[1]{{\large \textsf{\textbf{#1}}}}
+\newcommand{\ehdr}[1]{\par \textsf{\textbf{#1}}}
+\newcommand{\hpart}[1]{\subsection*{\textcolor{dzcol}{\dzhdr{#1}}}}
+\newcommand{\pagehline}{\noindent\rule{\textwidth}{0.4pt}}
+
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{36pt}
+
+% Changes style for first page
+\thispagestyle{fancy}
+\fancyhead[R]{\dzhdr{\inserttitle}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
+\fancyhead[L]{\today \vspace{1mm}}

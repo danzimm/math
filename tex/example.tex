@@ -1,0 +1,35 @@
+\documentclass{article}
+
+% dztex requires title to be specified
+\title{Sample Title}
+
+% common macros
+\usepackage{dztex}
+
+% Used below for sample stuffs
+\newcommand\bigstuff[1]{\int_X \sum_{n=1}^\infty f_n(x) \, \mathrm{d} #1}
+
+\begin{document}
+
+\dzhdr{Fbar} Hello world
+\ehdr{Ebar} Hello world
+\hpart{Part 1}
+\begin{dzenum}
+  \item Foo
+  \item
+    \begin{dzenum}
+      \item Sub
+      \item
+    \end{dzenum}
+\end{dzenum}
+\pagehline
+\begin{align*}
+  &\parens{\bigstuff{\gamma}} \\
+  &\braces{\bigstuff{\gamma*}} \\
+  \norm{\bigstuff{\gamma}} &= \iprod{\bigstuff{\gamma*}}{\bigstuff{\gamma}} \\
+  &\abs{\bigstuff{\mu}}
+\end{align*}
+\newpage
+So we can see this page doesn't have any header
+\newpage
+\end{document}
