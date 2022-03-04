@@ -1,0 +1,60 @@
+\documentclass{article}
+
+% dztex requires title to be specified
+\title{Notes from Optimal Transportation Theory and Applications}
+
+% common macros
+\usepackage{dztex}
+
+\newcommand{\push}[2]{#1_{\##2}}
+
+\begin{document}
+\subsection*{Introduction}
+
+Previously, in undergrad, I worked with Dr. Marian Bocea. He helped me learn the functional analysis and measure theory needed to read a paper of his on optimal transportation theory (\cite{bocea_transport}). Recently I've picked my studies back up and have taken a liking to optimal transportation theory. After browsing a few pdfs online I decided to buy a book on the subject (\cite{opt_transport_theory_and_app}) to work out of. Below are small proofs that are left as exercises to the reader that throughout the text.
+
+\subsection{Introduction to optimal transport theory}
+This chapter was written by Fillipo Santambrogio. We will use the following definitions below:
+\begin{itemize}
+  \item $\mathcal{P}(Z)$ the set of probability measures on $Z$
+  \item $\Omega \subset \mathbb{R}^m$
+  \item $\mu, \nu \in \mathcal{P}(\Omega)$
+  \item $\Pi(\mu, \nu) = \braces{\gamma \in \mathcal{P}(\Omega \times \Omega) \middle| \gamma(A \times \Omega) = \mu(A), \, \gamma(\Omega \times B) = \nu(B)\, \forall A, B \subset \Omega}$
+  \item $c : \Omega \times \Omega \to [0, +\infty]$ symmetric and continuous
+\end{itemize}
+The Kantorovich problem is as follows:
+\begin{equation}\label{eq:1}
+  (K) \; \min \braces{\int_{\Omega \times \Omega} c \, \mathrm{d} \gamma \, \mid \, \gamma \in \Pi(\mu, \nu)}
+\end{equation}
+The following lemma comes from Remark 1:
+\begin{lemma}\label{lem:1}
+  If $\push{(id \times T)}{\mu} \in \Pi(\mu, \nu)$ for some $T : \Omega \to \Omega$ then
+  \begin{equation}\label{eq:2}
+    \nu = \push{T}{\mu} \iff \nu(A) = \mu(T^{-1}(A)) \textup{ for every measurable set } A
+  \end{equation}
+  and the functional in $(K)$ takes the form
+  \begin{equation}\label{eq:3}
+    \int_{\Omega \times \Omega} c(x, T(x)) \, \mathrm{d} \mu(x)
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  Before beginning it's worth noting that $(id \times T)$ must be defined as $x \to (x, T(x))$ since otherwise pushing forward $\mu$ doesn't make sense. With that in mind, since $\push{(id \times T)}{\mu} \in \Pi(\mu, \nu)$ we have
+  $$
+  \nu(B) = \mu((id \times T)^{-1}(\Omega \times B)) = \mu(T^{-1}(B)) = \push{T}{\mu}(B)
+  $$
+  for every measurable $B$. The 2nd equality comes from the definition of the mapping as stated above. Additionally we have
+  \begin{align*}
+    \int_{\Omega \times \Omega} c \, \mathrm{d} \push{(id \times T)}{\mu}
+    &= \int_{\Omega \times \Omega} c(x, y) \, \mathrm{d} \mu( (id \times T)^{-1} (x, y) ) \\
+    &= \int_{\Omega \times \Omega} c(x, T(x)) \, \mathrm{d} \mu(x)
+  \end{align*}
+  where the last equality comes from the fact that
+  $$
+  (id \times T)^{-1} (A \times B) = \braces{ x \mid (x, T(x)) \in A \times B }
+  $$
+  i.e. $y$ is forced to $T(x)$ in order for the simple sets to have non-0 measure.
+\end{proof}
+
+\bibliographystyle{plain}
+\bibliography{\jobname}
+\end{document}
