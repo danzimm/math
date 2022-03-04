@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\title{inf-sup \& sup-inf Relations}
+\usepackage{dztex}
+
+\begin{document}
+
+\hpart{Intro} Below I present a proof for a well known relationship between $\inf\sup$ and $\sup\inf$.
+
+\hpart{Helper Lemmas}
+To begin let's prove a few lemmas which will simplify our proof below
+\begin{lemma}\label{lem:1}
+  Given $X \subset \mathbb{R}$ bounded below, $y \in \mathbb{R}$ if $x \ge y \forall x \in X$ then
+  $$
+    \inf_{x \in X} x \ge y
+  $$
+\end{lemma}
+\begin{proof}
+  Since $X$ is bounded below we know $\alpha := \inf\limits_{x \in X} x$ is finite. Suppose, for the sake of contradiction, $\alpha < y$. We know $\forall \, \gamma > 0 \exists x \in X$ such that
+  $$
+    \alpha + \gamma > x
+  $$
+  since otherwise $\alpha + \gamma$ would be a lower bound of $X$, but $\alpha + \gamma > \alpha$, contradicting the definition of $\alpha$. In particular $y - \alpha > 0 \implies \exists* \, x \in X$ such that
+  $$
+    y = \alpha + y - \alpha > x \contradiction x \ge y
+  $$
+\end{proof}
+\begin{lemma}\label{lem:2}
+  Let $X \subset \mathbb{R}$ be bounded below then
+  $$
+    - \inf_{x \in X} x = \sup_{x \in X} -x
+  $$
+\end{lemma}
+\begin{proof}
+  Since $X$ is bounded below we know $\alpha := \inf\limits_{x \in X}$ and $\beta := \sup\limits_{x \in X} -x$ are finite. We have $\forall x \in X$
+  $$
+    \alpha \le x \implies - \alpha \ge -x
+  $$
+  thus $-\alpha$ is an upper bound on $\{ -x \mid x \in X \}$ so that
+  \begin{equation}
+    -\alpha \ge \beta \label{eq:1}
+  \end{equation}
+  Additionally $\forall* \, x \in X$
+  $$
+    -x \le \beta \implies x \ge -\beta
+  $$
+  thus $-\beta$ is a lower bound of $X$ so that $\alpha \ge -\beta$ or equivalently
+  \begin{equation}
+    -\alpha \le \beta \label{eq:2}
+  \end{equation}
+  Combining \eqref{eq:1} \& \eqref{eq:2} gives us our desired equality.
+\end{proof}
+\begin{lemma}\label{lem:3}
+  Given $X \subset \mathbb{R}$ bounded above, $y \in \mathbb{R}$ if $x \le y \forall x \in X$ then
+  $$
+    \sup_{x \in X} x \le y
+  $$
+\end{lemma}
+\begin{proof}
+  By \cref{lem:2,lem:1} we have
+  $$
+    -\sup_{x \in X} x = \inf\limits_{x \in X} -x \ge -y \implies \sup_{x \in X} x \le y
+  $$
+\end{proof}
+
+\hpart{Main Results}
+
+\begin{theorem}
+  Let $X, Y$ be two non-empty sets, $Z \subset \mathbb{R}$ and $f : X \times Y \to Z$, then
+  $$
+    \inf_{x \in X} \sup_{y \in Y} f(x, y) \ge \sup_{y \in Y} \inf_{x \in X} f(x, y)
+  $$
+\end{theorem}
+\begin{proof}
+  Let $x' \in X, y' \in Y$ (as $X, Y$ are non-empty we know these exist). We have
+  $$
+    \sup_{y \in Y} f(x', y) \ge f(x', y') \ge \inf_{x \in X} f(x, y')
+  $$
+  By \cref{lem:1} we have
+  $$
+    \inf_{x \in X} \sup_{y \in Y} f(x, y) \ge \inf_{x \in X} f(x, y')
+  $$
+  and by \cref{lem:3} we have
+  $$
+    \inf_{x \in X} \sup_{y \in Y} f(x, y) \ge \sup_{y \in Y} \inf{x \in X} f(x, y)
+  $$
+\end{proof}
+\end{document}

@@ -25,11 +25,47 @@
 % \upgamma
 \RequirePackage[Symbol]{upgreek}
 
+% For newtheoremstyle etc.
+\RequirePackage{amsthm}
+
+% For eqref
+\RequirePackage{amsmath}
+
+% For cref & hyperlinks
+\RequirePackage{hyperref}
+% N.B. Order is important here 
+\RequirePackage{cleveref}
+
+% Customizing section etc.
+\RequirePackage{titlesec}
+
 % It me
 \author{Dan Zimmerman}
 
-% My color
-\definecolor{dzcol}{RGB}{127, 65, 148}
+\newcommand{\declcolor}[2]{%
+\definecolor{#1}{RGB}{#2}%
+\expandafter\newcommand\csname #1\endcsname[1]{\textcolor{#1}{##1}}}
+
+% My colors
+\declcolor{dzcol}{139, 112, 194}
+
+% Taken from my terminal colors 8)
+\declcolor{dzwhite}{218,223,224}
+\declcolor{dzcyan}{81,180,169}
+\declcolor{dzmagenta}{202,101,108}
+\declcolor{dzblue}{50,145,186}
+\declcolor{dzyellow}{197,184,91}
+\declcolor{dzgreen}{137,169,125}
+\declcolor{dzred}{193,80,100}
+\declcolor{dzgray}{143,156,160}
+\declcolor{dzbrtwhite}{218,223,224}
+\declcolor{dzbrcyan}{96,212,200}
+\declcolor{dzbrmagenta}{255,108,135}
+\declcolor{dzbrblue}{79,169,255}
+\declcolor{dzbryellow}{255,236,116}
+\declcolor{dzbrgreen}{144,203,130}
+\declcolor{dzbrred}{247,96,80}
+\declcolor{dzbrgray}{153,153,153}
 
 % Lists
 \newlist{dzenum}{enumerate}{2}
@@ -51,23 +87,92 @@
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \newcommand{\iprod}[2]{\iproddelim{#1, #2}}
+\newcommand{\contradiction}{\Rightarrow\!\Leftarrow}
 
 \makeatletter
 \let\inserttitle\@title
 \let\insertauthor\@author%
 % I prefer upgamma
 \def\gamma{\@ifstar{\gamma}{\upgamma}}
+
+% Better spacing by default
+\let\oldexists\exists
+\def\exists{\@ifstar{\oldexists}{\; \oldexists \,}}
+
+\let\oldforall\forall
+\def\forall{\@ifstar{\oldforall}{\; \oldforall \,}}
+
+
+{\color{black}\global\let\glob@black@col\current@color}
+\newcommand*\ifblack{\ifx\glob@black@col\current@color}
 \makeatother
 
 \newcommand{\dzhdr}[1]{{\large \textsf{\textbf{#1}}}}
 \newcommand{\ehdr}[1]{\par \textsf{\textbf{#1}}}
-\newcommand{\hpart}[1]{\subsection*{\textcolor{dzcol}{\dzhdr{#1}}}}
+\newcommand{\hpart}[1]{\subsection{\dzcol{\dzhdr{#1}}}}
 \newcommand{\pagehline}{\noindent\rule{\textwidth}{0.4pt}}
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+\titleformat*{\section}{\LARGE\bfseries\sffamily\color{dzcol}}
+\titleformat*{\subsection}{\large\bfseries\sffamily\color{dzcol}}
+\titleformat*{\subsubsection}{\large\sffamily}
+\titleformat*{\paragraph}{\large\sffamily}
+\titleformat*{\subparagraph}{\large\sffamily}
+
+\newtheoremstyle{dztheorem}
+{2em}             % Space above
+{2em}             % Space below
+{\slshape}        % Theorem body font % (default is "\upshape")
+{}                % Indent amount
+{\bfseries\sffamily}       % Theorem head font % (default is \mdseries)
+{}                % Punctuation after theorem head % default: no punctuation
+{ }               % Space after theorem head
+{%
+  \dzblue{%
+    \fbox{%
+      \thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (#3)}}%
+    }%
+  }%
+}                % Theorem head spec
+
+\newtheoremstyle{dzlemma}
+{1em}             % Space above
+{1em}             % Space below
+{\slshape}        % Theorem body font % (default is "\upshape")
+{}                % Indent amount
+{\it\sffamily}       % Theorem head font % (default is \mdseries)
+{}                % Punctuation after theorem head % default: no punctuation
+{ }               % Space after theorem head
+{%
+  \dzcyan{%
+    \fbox{%
+      \thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (#3)}}%
+    }%
+  }%
+}                % Theorem head spec
+
+\theoremstyle{dzlemma}
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{dztheorem}
+\newtheorem{theorem}{Theorem}
+
+% Use subsection number when numbering
+\numberwithin{lemma}{subsection}
+\numberwithin{theorem}{subsection}
+
+% Capitalizes "Theorem"/"Lemma" when referencing theorems/lemmas
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{theorem}{Theorem}{Theorems}
+
+\renewenvironment{proof}{\begin{quote}\dzbrgray{\textsf{Proof.}}}{\qed\end{quote}}
 
 \setlength{\parindent}{0pt}
 \setlength{\headheight}{36pt}
 
 % Changes style for first page
 \thispagestyle{fancy}
-\fancyhead[R]{\dzhdr{\inserttitle}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
+\fancyhead[R]{\dzcol{\dzhdr{\inserttitle}}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
 \fancyhead[L]{\today \vspace{1mm}}
