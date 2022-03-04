@@ -89,6 +89,10 @@
 \newcommand{\iprod}[2]{\iproddelim{#1, #2}}
 \newcommand{\contradiction}{\Rightarrow\!\Leftarrow}
 
+\newcommand{\dzhdr}[1]{\dzcol{\textsf{\textbf{#1}}}}
+\newcommand{\ehdr}[1]{\par \textsf{\textbf{#1}}}
+\newcommand{\pagehline}{\noindent\rule{\textwidth}{0.4pt}}
+
 \makeatletter
 \let\inserttitle\@title
 \let\insertauthor\@author%
@@ -102,21 +106,15 @@
 \let\oldforall\forall
 \def\forall{\@ifstar{\oldforall}{\; \oldforall \,}}
 
-
-{\color{black}\global\let\glob@black@col\current@color}
-\newcommand*\ifblack{\ifx\glob@black@col\current@color}
+\def\hpart{\if@star{\subsection*}{\subsection}}
 \makeatother
 
-\newcommand{\dzhdr}[1]{{\large \textsf{\textbf{#1}}}}
-\newcommand{\ehdr}[1]{\par \textsf{\textbf{#1}}}
-\newcommand{\hpart}[1]{\subsection{\dzcol{\dzhdr{#1}}}}
-\newcommand{\pagehline}{\noindent\rule{\textwidth}{0.4pt}}
 
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{subsection}}
 
 \titleformat*{\section}{\LARGE\bfseries\sffamily\color{dzcol}}
-\titleformat*{\subsection}{\large\bfseries\sffamily\color{dzcol}}
+\titleformat*{\subsection}{\Large\bfseries\sffamily\color{dzcol}}
 \titleformat*{\subsubsection}{\large\sffamily}
 \titleformat*{\paragraph}{\large\sffamily}
 \titleformat*{\subparagraph}{\large\sffamily}
@@ -174,5 +172,5 @@
 
 % Changes style for first page
 \thispagestyle{fancy}
-\fancyhead[R]{\dzcol{\dzhdr{\inserttitle}}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
+\fancyhead[R]{{\large \dzhdr{\inserttitle}}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
 \fancyhead[L]{\today \vspace{1mm}}
