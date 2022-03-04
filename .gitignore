@@ -3,3 +3,10 @@
 *.fls
 *.log
 *.out
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+
+# I have $out_dir = "texout"; in my ~/.latexmkrc
+texout
