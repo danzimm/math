@@ -47,11 +47,14 @@
 \expandafter\newcommand\csname #1\endcsname[1]{\textcolor{#1}{##1}}}
 
 % My colors
-\declcolor{dzcol}{139, 112, 194}
+%\declcolor{dzcol}{139, 112, 194}
 
 % Taken from my terminal colors 8)
 \declcolor{dzwhite}{218,223,224}
 \declcolor{dzcyan}{81,180,169}
+
+\declcolor{dzcol}{81,180,169}
+
 \declcolor{dzmagenta}{202,101,108}
 \declcolor{dzblue}{50,145,186}
 \declcolor{dzyellow}{197,184,91}
@@ -128,7 +131,7 @@
 {}                % Punctuation after theorem head % default: no punctuation
 { }               % Space after theorem head
 {%
-  \dzblue{%
+  \dzcyan{%
     \fbox{%
       \thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (#3)}}%
     }%

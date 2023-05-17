@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\title{Results in Geormetric Measure Theory}
+\usepackage{dztex}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\hm}{\mathcal{H}}
+
+\begin{document}
+
+\subsection{Introduction} Here I will collect results from geometric measure theory as I explore the subject. I'll be following along in Functions of Bounded Variation and Free Discontinuity Problems by Ambrosio, Fusco \& Pallara.
+
+\subsection{Hausdorff Measure}
+
+\begin{lemma}\label{lem:1}
+  Let $(X, d_X), (Y, d_Y)$ be metric spaces. For $f : X \to Y$ $K$-Lipschitz and measurable $E \subset X$ we have
+  $$
+  \hm^n(f(E)) \le K^n \hm^n(E).
+  $$
+\end{lemma}
+\begin{proof}
+  Let $E \subset X$ be measurable, $\epsilon > 0, \delta > 0$ be arbitrary. By the definition of $\hm^n_\delta$ and the fact that $\diam(f(F)) \le K \diam(F) \, \forall F \subset X$ (since $f$ is $K$-Lipschitz), we know
+  $$
+    \hm^n_\delta(E) \ge \sum_h \parens{\diam(E_h)}^n - \epsilon \ge \sum_h \parens{\frac{\diam(f(E_H))}{K}}^n - \epsilon \ge \frac{1}{K^n} \hm^n_{K\delta} (f(E)) - \epsilon
+  $$
+  for some countable covering $\braces{E_h}$ of $E$. Since $\epsilon$ was arbitrary we find
+  $$
+    \hm^n_{K\delta} (f(E)) \le K^n\hm^n_\delta(E).
+  $$
+  Sending $\delta \to 0$ we find our result.
+\end{proof}
+\end{document}
