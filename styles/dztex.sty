@@ -8,7 +8,7 @@
 \RequirePackage{mathtools}
 
 % Custom color decl
-\RequirePackage{color}
+\RequirePackage{xcolor}
 
 % Custom spacing, lets kill whitespace
 \RequirePackage[left=0.75in, right=0.75in, bottom=1.5in]{geometry}
@@ -86,9 +86,11 @@
 % Convenience paired delims
 \DeclarePairedDelimiter\parens{(}{)}
 \DeclarePairedDelimiter\braces{\{}{\}}
+\DeclarePairedDelimiter\bracp{[}{]}
 \DeclarePairedDelimiter\iproddelim{\langle}{\rangle}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \newcommand{\iprod}[2]{\iproddelim{#1, #2}}
 \newcommand{\contradiction}{\Rightarrow\!\Leftarrow}
 
@@ -100,7 +102,8 @@
 \let\inserttitle\@title
 \let\insertauthor\@author%
 % I prefer upgamma
-\def\gamma{\@ifstar{\gamma}{\upgamma}}
+\let\oldgamma\gamma
+\renewcommand{\gamma}{\@ifstar{\gamma}{\upgamma}}
 
 % Better spacing by default
 \let\oldexists\exists
@@ -108,8 +111,6 @@
 
 \let\oldforall\forall
 \def\forall{\@ifstar{\oldforall}{\; \oldforall \,}}
-
-\def\hpart{\if@star{\subsection*}{\subsection}}
 \makeatother
 
 
@@ -123,8 +124,8 @@
 \titleformat*{\subparagraph}{\large\sffamily}
 
 \newtheoremstyle{dztheorem}
-{2em}             % Space above
-{2em}             % Space below
+{\topsep}             % Space above
+{\topsep}             % Space below
 {\slshape}        % Theorem body font % (default is "\upshape")
 {}                % Indent amount
 {\bfseries\sffamily}       % Theorem head font % (default is \mdseries)
@@ -137,6 +138,8 @@
     }%
   }%
 }                % Theorem head spec
+
+\newenvironment{claim}[1][]{{\bfseries\sffamily \dzblue{\fbox{Claim}} }\slshape}{\newline}
 
 \newtheoremstyle{dzlemma}
 {1em}             % Space above
@@ -153,9 +156,45 @@
     }%
   }%
 }                % Theorem head spec
+\newtheoremstyle{dzlemmanonum}
+{1em}             % Space above
+{1em}             % Space below
+{\slshape}        % Theorem body font % (default is "\upshape")
+{}                % Indent amount
+{\it\sffamily}       % Theorem head font % (default is \mdseries)
+{}                % Punctuation after theorem head % default: no punctuation
+{ }               % Space after theorem head
+{%
+  \dzcyan{%
+    \fbox{%
+      \thmname{#1}\textnormal{\thmnote{ #3}}%
+    }%
+  }%
+}                % Theorem head spec
+
+\newtheoremstyle{dzexercise}
+{1em}             % Space above
+{1em}             % Space below
+{\upshape}        % Theorem body font % (default is "\upshape")
+{}                % Indent amount
+{\it\sffamily}       % Theorem head font % (default is \mdseries)
+{}                % Punctuation after theorem head % default: no punctuation
+{ }               % Space after theorem head
+{%
+  \dzbrgreen{%
+    \fbox{%
+      \thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (#3)}}%
+    }%
+  }%
+}                % Theorem head spec
 
 \theoremstyle{dzlemma}
 \newtheorem{lemma}{Lemma}
+\theoremstyle{dzlemmanonum}
+\newtheorem{lem}{Lemma}
+
+\theoremstyle{dzexercise}
+\newtheorem{exercise}{Exercise}
 
 \theoremstyle{dztheorem}
 \newtheorem{theorem}{Theorem}
@@ -168,7 +207,7 @@
 \crefname{lemma}{Lemma}{Lemmas}
 \crefname{theorem}{Theorem}{Theorems}
 
-\renewenvironment{proof}{\begin{quote}\dzbrgray{\textsf{Proof.}}}{\qed\end{quote}}
+\renewenvironment{proof}{\begin{quote}\dzbrgray{\textsf{Proof.}}}{\newline\qed\end{quote}}
 
 \setlength{\parindent}{0pt}
 \setlength{\headheight}{36pt}
