@@ -654,16 +654,16 @@ Observe $(e_i, 0, 0), (0, e_i, 0)$ are $2n-6$ valid basis vectors abiding by our
 $$
 \mu = \frac{1}{\sqrt{1 + r^2 \frac{\parens{p\cdot c}^2}{\parens{p \cdot a}^2}}} \parens{c, 0, -r\frac{\parens{p \cdot c}}{\parens{p \cdot a}}},
 $$
-is an additional basis vector. Put $\mathcal{R}(r, u) = \sqrt{r^2 - \frac{\abs{u}^2}{4}}$ and consider the vector
+is an additional basis vector. Put $\mathcal{R}(u, r) = \sqrt{r^2 - \frac{\abs{u}^2}{4}}$ and consider the vector
 $$
-\nu = \parens{ \frac{\mathcal{R}(r, u)}{\mathcal{R}(\sqrt{2}r, u)} b, \frac{r}{2 \mathcal{R}(r, u) \mathcal{R}(\sqrt{2}r, u)} \parens{u - 2ra}, 0 }.
+\nu = \parens{ \frac{\mathcal{R}(u, r)}{\mathcal{R}(u, \sqrt{2}r)} b, \frac{r}{2 \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \parens{u - 2ra}, 0 }.
 $$
 Observe
 \begin{IEEEeqnarray*}{rCl}
-  \abs{\nu}^2 &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{4 \mathcal{R}^2(r, u) \mathcal{R}^2(\sqrt{2}r, u)} \parens{ \abs{u}^2 + 4r^2 - 4r \parens{u \cdot a} } \\
-  &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{4 \mathcal{R}^2(r, u) \mathcal{R}^2(\sqrt{2}r, u)} \parens{ \abs{u}^2 + 4r^2 - 4r \frac{\abs{u}^2}{2r} } \\
-  &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{4\mathcal{R}^2(r, u) \mathcal{R}^2(\sqrt{2}r, u)} \parens{4r^2 - \abs{u}^2} \\
-  &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{\mathcal{R}^2(\sqrt{2}r, u)} = 1,
+  \abs{\nu}^2 &=& \frac{\mathcal{R}^2(u, r)}{\mathcal{R}^2(u, \sqrt{2}r)} + \frac{r^2}{4 \mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{ \abs{u}^2 + 4r^2 - 4r \parens{u \cdot a} } \\
+  &=& \frac{\mathcal{R}^2(u, r)}{\mathcal{R}^2(u, \sqrt{2}r)} + \frac{r^2}{4 \mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{ \abs{u}^2 + 4r^2 - 4r \frac{\abs{u}^2}{2r} } \\
+  &=& \frac{\mathcal{R}^2(u, r)}{\mathcal{R}^2(u, \sqrt{2}r)} + \frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{4r^2 - \abs{u}^2} \\
+  &=& \frac{\mathcal{R}^2(u, r)}{\mathcal{R}^2(u, \sqrt{2}r)} + \frac{r^2}{\mathcal{R}^2(u, \sqrt{2}r)} = 1,
 \end{IEEEeqnarray*}
 so that $\nu$ is the final basis vector spanning $T_{(a, b)} \mathcal{D}(u)$. Now, to compute $J \phi$, for $v \in \{\mu,\nu\}$, put $\gamma_v : \mathbb{R} \to \mathcal{D}(u)$ so that $\gamma_v(0) = (a, b, r)$ and $\gamma'(0) = v$. Then we have a few trivial derivatives:
 \begin{IEEEeqnarray*}{rCl}
@@ -683,15 +683,15 @@ $$
 %:
 
 \subsubsection{Simplifying Computation}%;
-Put $\mathcal{D}(u, r) = \phi^{-1}(\{r\}), \, \mathcal{R}(u) = \phi(\mathcal{D}(u))$ so that
+Put $\mathcal{D}(u, r) = \phi^{-1}(\{r\})$ so that
 
 \begin{IEEEeqnarray*}{ll}
   &\int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u) \\
-  &= \int_{\mathbb{R}^2} \int_{\mathcal{R}(u)} \int_{\mathcal{D}(u, r)}
+  &= \int_{\mathbb{R}^2} \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)}
   \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
   \frac{\sqrt{\parens{p\cdot a}^2 + r^2 \parens{p \cdot c}^2}}{r \abs{p \cdot c}}
   \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u) \\
-  &= \int_{\mathbb{R}^2} \int_{\mathcal{R}(u)} \int_{\mathcal{D}(u, r)} \frac{\parens{g(a, b, r) \cdot n} \abs{\sproj b^\perp}}{2\sqrt{2} \abs{\parens{p \cdot a}\parens{p \cdot c}} r^2 \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
+  &= \int_{\mathbb{R}^2} \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)} \frac{\parens{g(a, b, r) \cdot n} \abs{\sproj b^\perp}}{2\sqrt{2} \abs{\parens{p \cdot a}\parens{p \cdot c}} r^2 \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
   \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u)
 \end{IEEEeqnarray*}
 In order to simplify this, recall
@@ -719,78 +719,171 @@ and in particular this means $p \cdot a > 0$. Altogether, substituting this into
   \frac{1}{2\sqrt{2}}\frac{1}{r^2} \abs{\frac{\sproj b^\perp}{\parens{p \cdot a}\parens{p \cdot c}}} \frac{g(a, b, r) \cdot n}{\sqrt{2\parens{p \cdot c}^2 + \parens{p\cdot a}^2}} &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2 \parens{p \cdot a}}{\parens{p \cdot a}\abs{p \cdot c}} \frac{1}{\sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \\
   &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\parens{p \cdot a}^2} \sqrt{2-\parens{p \cdot a}^2}} \\
   &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\frac{\abs{u}^2}{4r^2}}\sqrt{2-\frac{\abs{u}^2}{4r^2}}} \\
-  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{r^2-\frac{\abs{u}^2}{4}}\sqrt{2r^2-\frac{\abs{u}^2}{4}}}.
+  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)}.
 \end{IEEEeqnarray*}
 
 Thus, putting this back into our integral we find
 \begin{IEEEeqnarray*}{rCl}
   \kappa_\sigma \cdot n &=&
-  \int_{\mathbb{R}^2} \int_{\mathcal{R}(u)} \int_{\mathcal{D}(u, r)}
-  \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{r^2-\frac{\abs{u}^2}{4}}\sqrt{2r^2-\frac{\abs{u}^2}{4}}}
+  \int_{\mathbb{R}^2} \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)}
+  \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)}
   \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u) \\
   &=&
-  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{R}(u)} \frac{1}{r^{1+\sigma} \sqrt{r^2-\frac{\abs{u}^2}{4}}\sqrt{2r^2-\frac{\abs{u}^2}{4}}} \int_{\mathcal{D}(u, r)} \abs{\sproj b^\perp}^2
+  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{1+\sigma} \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \int_{\mathcal{D}(u, r)} \abs{\sproj b^\perp}^2
   \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u)
 \end{IEEEeqnarray*}%:
 
-\subsubsection{Evaluating Inner 1D Integral}%;
+\subsubsection{Splitting Spheres}%;
 
-The inner most integral is intergrating over all $a, b$ such that the disk of a fixed radius $r$ intersects the $t-n$ plane along the cord from $z$ to $z + u$. We can parameterize $a, b$ via $\theta$ as follows\footnote{TODO add picture, formalize sign of $b$}:
+In order to compute the inner most integral we will apply the co-area formula once again to slice out all $\mathcal{B}(u) = \mathcal{U}\parens{\braces{u}^\perp}$, i.e. the projection of $\mathcal{D}(u, r)$ onto the $b$ coordinates. Concretely, our slicing function $\xi : \mathcal{D}(u, r) \to \mathcal{B}(u)$ is given by $\xi(a, b) = b$. From our above calculations we know
 $$
-\theta \to \parens{ \frac{1}{r} \parens{ \sqrt{r^2 - \frac{\abs{u}^2}{4}} \parens{ \cos\theta p^\perp + \sin\theta m } + \frac{\abs{u}}{2} p }, -\sin \theta p^\perp + \cos \theta m}
+T_{(a, b)} \mathcal{D}(u, r) = \lsp{ (e_i, 0), (0, e_i), \nu },
 $$
-
-where $m = t \times n$ and $\theta$ ranges over $[\vartheta, \vartheta+\pi]$ for some $\vartheta \in [0, 2\pi)$ (due to the restriction of $t \cdot a > 0$)\footnote{TODO: add picture to help show this geometry}. With this parameterization we're able to compute the inner-most integral, i.e. we have
+where, for $\mathcal{R}(u, r) = \sqrt{r^2 - \frac{\abs{u}^2}{4}}$, we put
 $$
-  \int_{\mathcal{D}(u, r)} \abs{\sproj b^\perp}^2 \, d\mathcal{H}^1(a, b)
-  = \int_{\vartheta}^{\vartheta+\pi} \sin^2 \theta \frac{\sqrt{2r^2 - \frac{\abs{u}^2}{4}}}{r} \, d\theta = \frac{\pi}{2} \frac{\sqrt{2r^2 - \frac{\abs{u}^2}{4}}}{r}
-$$%:
-
-\subsubsection{Evaluating Integral over Radii}%;
-
-Our computation simplifies to
+\nu = \parens{ \frac{\mathcal{R}(u, r)}{\mathcal{R}(u, \sqrt{2}r)} b, \frac{r}{2 \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \parens{u - 2ra} }.
 $$
-\kappa_\sigma \cdot n = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{R}(u)} \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u) = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\abs{u}/2}^\infty \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u).
+Similarly, we know $T_b \mathcal{B}(u, r) = \lsp{ e_i, \frac{\nu_2}{\abs{\nu_2}} }$ and so we can compute
 $$
-Substitute $r = \frac{\abs{u}}{2} s^{-1/2}$ so that $r \to \abs{u}/2 \implies s \to 1, \, r \to \infty \implies s \to 0, \, dr = \frac{-\abs{u}}{4} s^{-3/2} ds$ and
+\nabla \xi (a, b) =
+\begin{blockarray}{cccc}
+  (e_i, 0) & (0, e_i) & \nu &\\
+  \begin{block}{(ccc)c}
+    0 & I & 0 & e_i \\
+    0 & 0 & \abs{\nu_2} & \frac{\nu_2}{\abs{\nu_2}} \\
+  \end{block}
+\end{blockarray}
+  \implies \nabla \xi (a, b) \parens{\nabla \xi (a, b)}^T = 
+\begin{blockarray}{ccc}
+  \overbrace{}^{n-3} & \overbrace{}^{1} &\\
+  \begin{block}{(cc)c}
+    I  & 0 & {\scriptstyle n-3} \\
+    0 & \abs{\nu_2}^2 & {\scriptstyle 1} \\
+  \end{block}
+\end{blockarray}.
+$$
+This tells us
 \begin{IEEEeqnarray*}{rCl}
-  \kappa_\sigma \cdot n &=& \frac{\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_1^0
-\frac{\abs{u}}{4}
-\frac{
-  s^{-3/2}
-}{
-  \frac{\abs{u}^{2+\sigma}}{2^{2+\sigma}} s^{-(2+\sigma)/2} \sqrt{\frac{\abs{u}^2}{4} s^{-1} - \frac{\abs{u}^2}{4}}
-} \, ds \, d\mathcal{H}^2(u) \\
+  J \xi(a, b) &=& \abs{\nu_2} = \sqrt{\frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{ \abs{u}^2 + 4r^2 - 4 r \parens{u \cdot a} }} \\
+  &=& \sqrt{\frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{ \abs{u}^2 + 4r^2 - 4r \frac{\abs{u}^2}{2r} }} \\
+  &=& \sqrt{\frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} 4 \mathcal{R}^2(u, r)} \\
+  &=& \sqrt{\frac{r^2}{\mathcal{R}^2(u, \sqrt{2}r)}} = \frac{r}{\mathcal{R}(u, \sqrt{2}r)}.
+\end{IEEEeqnarray*}
+Putting $\mathcal{A}(u, r, b) = \xi^{-1}(\braces{b})$ and plugging this back into our desired calculation we find
+\begin{IEEEeqnarray*}{rCl}
+  \kappa_\sigma \cdot n &=& 
+  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{1+\sigma} \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2
+  \int_{\mathcal{A}(u, r, b)} \frac{1}{J \xi(a, b)} \, d \haus{n-3}{a} \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
+  &=& 
+  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}(u, \sqrt{2}r)}{r^{2+\sigma} \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2
+  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
   &=&
-  -\pi 2^{\sigma-1/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
-\frac{\abs{u}}{4}
-\frac{
-  s^{(2+\sigma-3)/2}
-}{
-  \frac{\abs{u}}{2} \sqrt{\frac{1}{s} - 1}
-} \, ds \, d\mathcal{H}^2(u) \\
-  &=&
-  -\pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
-\frac{
-  s^{(\sigma-1)/2}
-}{
-  \sqrt{\frac{1-s}{s}}
-} \, ds \, d\mathcal{H}^2(u) \\
-  &=&
-  - \pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
-  s^{\sigma/2}\parens{1-s}^{-1/2}
-  \, ds \, d\mathcal{H}^2(u) \\
-  &=& -\pi 2^{\sigma - 3/2} B\parens{\frac{\sigma + 2}{2}, \frac{1}{2}} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \, d\mathcal{H}^2(u).
+  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2
+  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
 \end{IEEEeqnarray*}
 
-After converting to polar coordinates we're able to reuse our 2D calculation to evaluate the final integral, thus
-
-\begin{IEEEeqnarray*}{rCl}
-  \kappa_\sigma \cdot n &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} B \parens{\frac{\sigma + 2}{2}, \frac{1}{2}} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}} \\
-  &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}} \frac{\Gamma\parens{\frac{1}{2}} \Gamma\parens{\frac{1 - \sigma}{2}}}{\Gamma\parens{\frac{2-\sigma}{2}}} \\
-  &=& \frac{\pi^2 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1-\sigma}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}\Gamma\parens{\frac{2-\sigma}{2}}}.
-\end{IEEEeqnarray*}%:
-
 %:
+
+\subsubsection{Inner Sphere Volume}%;
+We begin by seeing
+$$
+\parens{a - \frac{u}{2r}} \cdot \parens{a - \frac{u}{2r}} = 1 + \frac{\abs{u}^2}{4r^2} - 2 \frac{\parens{a \cdot u}}{2r} = 1 + \frac{\abs{u}^2}{4r^2} - 2\frac{\abs{u}^2}{4r^2} = 1 - \frac{\abs{u}^2}{4r^2},
+$$
+thus we're able to rewrite our sphere as
+$$
+\mathcal{A}(u, r, b) = \braces{ a \in \mathcal{U}\parens{\braces{b}^\perp} \mid \abs{a - \frac{u}{2r}} = \sqrt{1 - \frac{\abs{u^2}}{4r^2}} }.
+$$
+This is an $n-3$ dimensional sphere located at $\frac{u}{2r}$ with radius $\sqrt{1 - \frac{\abs{u}^2}{4r^2}}$ and thus we have
+\begin{IEEEeqnarray*}{rCl}
+  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} &=& \haus{n-3}{\mathcal{A}(u, r, b)} = S^{n-3}\parens{\sqrt{1 - \frac{\abs{u}^2}{4r^2}}} \\
+  &=& \frac{2 \pi^{\frac{n}{2} - 1}}{\Gamma\parens{ \frac{n}{2} }} \parens{1 - \frac{\abs{u^2}}{4r^2}}^{(n-3)/2}
+  =
+  \frac{2 \pi^{\frac{n}{2} - 1}}{\Gamma\parens{ \frac{n}{2} }} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r).
+\end{IEEEeqnarray*}
+Putting this back into our top-level integral gives us
+\begin{IEEEeqnarray*}{ll}
+  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} & \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2
+  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
+  &= \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
+  \frac{2 \pi^{\frac{n}{2} - 1}}{\Gamma\parens{ \frac{n}{2} }} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r) \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
+  &= \frac{-\pi^{n/2 - 1}}{\sqrt{2}\Gamma\parens{\frac{n}{2}}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
+  \, d \haus{n-2}{b} \, dr \, d \haus{2}{u}. \\
+\end{IEEEeqnarray*}
+%:
+
+\subsubsection{Outer Sphere Volume}%;
+
+Next, since $\mathcal{B}(u, r) = \mathcal{U}\parens{\braces{u}^\perp}$, we know $\mathcal{B}(u, r)$ is a unit sphere of dimension $n-2$. Notably, if $b \in \mathcal{B}(u, r)$ then
+%$$
+%  \mathcal{P}_S b^\perp = \parens{\parens{b \cdot u}u + \parens{b \cdot u^\perp}u^\perp}^\perp = -\parens{b \cdot u^\perp}u \implies \abs{\sproj b^\perp} = \abs{b \cdot u^\perp} = \abs{\sproj b \cdot u^\perp}
+%$$
+%
+%$$
+%\frac{\sproj b^\perp}{\abs{\sproj b^\perp}} = \frac{u}{\abs{u}} \implies \frac{\sproj b^\perp \cdot \sproj b^\perp}{\abs{\sproj b^\perp}} = \frac{u \cdot \sproj b^\perp}{\abs{u}}
+%$$
+%
+%$$
+%\abs{\sproj b^\perp} = \frac{1}{\abs{u}} u \cdot \sproj b^\perp = -\frac{1}{\abs{u}} u^\perp \cdot \sproj b
+%$$
+%
+%Putting this back into our top-level integral gives us
+%\begin{IEEEeqnarray*}{ll}
+%  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} & \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2
+%  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
+%
+%  &= \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
+%  \frac{2 \pi^{\frac{n}{2} - 1}}{\Gamma\parens{ \frac{n}{2} }} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r) \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
+%
+%  &= \frac{-\pi^{n/2 - 1}}{\sqrt{2}\Gamma\parens{\frac{n}{2}}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
+%  \, d \haus{n-2}{b} \, dr \, d \haus{2}{u}. \\
+%\end{IEEEeqnarray*}
+%:
+
+%\subsubsection{Evaluating Integral over Radii}%;
+%
+%Our computation simplifies to
+%$$
+%\kappa_\sigma \cdot n = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u) = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\abs{u}/2}^\infty \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u).
+%$$
+%Substitute $r = \frac{\abs{u}}{2} s^{-1/2}$ so that $r \to \abs{u}/2 \implies s \to 1, \, r \to \infty \implies s \to 0, \, dr = \frac{-\abs{u}}{4} s^{-3/2} ds$ and
+%\begin{IEEEeqnarray*}{rCl}
+%  \kappa_\sigma \cdot n &=& \frac{\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_1^0
+%\frac{\abs{u}}{4}
+%\frac{
+%  s^{-3/2}
+%}{
+%  \frac{\abs{u}^{2+\sigma}}{2^{2+\sigma}} s^{-(2+\sigma)/2} \sqrt{\frac{\abs{u}^2}{4} s^{-1} - \frac{\abs{u}^2}{4}}
+%} \, ds \, d\mathcal{H}^2(u) \\
+%  &=&
+%  -\pi 2^{\sigma-1/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+%\frac{\abs{u}}{4}
+%\frac{
+%  s^{(2+\sigma-3)/2}
+%}{
+%  \frac{\abs{u}}{2} \sqrt{\frac{1}{s} - 1}
+%} \, ds \, d\mathcal{H}^2(u) \\
+%  &=&
+%  -\pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+%\frac{
+%  s^{(\sigma-1)/2}
+%}{
+%  \sqrt{\frac{1-s}{s}}
+%} \, ds \, d\mathcal{H}^2(u) \\
+%  &=&
+%  - \pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+%  s^{\sigma/2}\parens{1-s}^{-1/2}
+%  \, ds \, d\mathcal{H}^2(u) \\
+%  &=& -\pi 2^{\sigma - 3/2} B\parens{\frac{\sigma + 2}{2}, \frac{1}{2}} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \, d\mathcal{H}^2(u).
+%\end{IEEEeqnarray*}
+%
+%After converting to polar coordinates we're able to reuse our 2D calculation to evaluate the final integral, thus
+%
+%\begin{IEEEeqnarray*}{rCl}
+%  \kappa_\sigma \cdot n &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} B \parens{\frac{\sigma + 2}{2}, \frac{1}{2}} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}} \\
+%  &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}} \frac{\Gamma\parens{\frac{1}{2}} \Gamma\parens{\frac{1 - \sigma}{2}}}{\Gamma\parens{\frac{2-\sigma}{2}}} \\
+%  &=& \frac{\pi^2 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1-\sigma}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}\Gamma\parens{\frac{2-\sigma}{2}}}.
+%\end{IEEEeqnarray*}%:
+%
+%%:
 
 \end{document}
