@@ -232,7 +232,7 @@ $$
   \psi(a, b, r) = 2r \parens{p(b) \otimes p(b)} a.
 $$%:
 
-\subsubsection{Co-Area Calculation}%;
+\subsubsection{2D Co-Area Calculation}%;
 
 In order to use $\psi$ to slice our domain we must determine $\abs{\nabla \psi \nabla \psi^T}$. To that end, notice that $T_{(a,b,r)}(\mathcal{U}_\perp^2 \times \mathbb{R}^+)$ is spanned by $(c, 0, 0), (0, c, 0), \frac{1}{\sqrt{2}}(b, -a, 0), (0, 0, 1)$ (where $c$ is the orthonormal completion of $a, b$ in $\mathbb{R}^3$), and put $p = p(b)$ so that $p, p^\perp$ spans $T_{\psi(a,b,r)}(\mathbb{R}^2)$. We start with a quick calculation; suppose $\beta : \mathbb{R} \to \mathcal{U}$ such that $\beta(0) = b$, then
 \begin{IEEEeqnarray*}{rCl}
@@ -507,5 +507,290 @@ After converting to polar coordinates we're able to reuse our 2D calculation to 
   &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}} \frac{\Gamma\parens{\frac{1}{2}} \Gamma\parens{\frac{1 - \sigma}{2}}}{\Gamma\parens{\frac{2-\sigma}{2}}} \\
   &=& \frac{\pi^2 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1-\sigma}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}\Gamma\parens{\frac{2-\sigma}{2}}}.
 \end{IEEEeqnarray*}%:
+
+%:
+
+\subsection{Fractional Curvature of Unit Circle in N-D}%;
+To begin, fix $\chi(a,b,r)$ to indicate the sign corresponding to $a, b, r$ (i.e. whether $a, b, r$ belong to $\aeven$ or $\aodd$, and whether $b$ or $-b$ is needed by the $t \cdot b > 0$ restriction). Put $\mathcal{A}^+ = \aeven \cup \aodd$ and
+$$
+g(a, b, r) = \chi(a, b, r) \frac{\parens{\bec{a} \cdot \bec{t}(z)} \bec{b} - \parens{\bec{b} \cdot \bec{t}(z)}\bec{a}}{r^{1+\sigma}},
+$$
+so that our desired computation is:
+$$
+\kappa_\sigma(z) \cdot n = \int_{\mathcal{A}^+} g(a, b, r) \cdot n \, d\mathcal{H}^{2n-2}\parens{\bec{a}, \bec{b}, r},
+$$
+
+\subsubsection{Slicing out the 2D plane}%;
+To simplify our domain group the disks by their intersection with the $S := \lsp{t, n}$ plane, i.e. put $\psi : \mathcal{A}^+ \to \mathbb{R}^2$ so that $\psi$ maps a disk to a vector representing $\mathcal{D}(a, b, r) \cap S$. The same constraints that applied in 3D above apply once again here, so that, with $p(b) = \frac{\mathcal{P}_S b^\perp}{\abs{\mathcal{P}_S b^\perp}}$ we have
+$$
+  \psi(a, b, r) = 2r \parens{p(b) \otimes p(b)} a.
+$$%:
+
+\subsubsection{2D Co-Area Calculation}%;
+
+To begin our calculation put $c = \frac{u - \parens{u \cdot a}a}{\sqrt{u \cdot u - \parens{u \cdot a}^2}}$ and $\braces{e_i}_{i=1}^{n-3}$ so that $\lsp{a, b, c, e_1, ..., e_{n-3}} = \mathbb{R}^n$. Notice that
+$$
+\lsp{a, b, p} = \lsp{a, b, \frac{u}{\abs{u}}} = \lsp{a, b, u} \subset \lsp{a, b, c},
+$$
+and that $a, b, c$ are orthonormal. Further, we have
+$$
+T_{(a,b,r)}(\mathcal{U}_\perp^2 \times \mathbb{R}^+) = \lsp{ (e_i, 0, 0), (0, e_i, 0), (c, 0, 0), (0, c, 0), \frac{1}{\sqrt{2}} (b, -a, 0), (0, 0, 1) \mid i = 1, ... (n-3)}.
+$$
+
+Put $p = p(b)$ so that $p, p^\perp$ spans $T_{\psi(a,b,r)}(\mathbb{R}^2)$. We start with a quick calculation; suppose $\beta : \mathbb{R} \to \mathcal{U}\parens{\mathbb{R}^n}$ such that $\beta(0) = b$, then
+\begin{IEEEeqnarray*}{rCl}
+  \left. \dby{s} p(\beta(s)) \right|_{s=0} &=& \frac{\sproj \beta '(0)^\perp}{\abs{\sproj b^\perp}} - \frac{1}{\abs{\sproj b^\perp}^3} \sproj b^\perp \otimes \parens{\sproj \beta '(0)^\perp}^T \sproj b^\perp \\
+  &=& \frac{1}{\abs{\sproj b^\perp}} \parens{ \sproj \beta '(0)^\perp - \frac{1}{\abs{\sproj b^\perp}^2} \parens{\sproj \beta '(0)^\perp \cdot \sproj b^\perp} \sproj b^\perp } \\
+  &=& \frac{1}{\abs{\sproj b^\perp}} \parens{1 - \parens{p \otimes p}} \sproj \beta '(0)^\perp .
+\end{IEEEeqnarray*}
+
+Since we'll be working in the $p, p^\perp$ coordinate system, it makes sense to expand this result as follows:
+\begin{equation}
+  \left. \dby{s} p(\beta(s)) \right|_{s=0} = \frac{1}{\abs{\sproj b^\perp}} \parens{ p \otimes p + p^\perp \otimes p^\perp - p \otimes p } \sproj \beta '(0)^\perp =
+  \frac{\parens{p^\perp \otimes p^\perp}}{\abs{\sproj b^\perp}} \sproj \beta '(0)^\perp \label{npb1}
+\end{equation}
+Now, put $\gamma_v : \mathbb{R} \to \mathcal{U}_\perp^2 \times \mathbb{R}^+$ to be such that $\gamma_v (0) = (a, b, r)$ and $\gamma_v '(0) = v$, then we begin by computing the derivative along the $\gamma_{(e_i, 0, 0)}$ flow:
+
+\begin{equation}
+  \left. \dby{s} \psi(\gamma_{(e_i, 0, 0)}(s)) \right|_{s=0} = 2r \parens{ p \otimes p } e_i = 2r \parens{p \cdot e_i} p = 0. \label{ng1.2}
+\end{equation}
+Similarly we can compute along the $(c, 0, 0)$ flow:
+\begin{equation}
+  \left. \dby{s} \psi(\gamma_{(c, 0, 0)}(s)) \right|_{s=0} = 2r \parens{ p \otimes p } e_i = 2r \parens{p \cdot c} p. \label{ng1}
+\end{equation}
+Next we compute along the $\braces{ (0, v, 0) \mid v = e, e_1, e_2, ..., e_{n-3} }$ flows, and simplify using \eqref{npb1}
+\begin{IEEEeqnarray*}{rCl}
+  \left. \dby{s} \psi(\gamma_{(0, v, 0)}(s)) \right|_{s=0} &=& 2r \parens{ \parens{ \left. \dby{s}p(\gamma_{(0, v, 0),2}(s))\right|_{s=0} }\otimes p + p \otimes \parens{ \left. \dby{s} p(\gamma_{(0, v, 0),2}(s)) \right|_{s=0} } } a \\
+  &=& 2r \parens{ \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\sproj b^\perp}} \sproj v^\perp} \otimes p + p \otimes \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\sproj b^\perp}} \sproj v^\perp} }a \\
+  &=& 2r \frac{p^\perp \cdot \sproj v^\perp}{\abs{\sproj b^\perp}} \parens{ p^\perp \otimes p + p \otimes p^\perp }a .
+\end{IEEEeqnarray*}
+Taking into account the fact that $p^\perp \cdot \sproj v^\perp = p \cdot \sproj v = p \cdot v$, and expanding the tensor products we find
+\begin{equation}
+  \left. \dby{s} \psi(\gamma_{(0, v, 0)}(s)) \right|_{s=0} = 2r \frac{\parens{p \cdot v} \parens{ p^\perp \cdot a}}{\abs{\sproj b^\perp}} p + 2r \frac{\parens{p \cdot v} \parens{ p \cdot a}}{\abs{\sproj b^\perp}} p^\perp . \label{ng2}
+\end{equation}
+Notably, when $v = e_i$ we have
+$$
+\left. \dby{s} \psi(\gamma_{(0, e_i, 0)}(s)) \right|_{s=0} = 0.
+$$
+
+The next derivative we must compute is along the $\frac{1}{\sqrt{2}} (b, -a, 0)$ flow:
+\begin{IEEEeqnarray*}{rCl}
+  \left. \dby{s} \psi(\gamma_{\frac{1}{\sqrt{2}}(b, -a, 0)}(s)) \right|_{s=0} &=& \sqrt{2}r \parens{ p \otimes p } b + 2r \parens{ \parens{ \left. \dby{s}p(\gamma_{\frac{1}{\sqrt{2}}(b, -a, 0),2}(s))\right|_{s=0} } \odot p } a \\
+  &=& 2r \parens{ \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\sproj b^\perp}} \sproj \frac{-a}{\sqrt{2}}^\perp} \otimes p + p \otimes \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\sproj b^\perp}} \sproj \frac{-a}{\sqrt{2}}^\perp} }a \\
+  &=& -\sqrt{2}r \frac{p^\perp \cdot \sproj a^\perp}{\abs{\sproj b^\perp}} \parens{ p^\perp \otimes p + p \otimes p^\perp }a .
+\end{IEEEeqnarray*}
+Note that the first term vanishes because $p \cdot b = 0$. Again taking into account the fact that $p^\perp \cdot \sproj a^\perp = p \cdot \sproj a = p \cdot a$, and expanding the tensor products we find
+\begin{equation}
+  \left. \dby{s} \psi(\gamma_{\frac{1}{\sqrt{2}}(b, -a, 0)}(s)) \right|_{s=0} = -\sqrt{2}r \frac{\parens{p \cdot a} \parens{ p^\perp \cdot a}}{\abs{\sproj b^\perp}} p - \sqrt{2}r \frac{\parens{p \cdot a}^2}{\abs{\sproj b^\perp}} p^\perp . \label{ng3}
+\end{equation}
+Lastly computing the derivative through the $(0, 0, 1)$ flow we have:
+\begin{equation}
+  \left. \dby{s} \psi(\gamma_{(0, 0, 1)}(s)) \right|_{s=0} = 2 \parens{ p \otimes p } a = 2\parens{p \cdot a} p \label{ng4}
+\end{equation}
+
+Combining \eqref{ng1}, \eqref{ng2}, \eqref{ng3}, \eqref{ng4} we have
+$$
+\nabla \psi (a, b, r) = \begin{blockarray}{ccccccc}
+  (e_i, 0, 0) & (0, e_i, 0) & (c, 0, 0) & (0, c, 0) & \frac{1}{\sqrt{2}}(b, -a, 0) & (0, 0, 1) \\
+  \begin{block}{(cccccc)c}
+    0 & 0 &
+    2r \parens{p \cdot c} &
+    2r \frac{\parens{p \cdot c} \parens{ p^\perp \cdot a}}{\abs{\sproj b^\perp}} &
+    -\sqrt{2}r \frac{\parens{p \cdot a} \parens{ p^\perp \cdot a}}{\abs{\sproj b^\perp}} &
+    2\parens{p\cdot a} & p \\
+    0 & 0 &
+    0 &
+    2r \frac{\parens{p \cdot c} \parens{ p \cdot a}}{\abs{\sproj b^\perp}} &
+    -\sqrt{2}r \frac{\parens{p \cdot a}^2}{\abs{\sproj b^\perp}} &
+    0 & p^\perp \\
+  \end{block}
+\end{blockarray}
+$$
+Notably the jacobian factor is identical to the jacobian factor in 3D, so we have
+$$
+J\psi(a, b, r) = \sqrt{\abs{\nabla \psi (a, b, r)^T \nabla \psi (a, b, r)}} =
+2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2} .
+$$
+
+Put $\mathcal{D}(u) := \psi^{-1}(\braces{u}), p = p(b)$ so that
+\begin{IEEEeqnarray*}{rCl}
+  \kappa_\sigma \cdot n
+  &=& \int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{J\psi(a, b, r)} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u) \\
+  &=& \int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u).
+\end{IEEEeqnarray*}%:
+
+\subsubsection{Slicing out Radii}%;
+Now, to simplify $\mathcal{D}(u)$ lets group sets of $\bec{a}, \bec{b}$ that correspond to a given $r$, i.e. put $\phi : \mathcal{D}(u) \to \mathbb{R}^+$ given by
+$$
+\phi(a, b, r) = r.
+$$
+
+To begin our calculation of $\nabla \phi$ we must characterize $T_{(a, b, r)}(\mathcal{D}(u))$, i.e. via finding an orthonormal basis. Suppose $\gamma : \mathbb{R} \to \mathcal{D}(u)$ is so that $\gamma(0) = (a, b, r)$ and put $(\alpha, \beta, \tau) := \gamma'(0)$. Note $\alpha \cdot a = \beta \cdot b = 0$ and $\alpha \cdot b + a \cdot \beta = 0$, since $(a, b) \in \mathcal{U}_2^\perp$. By the definition of $\mathcal{D}(u)$ we know
+$$
+2r \parens{p(b) \otimes p(b)} a = u,
+$$
+so that
+$$
+2\gamma_3(s) \parens{p(\gamma_2(s)) \otimes p(\gamma_2(s))} \gamma_1(s) = u.
+$$
+Differentiating\footnote{N.B. we use \eqref{npb1}} and evaluating at $s = 0$ we see
+$$
+  0 = \tau \parens{p(b) \otimes p(b)} a + r \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\mathcal{P}_S b^\perp}} \mathcal{P}_S \beta^\perp \odot p(b)} a + r \parens{p(b) \otimes p(b)} \alpha.
+$$
+Expanding tensor products, simplifying and using the $p, p^\perp$ coordinate system we get
+\begin{IEEEeqnarray*}{rCl}
+  0 &=& \tau \parens{p \cdot a} p + r\parens{\frac{p \cdot \beta}{\abs{\mathcal{P}_S b^\perp}}p^\perp \odot p} a + r \parens{p \cdot \alpha} p \\
+  &=& \parens{\tau\parens{p \cdot a} + r \parens{p \cdot \alpha}}p +
+  r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \otimes p + p \otimes p^\perp}a \\
+  &=& \parens{\tau\parens{p \cdot a} + r \parens{p \cdot \alpha}
+  + r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \cdot a}}p
+  + r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p \cdot a} p^\perp .
+\end{IEEEeqnarray*}
+Notably, we must have $p \cdot \beta = 0$, so our constraint simplifies to
+$$
+0 = \tau \parens{p \cdot a} + r \parens{p \cdot \alpha}.
+$$
+Observe $(e_i, 0, 0), (0, e_i, 0)$ are $2n-6$ valid basis vectors abiding by our constraints. Additionally, fixing $\beta = 0$ and considering $\alpha \neq e_i$ we must have $\alpha = c$, and thus 
+$$
+\mu = \frac{1}{\sqrt{1 + r^2 \frac{\parens{p\cdot c}^2}{\parens{p \cdot a}^2}}} \parens{c, 0, -r\frac{\parens{p \cdot c}}{\parens{p \cdot a}}},
+$$
+is an additional basis vector. Put $\mathcal{R}(r, u) = \sqrt{r^2 - \frac{\abs{u}^2}{4}}$ and consider the vector
+$$
+\nu = \parens{ \frac{\mathcal{R}(r, u)}{\mathcal{R}(\sqrt{2}r, u)} b, \frac{r}{2 \mathcal{R}(r, u) \mathcal{R}(\sqrt{2}r, u)} \parens{u - 2ra}, 0 }.
+$$
+Observe
+\begin{IEEEeqnarray*}{rCl}
+  \abs{\nu}^2 &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{4 \mathcal{R}^2(r, u) \mathcal{R}^2(\sqrt{2}r, u)} \parens{ \abs{u}^2 + 4r^2 - 4r \parens{u \cdot a} } \\
+  &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{4 \mathcal{R}^2(r, u) \mathcal{R}^2(\sqrt{2}r, u)} \parens{ \abs{u}^2 + 4r^2 - 4r \frac{\abs{u}^2}{2r} } \\
+  &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{4\mathcal{R}^2(r, u) \mathcal{R}^2(\sqrt{2}r, u)} \parens{4r^2 - \abs{u}^2} \\
+  &=& \frac{\mathcal{R}^2(r, u)}{\mathcal{R}^2(\sqrt{2}r, u)} + \frac{r^2}{\mathcal{R}^2(\sqrt{2}r, u)} = 1,
+\end{IEEEeqnarray*}
+so that $\nu$ is the final basis vector spanning $T_{(a, b)} \mathcal{D}(u)$. Now, to compute $J \phi$, for $v \in \{\mu,\nu\}$, put $\gamma_v : \mathbb{R} \to \mathcal{D}(u)$ so that $\gamma_v(0) = (a, b, r)$ and $\gamma'(0) = v$. Then we have a few trivial derivatives:
+\begin{IEEEeqnarray*}{rCl}
+  \left. \dby{s} \phi(\gamma_{(e_i, 0, 0)}(s)) \right|_{s=0} &=& 0. \\
+  \left. \dby{s} \phi(\gamma_{(0, e_i, 0)}(s)) \right|_{s=0} &=& 0. \\
+  \left. \dby{s} \phi(\gamma_\nu(s)) \right|_{s=0} &=& 0,
+\end{IEEEeqnarray*}
+Now we're able to compute the derivative along the non-trivial flow
+\begin{IEEEeqnarray*}{rCl}
+  \left. \dby{s} \phi(\gamma_\mu(s)) \right|_{s=0} &=& \frac{-r \parens{p \cdot c}}{\parens{p \cdot a} \sqrt{1 + r^2 \frac{\parens{p\cdot c}^2}{\parens{p\cdot a}^2}}} \\
+  &=& -r\frac{\parens{p \cdot c}}{\sqrt{\parens{p\cdot a}^2 + r^2 \parens{p \cdot c}^2}} \\
+\end{IEEEeqnarray*}
+so that
+$$
+J \phi = \frac{r \abs{p \cdot c}}{\sqrt{\parens{p \cdot a}^2 + r^2 \parens{p \cdot c}^2}}.
+$$
+%:
+
+\subsubsection{Simplifying Computation}%;
+Put $\mathcal{D}(u, r) = \phi^{-1}(\{r\}), \, \mathcal{R}(u) = \phi(\mathcal{D}(u))$ so that
+
+\begin{IEEEeqnarray*}{ll}
+  &\int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u) \\
+  &= \int_{\mathbb{R}^2} \int_{\mathcal{R}(u)} \int_{\mathcal{D}(u, r)}
+  \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
+  \frac{\sqrt{\parens{p\cdot a}^2 + r^2 \parens{p \cdot c}^2}}{r \abs{p \cdot c}}
+  \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u) \\
+  &= \int_{\mathbb{R}^2} \int_{\mathcal{R}(u)} \int_{\mathcal{D}(u, r)} \frac{\parens{g(a, b, r) \cdot n} \abs{\sproj b^\perp}}{2\sqrt{2} \abs{\parens{p \cdot a}\parens{p \cdot c}} r^2 \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
+  \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u)
+\end{IEEEeqnarray*}
+In order to simplify this, recall
+$$
+g(a, b, r) = \chi(a, b, r) \frac{\parens{a \cdot t}b - \parens{b \cdot t}a}{r^{1+\sigma}},
+$$
+Notice from \ref{perpdef} we see 
+$$
+  \parens{a \cdot t} \parens{b \cdot n} - \parens{b \cdot t} \parens{a \cdot n} = - \sproj b^\perp \cdot a = - \abs{\sproj b^\perp} \parens{p \cdot a},
+$$
+so
+$$
+g(a, b, r) \cdot n = \chi(a, b, r)\frac{\parens{a \cdot t} \parens{b \cdot n} - \parens{b \cdot t} \parens{a \cdot n}}{r^{1+\sigma}} = -\chi(a, b, r) \frac{\abs{\sproj b^\perp} \parens{p \cdot a}}{r^{1+\sigma}}.
+$$
+We also know $p \in \lsp{a, b, c}$ so that
+$$
+\parens{p \cdot a}^2 + \parens{p \cdot b}^2 + \parens{p \cdot c}^2 = \abs{p} = 1 \implies \abs{p \cdot c} = \sqrt{1- \parens{p \cdot a}^2}.
+$$
+And finally, before simplifying our integrand let's note that
+$$
+2r \parens{p \cdot a} p = u \implies \abs{u} = 2r\parens{p \cdot a} \implies \parens{p \cdot a} = \frac{\abs{u}}{2r},
+$$
+and in particular this means $p \cdot a > 0$. Altogether, substituting this into our integrand, and acknowledging $\chi$ only depends on $u$ we find
+\begin{IEEEeqnarray*}{rCl}
+  \frac{1}{2\sqrt{2}}\frac{1}{r^2} \abs{\frac{\sproj b^\perp}{\parens{p \cdot a}\parens{p \cdot c}}} \frac{g(a, b, r) \cdot n}{\sqrt{2\parens{p \cdot c}^2 + \parens{p\cdot a}^2}} &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2 \parens{p \cdot a}}{\parens{p \cdot a}\abs{p \cdot c}} \frac{1}{\sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \\
+  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\parens{p \cdot a}^2} \sqrt{2-\parens{p \cdot a}^2}} \\
+  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\frac{\abs{u}^2}{4r^2}}\sqrt{2-\frac{\abs{u}^2}{4r^2}}} \\
+  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{r^2-\frac{\abs{u}^2}{4}}\sqrt{2r^2-\frac{\abs{u}^2}{4}}}.
+\end{IEEEeqnarray*}
+
+Thus, putting this back into our integral we find
+\begin{IEEEeqnarray*}{rCl}
+  \kappa_\sigma \cdot n &=&
+  \int_{\mathbb{R}^2} \int_{\mathcal{R}(u)} \int_{\mathcal{D}(u, r)}
+  \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{r^2-\frac{\abs{u}^2}{4}}\sqrt{2r^2-\frac{\abs{u}^2}{4}}}
+  \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u) \\
+  &=&
+  \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{R}(u)} \frac{1}{r^{1+\sigma} \sqrt{r^2-\frac{\abs{u}^2}{4}}\sqrt{2r^2-\frac{\abs{u}^2}{4}}} \int_{\mathcal{D}(u, r)} \abs{\sproj b^\perp}^2
+  \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u)
+\end{IEEEeqnarray*}%:
+
+\subsubsection{Evaluating Inner 1D Integral}%;
+
+The inner most integral is intergrating over all $a, b$ such that the disk of a fixed radius $r$ intersects the $t-n$ plane along the cord from $z$ to $z + u$. We can parameterize $a, b$ via $\theta$ as follows\footnote{TODO add picture, formalize sign of $b$}:
+$$
+\theta \to \parens{ \frac{1}{r} \parens{ \sqrt{r^2 - \frac{\abs{u}^2}{4}} \parens{ \cos\theta p^\perp + \sin\theta m } + \frac{\abs{u}}{2} p }, -\sin \theta p^\perp + \cos \theta m}
+$$
+
+where $m = t \times n$ and $\theta$ ranges over $[\vartheta, \vartheta+\pi]$ for some $\vartheta \in [0, 2\pi)$ (due to the restriction of $t \cdot a > 0$)\footnote{TODO: add picture to help show this geometry}. With this parameterization we're able to compute the inner-most integral, i.e. we have
+$$
+  \int_{\mathcal{D}(u, r)} \abs{\sproj b^\perp}^2 \, d\mathcal{H}^1(a, b)
+  = \int_{\vartheta}^{\vartheta+\pi} \sin^2 \theta \frac{\sqrt{2r^2 - \frac{\abs{u}^2}{4}}}{r} \, d\theta = \frac{\pi}{2} \frac{\sqrt{2r^2 - \frac{\abs{u}^2}{4}}}{r}
+$$%:
+
+\subsubsection{Evaluating Integral over Radii}%;
+
+Our computation simplifies to
+$$
+\kappa_\sigma \cdot n = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{R}(u)} \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u) = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\abs{u}/2}^\infty \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u).
+$$
+Substitute $r = \frac{\abs{u}}{2} s^{-1/2}$ so that $r \to \abs{u}/2 \implies s \to 1, \, r \to \infty \implies s \to 0, \, dr = \frac{-\abs{u}}{4} s^{-3/2} ds$ and
+\begin{IEEEeqnarray*}{rCl}
+  \kappa_\sigma \cdot n &=& \frac{\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_1^0
+\frac{\abs{u}}{4}
+\frac{
+  s^{-3/2}
+}{
+  \frac{\abs{u}^{2+\sigma}}{2^{2+\sigma}} s^{-(2+\sigma)/2} \sqrt{\frac{\abs{u}^2}{4} s^{-1} - \frac{\abs{u}^2}{4}}
+} \, ds \, d\mathcal{H}^2(u) \\
+  &=&
+  -\pi 2^{\sigma-1/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+\frac{\abs{u}}{4}
+\frac{
+  s^{(2+\sigma-3)/2}
+}{
+  \frac{\abs{u}}{2} \sqrt{\frac{1}{s} - 1}
+} \, ds \, d\mathcal{H}^2(u) \\
+  &=&
+  -\pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+\frac{
+  s^{(\sigma-1)/2}
+}{
+  \sqrt{\frac{1-s}{s}}
+} \, ds \, d\mathcal{H}^2(u) \\
+  &=&
+  - \pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+  s^{\sigma/2}\parens{1-s}^{-1/2}
+  \, ds \, d\mathcal{H}^2(u) \\
+  &=& -\pi 2^{\sigma - 3/2} B\parens{\frac{\sigma + 2}{2}, \frac{1}{2}} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \, d\mathcal{H}^2(u).
+\end{IEEEeqnarray*}
+
+After converting to polar coordinates we're able to reuse our 2D calculation to evaluate the final integral, thus
+
+\begin{IEEEeqnarray*}{rCl}
+  \kappa_\sigma \cdot n &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} B \parens{\frac{\sigma + 2}{2}, \frac{1}{2}} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}} \\
+  &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}} \frac{\Gamma\parens{\frac{1}{2}} \Gamma\parens{\frac{1 - \sigma}{2}}}{\Gamma\parens{\frac{2-\sigma}{2}}} \\
+  &=& \frac{\pi^2 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1-\sigma}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}\Gamma\parens{\frac{2-\sigma}{2}}}.
+\end{IEEEeqnarray*}%:
+
+%:
 
 \end{document}
