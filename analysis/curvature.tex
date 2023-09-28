@@ -833,12 +833,28 @@ and so
 $$
 \int_{\zeta^{-1}(v)} \, d\haus{n-3}{x} = \haus{n-3}{\zeta^{-1}(v)} = \haus{n-3}{S_{n-3}\parens{\sqrt{1-v^2}}} = \frac{2\pi^{n/2-1}}{\Gamma\parens{n/2-1}}\parens{1-v^2}^{(n-3)/2}.
 $$
-Before applying the co-area formula, notice
+In order to apply the co-area formula we also need to compute $J \zeta$. To that end, notice $\mathbb{R}^n = \lsp{\frac{u}{\abs{u}}, \frac{u^\perp}{\abs{u^\perp}}, u^*, g_1, \ldots, g_{n-3}}$ when
+$$
+u^* = \frac{b - \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} \frac{u^\perp}{\abs{u}^\perp}}{\sqrt{1+\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}},
+$$ and thus
+$$
+T_b(\mathcal{B}(u)) = \lsp{\frac{u^\perp}{\abs{u^\perp}}, g_1, \ldots g_{n-3}}.
+$$
+With this characterization we're able to see
+$$
+\nabla \zeta(b) =
+\begin{blockarray}{ccccc}
+  \frac{u^\perp}{\abs{u^\perp}} & g_1 & \ldots & g_{n-3} \\
+  \begin{block}{(cccc)c}
+    1 & 0 & \cdots & 0 & 1 \\
+  \end{block}
+\end{blockarray} \implies J \zeta(b) = 1.
+$$
+Lastly, before applying the co-area formula, notice
 $$
 \abs{\sproj b^\perp} = \abs{\parens{\parens{b \cdot \frac{u}{\abs{u}}} \frac{u}{\abs{u}} + \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} \frac{u^\perp}{\abs{u^\perp}}}^\perp} = \abs{b \cdot \frac{u^\perp}{\abs{u^\perp}}}
 $$
-
-Finally, applying the co-area formula with $\zeta$, we find
+Now we're ready to finally apply the co-area formula to see
 \begin{IEEEeqnarray*}{rCl}
   \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 \, d\haus{n-2}{b} &=&
   \int_{-1}^1 \abs{v}^2 \int_{\zeta^{-1}\parens{\braces{v}}} \, d\haus{n-3}{x} \, dv \\
