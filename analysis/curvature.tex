@@ -335,7 +335,7 @@ $$
 \phi(a, b, r) = r.
 $$
 
-To begin our calculation of $\nabla \phi$ we must characterize $T_{(a, b, r)}(\mathcal{D}(u))$, i.e. via finding an orthonormal basis. Suppose $\gamma : \mathbb{R} \to \mathcal{D}(u)$ is so that $\gamma(0) = (a, b, r)$ and put $(\alpha, \beta, \tau) := \gamma'(0)$. By the definition of $\mathcal{D}(u)$ we know
+To begin our calculation of $\nabla \phi$ we must characterize $T_{(a, b, r)}(\mathcal{D}(u))$, i.e. via finding an orthonormal basis. Suppose $\gamma : \mathbb{R} \to \mathcal{D}(u)$ is so that $\gamma(0) = (a, b, r)$ and put $(\delta_a, \delta_b, \delta_r) := \gamma'(0)$. By the definition of $\mathcal{D}(u)$ we know
 $$
 2r \parens{p(b) \otimes p(b)} a = u,
 $$
@@ -345,44 +345,44 @@ $$
 $$
 Differentiating\footnote{N.B. we use \eqref{pb1}} and evaluating at $s = 0$ we see
 $$
-  0 = \tau \parens{p(b) \otimes p(b)} a + r \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\mathcal{P}_S b^\perp}} \mathcal{P}_S \beta^\perp \odot p(b)} a + r \parens{p(b) \otimes p(b)} \alpha.
+  0 = \delta_r \parens{p(b) \otimes p(b)} a + r \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\mathcal{P}_S b^\perp}} \mathcal{P}_S \delta_b^\perp \odot p(b)} a + r \parens{p(b) \otimes p(b)} \delta_a.
 $$
 Expanding tensor products, simplifying and using the $p, p^\perp$ coordinate system we get
 \begin{IEEEeqnarray*}{rCl}
-  0 &=& \tau \parens{p \cdot a} p + r\parens{\frac{p \cdot \beta}{\abs{\mathcal{P}_S b^\perp}}p^\perp \odot p} a + r \parens{p \cdot \alpha} p \\
-  &=& \parens{\tau\parens{p \cdot a} + r \parens{p \cdot \alpha}}p +
-  r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \otimes p + p \otimes p^\perp}a \\
-  &=& \parens{\tau\parens{p \cdot a} + r \parens{p \cdot \alpha}
-  + r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \cdot a}}p
-  + r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p \cdot a} p^\perp .
+  0 &=& \delta_r \parens{p \cdot a} p + r\parens{\frac{p \cdot \delta_b}{\abs{\mathcal{P}_S b^\perp}}p^\perp \odot p} a + r \parens{p \cdot \delta_a} p \\
+  &=& \parens{\delta_r\parens{p \cdot a} + r \parens{p \cdot \delta_a}}p +
+  r \frac{\parens{p \cdot \delta_b}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \otimes p + p \otimes p^\perp}a \\
+  &=& \parens{\delta_r\parens{p \cdot a} + r \parens{p \cdot \delta_a}
+  + r \frac{\parens{p \cdot \delta_b}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \cdot a}}p
+  + r \frac{\parens{p \cdot \delta_b}}{\abs{\mathcal{P}_S b^\perp}} \parens{p \cdot a} p^\perp .
 \end{IEEEeqnarray*}
-To determine an initial basis vector suppose $\beta = 0, \alpha \neq 0, \tau \neq 0$, then we must have
+To determine an initial basis vector suppose $\delta_b = 0, \delta_a \neq 0, \delta_r \neq 0$, then we must have
 $$
-0 = \tau \parens{p \cdot a} + r \parens{p \cdot \alpha},
+0 = \delta_r \parens{p \cdot a} + r \parens{p \cdot \delta_a},
 $$
-but since $\mathcal{D}(u) \subset \mathcal{U}_2^\perp \times \mathbb{R}^+$ we must have $\alpha = c$ so that one of our basis vectors is
+but since $\mathcal{D}(u) \subset \mathcal{U}_2^\perp \times \mathbb{R}^+$ we must have $\delta_a = c$ so that one of our basis vectors is
 $$
 \mu = \frac{1}{\sqrt{1 + r^2 \frac{\parens{p\cdot c}^2}{\parens{p \cdot a}^2}}} \parens{c, 0, -r\frac{\parens{p \cdot c}}{\parens{p \cdot a}}}.
 $$
-Next suppose $\tau = 0, \alpha \neq 0, \beta \neq 0$ so that we must have
+Next suppose $\delta_r = 0, \delta_a \neq 0, \delta_b \neq 0$ so that we must have
 $$
-\parens{p \cdot \alpha} + \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \cdot a} = 0 \land \parens{p \cdot \beta} \parens{p \cdot a} = 0.
+\parens{p \cdot \delta_a} + \frac{\parens{p \cdot \delta_b}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \cdot a} = 0 \land \parens{p \cdot \delta_b} \parens{p \cdot a} = 0.
 $$
 Notice $u = 2r \parens{p \cdot a}p \implies u = \abs{u}p$ and by construction we have $2ra \cdot u = u \cdot u$ so that $p \cdot a \neq 0$. Together with the second statment this leads us to see
 $$
-\parens{p \cdot \beta} = 0.
+\parens{p \cdot \delta_b} = 0.
 $$
-Again, since $\mathcal{D}(u) \subset \mathcal{U}_2^\perp \times \mathbb{R}^+$ we must have $\beta \cdot b = 0$, so that $\beta$ is perpendicular to both $p$ and $b$, i.e. we have
+Again, since $\mathcal{D}(u) \subset \mathcal{U}_2^\perp \times \mathbb{R}^+$ we must have $\delta_b \cdot b = 0$, so that $\delta_b$ is perpendicular to both $p$ and $b$, i.e. we have
 $$
-\beta = p \times b.
+\delta_b = p \times b.
 $$
 Revisiting the first equality above we also find
 $$
-\parens{p \cdot \alpha} = 0,
+\parens{p \cdot \delta_a} = 0,
 $$
-and for similar reasoning we have $\alpha \cdot a = 0$, thus\footnote{TODO: Talk about signs of $\alpha, \beta$?}
+and for similar reasoning we have $\delta_a \cdot a = 0$, thus\footnote{TODO: Talk about signs of $\delta_a, \delta_b$?}
 $$
-\alpha = p \times a.
+\delta_a = p \times a.
 $$
 Altogether this gives us a second basis vector:
 $$
@@ -524,11 +524,11 @@ $$%:
 \subsection{Fractional Curvature of Unit Circle in N-D}%;
 To begin, fix $\chi(a,b,r)$ to indicate the sign corresponding to $a, b, r$ (i.e. whether $a, b, r$ belong to $\aeven$ or $\aodd$, and whether $b$ or $-b$ is needed by the $t \cdot b > 0$ restriction). Put $\mathcal{A}^+ = \aeven \cup \aodd$ and
 $$
-g(a, b, r) = \chi(a, b, r) \frac{\parens{\bec{a} \cdot \bec{t}(z)} \bec{b} - \parens{\bec{b} \cdot \bec{t}(z)}\bec{a}}{r^{1+\sigma}},
+g(a, b, r) = \frac{\parens{\bec{a} \cdot \bec{t}(z)} \bec{b} - \parens{\bec{b} \cdot \bec{t}(z)}\bec{a}}{r^{1+\sigma}},
 $$
 so that our desired computation is:
 $$
-\kappa_\sigma(z) \cdot n = \int_{\mathcal{A}^+} g(a, b, r) \cdot n \, d\mathcal{H}^{2n-2}\parens{\bec{a}, \bec{b}, r},
+\kappa_\sigma(z) = \int_{\mathcal{A}^+} \chi(a, b, r) g(a, b, r) \, d\mathcal{H}^{2n-2}\parens{\bec{a}, \bec{b}, r},
 $$
 
 \subsubsection{Slicing out the 2D plane}%;
@@ -625,10 +625,50 @@ $$
 
 Put $\mathcal{D}(u) := \psi^{-1}(\braces{u}), p = p(b)$ so that
 \begin{IEEEeqnarray*}{rCl}
-  \kappa_\sigma \cdot n
-  &=& \int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{J\psi(a, b, r)} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u) \\
-  &=& \int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u).
-\end{IEEEeqnarray*}%:
+  \kappa_\sigma
+  &=& \int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{\chi(a, b, r)g(a, b, r)}{J\psi(a, b, r)} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u) \\
+  &=& \int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{D}(u)}
+  \frac{g(a, b, r)}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
+  \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u).
+\end{IEEEeqnarray*}
+Notably, $\chi(a, b, r) = \chi(\psi(a, b, r)) = \chi(u)$, since the number of intersections only depends on how the $u$ cord intersects $S$\footnote{TODO: reason about the sign of $b$ only depends on this cord, too (since that was built into $\chi(a, b, r)$).}.
+%:
+
+\subsubsection{Focusing on the Normal Component}%;
+
+We claim $\parens{n \otimes n} \kappa_\sigma = \kappa_\sigma$, i.e. $\kappa_\sigma$ only has a component in the $n$ direction. Firstly, notice
+$$
+g(a, b, r) \cdot t = \frac{\parens{a \cdot t} \parens{b \cdot t} - \parens{b \cdot t} \parens{a \cdot t}}{r^{1+\sigma}} = 0,
+$$
+so that $\kappa_\sigma$ has no $t$ component. Put
+$$
+J(a, b, r) = 
+  \frac{g(a, b, r)}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}},
+$$
+suppose $m \in \mathcal{U}\parens{\braces{n, t}^\perp}$ and consider $R_m = I - 2(m \otimes m)$, an operator which reflects the $m$ component. We wish to show
+$$
+J(R_m a, R_m b, r) \cdot m = -J(a, b, r) \cdot m,
+$$
+and that $(a, b, r) \in \mathcal{D}(u) \iff (R_m a, R_m b, r) \in \mathcal{D}(u)$ so that we can conclude $\kappa_\sigma \cdot m$ vanishes as it's an integral of an odd function over a symmetric domain. To that end, we see
+$$
+\sproj R_m b = \sproj b \implies p(R_m b) = p(b) \implies \parens{ J(R_m a, R_m b, r) \cdot m = - J(a, b, r) \cdot m \iff g(R_m a, R_m b, r) \cdot m = -g(a, b, r) \cdot m}.
+$$
+We also see
+$$
+  \psi(R_m a, R_m b, r) = 2r \parens{p(b) \otimes p(b)} \parens{a - 2\parens{m \otimes m}a} = 2r \parens{p(b) \cdot \parens{a - 2\parens{m \cdot a}m}} p(b) = 2r \parens{p(b) \cdot a} p(b) = \psi(a, b, r),
+$$
+so that, indeed, $(a, b, r) \in \mathcal{D}(u) \iff (R_m a, R_m b, r) \in \mathcal{D}(u)$. Finally
+\begin{IEEEeqnarray*}{rCl}
+  r^{1+\sigma} g(R_m a, R_m b, r) \cdot m &=& \parens{R_m a \cdot t}\parens{R_m b \cdot m} - \parens{R_m b \cdot t}\parens{R_m a \cdot m} \\
+  &=& \parens{\parens{a - 2\parens{m \cdot a}m} \cdot t} \parens{R_m b \cdot m} - \parens{R_m b \cdot t}\parens{ \parens{a - 2\parens{m \cdot a}m} \cdot m } \\
+  &=& \parens{a \cdot t} \parens{R_m b \cdot m} - \parens{R_m b \cdot t} \parens{\parens{a \cdot m} - 2\parens{m \cdot a}} \\
+  &=& \parens{a \cdot t} \parens{ \parens{b - 2\parens{m \cdot b}m} \cdot m} + \parens{\parens{b - 2\parens{m \cdot b}m} \cdot t} \parens{m \cdot a} \\
+  &=& \parens{a \cdot t} \parens{\parens{b \cdot m} - 2\parens{m \cdot b}} + \parens{b \cdot t} \parens{m \cdot a} \\
+  &=& -\parens{a \cdot t} \parens{b \cdot m} + \parens{b \cdot t}\parens{a \cdot m} \\
+  &=& -\parens{\parens{a \cdot t}b - \parens{b \cdot t}a}\cdot m = -r^{1+\sigma} g(a, b, r) \cdot m,
+\end{IEEEeqnarray*}
+thus our claim is shown and $\kappa_\sigma = \parens{n \otimes n} \kappa_\sigma$, so for the rest of the paper we shall focus on $\kappa_\sigma \cdot n$.
+%:
 
 \subsubsection{Slicing out Radii}%;
 Now, to simplify $\mathcal{D}(u)$ lets group sets of $\bec{a}, \bec{b}$ that correspond to a given $r$, i.e. put $\phi : \mathcal{D}(u) \to \mathbb{R}^+$ given by
@@ -636,7 +676,7 @@ $$
 \phi(a, b, r) = r.
 $$
 
-To begin our calculation of $\nabla \phi$ we must characterize $T_{(a, b, r)}(\mathcal{D}(u))$, i.e. via finding an orthonormal basis. Suppose $\gamma : \mathbb{R} \to \mathcal{D}(u)$ is so that $\gamma(0) = (a, b, r)$ and put $(\alpha, \beta, \tau) := \gamma'(0)$. Note $\alpha \cdot a = \beta \cdot b = 0$ and $\alpha \cdot b + a \cdot \beta = 0$, since $(a, b) \in \mathcal{U}_2^\perp$. By the definition of $\mathcal{D}(u)$ we know
+To begin our calculation of $\nabla \phi$ we must characterize $T_{(a, b, r)}(\mathcal{D}(u))$, i.e. via finding an orthonormal basis. Suppose $\gamma : \mathbb{R} \to \mathcal{D}(u)$ is so that $\gamma(0) = (a, b, r)$ and put $(\delta_a, \delta_b, \delta_r) := \gamma'(0)$. Note $\delta_a \cdot a = \delta_b \cdot b = 0$ and $\delta_a \cdot b + a \cdot \delta_b = 0$, since $(a, b) \in \mathcal{U}_2^\perp$. By the definition of $\mathcal{D}(u)$ we know
 $$
 2r \parens{p(b) \otimes p(b)} a = u,
 $$
@@ -646,22 +686,22 @@ $$
 $$
 Differentiating\footnote{N.B. we use \eqref{npb1}} and evaluating at $s = 0$ we see
 $$
-  0 = \tau \parens{p(b) \otimes p(b)} a + r \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\mathcal{P}_S b^\perp}} \mathcal{P}_S \beta^\perp \odot p(b)} a + r \parens{p(b) \otimes p(b)} \alpha.
+  0 = \delta_r \parens{p(b) \otimes p(b)} a + r \parens{\frac{\parens{p^\perp \otimes p^\perp}}{\abs{\mathcal{P}_S b^\perp}} \mathcal{P}_S \delta_b^\perp \odot p(b)} a + r \parens{p(b) \otimes p(b)} \delta_a.
 $$
 Expanding tensor products, simplifying and using the $p, p^\perp$ coordinate system we get
 \begin{IEEEeqnarray*}{rCl}
-  0 &=& \tau \parens{p \cdot a} p + r\parens{\frac{p \cdot \beta}{\abs{\mathcal{P}_S b^\perp}}p^\perp \odot p} a + r \parens{p \cdot \alpha} p \\
-  &=& \parens{\tau\parens{p \cdot a} + r \parens{p \cdot \alpha}}p +
-  r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \otimes p + p \otimes p^\perp}a \\
-  &=& \parens{\tau\parens{p \cdot a} + r \parens{p \cdot \alpha}
-  + r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \cdot a}}p
-  + r \frac{\parens{p \cdot \beta}}{\abs{\mathcal{P}_S b^\perp}} \parens{p \cdot a} p^\perp .
+  0 &=& \delta_r \parens{p \cdot a} p + r\parens{\frac{p \cdot \delta_b}{\abs{\mathcal{P}_S b^\perp}}p^\perp \odot p} a + r \parens{p \cdot \delta_a} p \\
+  &=& \parens{\delta_r\parens{p \cdot a} + r \parens{p \cdot \delta_a}}p +
+  r \frac{\parens{p \cdot \delta_b}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \otimes p + p \otimes p^\perp}a \\
+  &=& \parens{\delta_r\parens{p \cdot a} + r \parens{p \cdot \delta_a}
+  + r \frac{\parens{p \cdot \delta_b}}{\abs{\mathcal{P}_S b^\perp}} \parens{p^\perp \cdot a}}p
+  + r \frac{\parens{p \cdot \delta_b}}{\abs{\mathcal{P}_S b^\perp}} \parens{p \cdot a} p^\perp .
 \end{IEEEeqnarray*}
-Notably, we must have $p \cdot \beta = 0$, so our constraint simplifies to
+Notably, we must have $p \cdot \delta_b = 0$, so our constraint simplifies to
 $$
-0 = \tau \parens{p \cdot a} + r \parens{p \cdot \alpha}.
+0 = \delta_r \parens{p \cdot a} + r \parens{p \cdot \delta_a}.
 $$
-Observe $(e_i, 0, 0), (0, e_i, 0)$ are $2n-6$ valid basis vectors abiding by our constraints. Additionally, fixing $\beta = 0$ and considering $\alpha \neq e_i$ we must have $\alpha = c$, and thus 
+Observe $(e_i, 0, 0), (0, e_i, 0)$ are $2n-6$ valid basis vectors abiding by our constraints. Additionally, fixing $\delta_b = 0$ and considering $\delta_a \neq e_i$ (so as to find an additional orthonormal basis vector) we must have $\delta_a = c$, and thus 
 $$
 \mu = \frac{1}{\sqrt{1 + r^2 \frac{\parens{p\cdot c}^2}{\parens{p \cdot a}^2}}} \parens{c, 0, -r\frac{\parens{p \cdot c}}{\parens{p \cdot a}}},
 $$
@@ -693,29 +733,30 @@ J \phi = \frac{r \abs{p \cdot c}}{\sqrt{\parens{p \cdot a}^2 + r^2 \parens{p \cd
 $$
 %:
 
-\subsubsection{Simplifying Computation}%;
-Put $\mathcal{D}(u, r) = \phi^{-1}(\{r\})$ so that
+Put $\mathcal{D}(u, r) = \phi^{-1}(\{r\})$ so that our top-level calculation becomes
 
 \begin{IEEEeqnarray*}{ll}
-  &\int_{\mathbb{R}^2} \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u) \\
-  &= \int_{\mathbb{R}^2} \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)}
+  &\int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{D}(u)} \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \, d\mathcal{H}^{2n-4}(a, b, r) d\mathcal{H}^2(u) \\
+  &= \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)}
   \frac{g(a, b, r) \cdot n}{2\sqrt{2} r \abs{\frac{p \cdot a}{\sproj b^\perp}} \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}\sqrt{r^2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
   \frac{\sqrt{\parens{p\cdot a}^2 + r^2 \parens{p \cdot c}^2}}{r \abs{p \cdot c}}
   \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u) \\
-  &= \int_{\mathbb{R}^2} \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)} \frac{\parens{g(a, b, r) \cdot n} \abs{\sproj b^\perp}}{2\sqrt{2} \abs{\parens{p \cdot a}\parens{p \cdot c}} r^2 \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
+  &= \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)} \frac{\parens{g(a, b, r) \cdot n} \abs{\sproj b^\perp}}{2\sqrt{2} \abs{\parens{p \cdot a}\parens{p \cdot c}} r^2 \sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}}
   \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u)
 \end{IEEEeqnarray*}
-In order to simplify this, recall
+
+\subsubsection{Simplifying Computation}%;
+In order to simplify our calculation recall
 $$
-g(a, b, r) = \chi(a, b, r) \frac{\parens{a \cdot t}b - \parens{b \cdot t}a}{r^{1+\sigma}},
+g(a, b, r) = \frac{\parens{a \cdot t}b - \parens{b \cdot t}a}{r^{1+\sigma}}.
 $$
-Notice from \ref{perpdef} we see 
+Now, from \ref{perpdef} we see 
 $$
   \parens{a \cdot t} \parens{b \cdot n} - \parens{b \cdot t} \parens{a \cdot n} = - \sproj b^\perp \cdot a = - \abs{\sproj b^\perp} \parens{p \cdot a},
 $$
 so
 $$
-g(a, b, r) \cdot n = \chi(a, b, r)\frac{\parens{a \cdot t} \parens{b \cdot n} - \parens{b \cdot t} \parens{a \cdot n}}{r^{1+\sigma}} = -\chi(a, b, r) \frac{\abs{\sproj b^\perp} \parens{p \cdot a}}{r^{1+\sigma}}.
+g(a, b, r) \cdot n = \frac{\parens{a \cdot t} \parens{b \cdot n} - \parens{b \cdot t} \parens{a \cdot n}}{r^{1+\sigma}} = -\frac{\abs{\sproj b^\perp} \parens{p \cdot a}}{r^{1+\sigma}}.
 $$
 We also know $p \in \lsp{a, b, c}$ so that
 $$
@@ -725,19 +766,19 @@ And finally, before simplifying our integrand let's note that
 $$
 2r \parens{p \cdot a} p = u \implies \abs{u} = 2r\parens{p \cdot a} \implies \parens{p \cdot a} = \frac{\abs{u}}{2r},
 $$
-and in particular this means $p \cdot a > 0$. Altogether, substituting this into our integrand, and acknowledging $\chi$ only depends on $u$ we find
+and in particular this means $p \cdot a > 0$. Altogether, substituting this into our integrand we see
 \begin{IEEEeqnarray*}{rCl}
-  \frac{1}{2\sqrt{2}}\frac{1}{r^2} \abs{\frac{\sproj b^\perp}{\parens{p \cdot a}\parens{p \cdot c}}} \frac{g(a, b, r) \cdot n}{\sqrt{2\parens{p \cdot c}^2 + \parens{p\cdot a}^2}} &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2 \parens{p \cdot a}}{\parens{p \cdot a}\abs{p \cdot c}} \frac{1}{\sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \\
-  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\parens{p \cdot a}^2} \sqrt{2-\parens{p \cdot a}^2}} \\
-  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\frac{\abs{u}^2}{4r^2}}\sqrt{2-\frac{\abs{u}^2}{4r^2}}} \\
-  &=& \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)}.
+  \frac{1}{2\sqrt{2}}\frac{1}{r^2} \abs{\frac{\sproj b^\perp}{\parens{p \cdot a}\parens{p \cdot c}}} \frac{g(a, b, r) \cdot n}{\sqrt{2\parens{p \cdot c}^2 + \parens{p\cdot a}^2}} &=& \frac{-1}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2 \parens{p \cdot a}}{\parens{p \cdot a}\abs{p \cdot c}} \frac{1}{\sqrt{2 \parens{p \cdot c}^2 + \parens{p \cdot a}^2}} \\
+  &=& \frac{-1}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\parens{p \cdot a}^2} \sqrt{2-\parens{p \cdot a}^2}} \\
+  &=& \frac{-1}{2\sqrt{2}} \frac{1}{r^{3+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\sqrt{1-\frac{\abs{u}^2}{4r^2}}\sqrt{2-\frac{\abs{u}^2}{4r^2}}} \\
+  &=& \frac{-1}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)}.
 \end{IEEEeqnarray*}
 
 Thus, putting this back into our integral we find
 \begin{IEEEeqnarray*}{rCl}
   \kappa_\sigma \cdot n &=&
-  \int_{\mathbb{R}^2} \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)}
-  \frac{-\chi(u)}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)}
+  \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \int_{\mathcal{D}(u, r)}
+  \frac{-1}{2\sqrt{2}} \frac{1}{r^{1+\sigma}} \frac{\abs{\sproj b^\perp}^2}{\mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)}
   \, d\mathcal{H}^{2n-5}(a, b) dr d\mathcal{H}^2(u) \\
   &=&
   \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{1+\sigma} \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \int_{\mathcal{D}(u, r)} \abs{\sproj b^\perp}^2
@@ -746,7 +787,7 @@ Thus, putting this back into our integral we find
 
 \subsubsection{Splitting Spheres}%;
 
-In order to compute the inner most integral we will apply the co-area formula once again to slice out all $\mathcal{B}(u) = \mathcal{U}\parens{\braces{u}^\perp}$, i.e. the projection of $\mathcal{D}(u, r)$ onto the $b$ coordinates. Concretely, our slicing function $\xi : \mathcal{D}(u, r) \to \mathcal{B}(u)$ is given by $\xi(a, b) = b$. From our above calculations we know
+In order to compute the inner most integral we will apply the co-area formula once again to slice out all $\mathcal{B}(u) = \braces{ b \in \mathcal{U}\parens{\braces{u}^\perp} \mid b \cdot t > 0 }$, i.e. the projection of $\mathcal{D}(u, r)$ onto the $b$ coordinates. Concretely, our slicing function $\xi : \mathcal{D}(u, r) \to \mathcal{B}(u)$ is given by $\xi(a, b) = b$. From our above calculations we know
 $$
 T_{(a, b)} \mathcal{D}(u, r) = \lsp{ (e_i, 0), (0, e_i), \nu },
 $$
@@ -754,7 +795,7 @@ where, for $\mathcal{R}(u, r) = \sqrt{r^2 - \frac{\abs{u}^2}{4}}$, we put
 $$
 \nu = \parens{ \frac{\mathcal{R}(u, r)}{\mathcal{R}(u, \sqrt{2}r)} b, \frac{r}{2 \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \parens{u - 2ra} }.
 $$
-Similarly, we know $T_b \mathcal{B}(u) = \lsp{ e_i, \frac{\nu_2}{\abs{\nu_2}} }$ and so we can compute
+Similarly, we know\footnote{N.B. We're able to use $e_i, a$ in our basis because $a$ is fixed for this calculation.} $T_b \mathcal{B}(u) = \lsp{ e_i, \frac{\nu_2}{\abs{\nu_2}} }$ and so we can compute
 $$
 \nabla \xi (a, b) =
 \begin{blockarray}{cccc}
@@ -777,6 +818,7 @@ This tells us
 \begin{IEEEeqnarray*}{rCl}
   J \xi(a, b) &=& \abs{\nu_2} = \sqrt{\frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{ \abs{u}^2 + 4r^2 - 4 r \parens{u \cdot a} }} \\
   &=& \sqrt{\frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{ \abs{u}^2 + 4r^2 - 4r \frac{\abs{u}^2}{2r} }} \\
+  &=& \sqrt{\frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} \parens{ 4r^2 - \abs{u}^2 }} \\
   &=& \sqrt{\frac{r^2}{4\mathcal{R}^2(u, r) \mathcal{R}^2(u, \sqrt{2}r)} 4 \mathcal{R}^2(u, r)} \\
   &=& \sqrt{\frac{r^2}{\mathcal{R}^2(u, \sqrt{2}r)}} = \frac{r}{\mathcal{R}(u, \sqrt{2}r)}.
 \end{IEEEeqnarray*}
@@ -802,16 +844,18 @@ $$
 $$
 thus we're able to rewrite our sphere as
 $$
-\mathcal{A}(u, r, b) = \braces{ a \in \mathcal{U}\parens{\braces{b}^\perp} \mid \abs{a - \frac{u}{2r}} = \sqrt{1 - \frac{\abs{u^2}}{4r^2}} }.
+\mathcal{A}(u, r, b) = \braces{ a \in \mathcal{U}\parens{\braces{b}^\perp} \mid \abs{a - \frac{u}{2r}}^2 = 1 - \frac{\abs{u^2}}{4r^2} }.
 $$
 This is an $n-3$ dimensional sphere located at $\frac{u}{2r}$ with radius $\sqrt{1 - \frac{\abs{u}^2}{4r^2}}$ and thus we have
-\begin{IEEEeqnarray*}{rCl}
-  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} &=& \haus{n-3}{\mathcal{A}(u, r, b)} = S_{n-3}\parens{\sqrt{1 - \frac{\abs{u}^2}{4r^2}}} \\
-  &=& \omega_{n-3} \parens{1 - \frac{\abs{u^2}}{4r^2}}^{(n-3)/2}
+$$
+  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} = \haus{n-3}{\mathcal{A}(u, r, b)} = S_{n-3}\parens{\sqrt{1 - \frac{\abs{u}^2}{4r^2}}}
+  = \omega_{n-3} \parens{1 - \frac{\abs{u^2}}{4r^2}}^{(n-3)/2}
   =
   \omega_{n-3} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r),
-\end{IEEEeqnarray*}
-where $\omega_{n-1} = \frac{2\pi^{n/2}}{\Gamma(n/2)}$ is the surface area of a unit ball in $\mathbb{R}^n$. Putting this back into our top-level integral gives us
+$$
+where $\omega_{n-1} = \frac{2\pi^{n/2}}{\Gamma(n/2)}$ is the surface area of a unit ball in $\mathbb{R}^n$.
+
+Putting this back into our top-level integral gives us
 \begin{IEEEeqnarray*}{ll}
   \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} & \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2
   \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
@@ -824,38 +868,43 @@ where $\omega_{n-1} = \frac{2\pi^{n/2}}{\Gamma(n/2)}$ is the surface area of a u
 
 \subsubsection{Outer Sphere Volume}%;
 
-Notice $\mathcal{B}(u) = \mathcal{U}\parens{\braces{u}^\perp}$ and put $\zeta : \mathcal{B}(u) \to [-1, 1]$ given by
+First, we have
+$$
+0 < b \cdot t = \parens{b \cdot \frac{u}{\abs{u}}} \parens{t \cdot \frac{u}{\abs{u}}} + \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} \parens{t \cdot \frac{u^\perp}{\abs{u^\perp}}} = \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} \parens{t \cdot \frac{u^\perp}{\abs{u^\perp}}},
+$$
+and so we only care about $b$ s.t. $\mathrm{sgn} \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} = \mathrm{sgn} \parens{ t \cdot \frac{u^\perp}{\abs{u^\perp}} }$. Next, put $\zeta : \mathcal{B}(u) \to [-1, 1]$ given by
 $$
   \zeta(b) = b \cdot \frac{u^\perp}{\abs{u^\perp}}.
 $$
-Since 
+Now, since
 $
 \mathbb{R}^n = \lsp{\frac{u}{\abs{u}}, \frac{u^\perp}{\abs{u^\perp}}, f_1, f_2, \ldots, f_{n-2}},
 $
 for some orthonormal $\braces{f_i}$, we have
 $$
-  \zeta(b)^2 + \parens{b \cdot f_1}^2 + \parens{b \cdot f_2}^2 + \cdots + \parens{b \cdot f_{n-2}}^2 = 1 \implies \sqrt{\parens{b \cdot f_1} + \parens{b \cdot f_2} + \cdots + \parens{b \cdot f_{n-2}}^2} = \sqrt{1 - \zeta(b)^2},
+  \zeta(b)^2 + \parens{b \cdot f_1}^2 + \parens{b \cdot f_2}^2 + \cdots + \parens{b \cdot f_{n-2}}^2 = 1 \implies \parens{b \cdot f_1}^2 + \parens{b \cdot f_2}^2 + \cdots + \parens{b \cdot f_{n-2}}^2 = 1 - \zeta(b)^2,
 $$
 thus
 $$
-\zeta^{-1}\parens{\braces{v}} = \braces{ b \in \mathcal{B}(u) \mid b \cdot \frac{u^\perp}{\abs{u^\perp}} = v, \, \sqrt{\parens{b \cdot f_1} + \parens{b \cdot f_2} + \cdots + \parens{b \cdot f_{n-2}}^2} = \sqrt{1-v^2} },
+\zeta^{-1}\parens{\braces{v}} = \braces{ b \in \mathcal{B}(u) \mid b \cdot \frac{u^\perp}{\abs{u^\perp}} = v, \, \parens{b \cdot f_1}^2 + \parens{b \cdot f_2}^2 + \cdots + \parens{b \cdot f_{n-2}}^2 = 1-v^2 },
 $$
 and so
 $$
 \int_{\zeta^{-1}(v)} \, d\haus{n-3}{x} = \haus{n-3}{\zeta^{-1}(v)} = \haus{n-3}{S_{n-3}\parens{\sqrt{1-v^2}}} = \omega_{n-3}\parens{1-v^2}^{(n-3)/2}.
 $$
-In order to apply the co-area formula we also need to compute $J \zeta$. To that end, notice $\mathbb{R}^n = \lsp{\frac{u}{\abs{u}}, u^*, b, g_1, \ldots, g_{n-3}}$ when
+In order to apply the co-area formula we also need to compute $J \zeta$. To that end, notice $\mathbb{R}^n = \lsp{\frac{u}{\abs{u}}, b, u^*, g_1, \ldots, g_{n-3}}$ when
 $$
-u^* = \frac{\frac{u^\perp}{\abs{u^\perp}} - \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} b}{\sqrt{1-\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}}, \, \braces{g_i} \text{ orthonormal}
-$$ and thus, since $b \in \mathcal{B}(u) \implies \abs{b} = 1, \, b \cdot u = 0$ we find
+u^* = \frac{\frac{u^\perp}{\abs{u^\perp}} - \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} b}{\sqrt{1-\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}}, \, \braces{g_i} \text{ orthonormal.}
 $$
-T_b(\mathcal{B}(u)) = \lsp{b^*, g_1, \ldots g_{n-3}}.
+Since $b \in \mathcal{B}(u) \implies \abs{b} = 1, \, b \cdot u = 0$ we must have $\delta_b \cdot b = 0, \, \delta_b \cdot u = 0$, and so
+$$
+T_b(\mathcal{B}(u)) = \lsp{u^*, g_1, \ldots g_{n-3}}.
 $$
 With this characterization we're able to see
 $$
 \nabla \zeta(b) =
 \begin{blockarray}{ccccc}
-  b^* & g_1 & \ldots & g_{n-3} \\
+  u^* & g_1 & \ldots & g_{n-3} \\
   \begin{block}{(cccc)c}
     \sqrt{1-\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}  & 0 & \cdots & 0 & 1 \\
   \end{block}
@@ -868,22 +917,26 @@ $$
 Now we're ready to finally apply the co-area formula to see
 \begin{IEEEeqnarray*}{rCl}
   \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 \, d\haus{n-2}{b} &=&
-  \int_{-1}^1 \abs{v}^2 \int_{\zeta^{-1}\parens{\braces{v}}} \frac{1}{\sqrt{1-v^2}}\, d\haus{n-3}{x} \, dv \\
+  \int_{\zeta(\mathcal{B}(u))} \abs{v}^2 \int_{\zeta^{-1}\parens{\braces{v}}} \frac{1}{\sqrt{1-v^2}}\, d\haus{n-3}{x} \, dv \\
   &=&
-  \int_{-1}^1 \abs{v}^2 \parens{1-v^2}^{-1/2} \int_{\zeta^{-1}\parens{\braces{v}}} \, d\haus{n-3}{x} \, dv \\
+  \int_{\zeta(\mathcal{B}(u))} \abs{v}^2 \parens{1-v^2}^{-1/2} \int_{\zeta^{-1}\parens{\braces{v}}} \, d\haus{n-3}{x} \, dv \\
   &=&
-  \omega_{n-3} \int_{-1}^1 v^2 \parens{1-v^2}^{(n-4)/2} \, dv \\
-  &=&
-  2\omega_{n-3} \int_{0}^1 v^2 \parens{1-v^2}^{(n-4)/2} \, dv \\
-  &=&
-  \omega_{n-3} \int_{0}^1 v^{1/2} \parens{1-v}^{(n-4)/2} \, dv = \omega_{n-3} B\parens{\frac{3}{2}, \frac{n-2}{2}},
+  \omega_{n-3} \int_{\zeta(\mathcal{B}(u))} v^2 \parens{1-v^2}^{(n-4)/2} \, dv.
 \end{IEEEeqnarray*}
-where we use evenness of the integrand \& the transformation $v^2 \to v$ for the last two lines. Plugging this back into our top-level calculation gives the following:
+We know $\zeta(\mathcal{B}(u)) = [-1, 0] \lor [0, 1]$ depending on $\mathrm{sgn} \parens{ t \cdot u^\perp }$, and so, since our integrand is even, we have
+$$
+  \omega_{n-3} \int_{\zeta(\mathcal{B}(u))} v^2 \parens{1-v^2}^{(n-4)/2} \, dv = \omega_{n-3} \int_{0}^1 v^2 \parens{1-v^2}^{(n-4)/2} \, dv.
+$$
+Finally, transforming from $v^2 \to v$ so that $dv \to \frac{1}{2\sqrt{v}} dv$ we deduce
+$$
+\omega_{n-3} \int_{0}^1 v^2 \parens{1-v^2}^{(n-4)/2} \, dv = \frac{\omega_{n-3}}{2} \int_{0}^1 v^{1/2} \parens{1-v}^{(n-4)/2} \, dv = \frac{\omega_{n-3}}{2} B\parens{\frac{3}{2}, \frac{n-2}{2}}.
+$$
+Plugging this back into our top-level calculation gives the following
 \begin{IEEEeqnarray*}{ll}
   \frac{-\omega_{n-3}}{2\sqrt{2}} &\int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
   \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
   &=
-  \frac{-\omega_{n-3}^2}{2\sqrt{2}} B\parens{\frac{3}{2}, \frac{n-2}{2}}
+  \frac{-\omega_{n-3}^2}{4\sqrt{2}} B\parens{\frac{3}{2}, \frac{n-2}{2}}
   \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \, dr \, d\haus{2}{u}.
 \end{IEEEeqnarray*}
 %:
@@ -893,7 +946,7 @@ where we use evenness of the integrand \& the transformation $v^2 \to v$ for the
 Our computation simplifies to
 $$
 \kappa_\sigma \cdot n =
-  \frac{-\omega_{n-3}^2}{2\sqrt{2}} B\parens{\frac{3}{2},\frac{n-2}{2}}
+  \frac{-\omega_{n-3}^2}{4\sqrt{2}} B\parens{\frac{3}{2},\frac{n-2}{2}}
   \int_{\mathbb{R}^2} \chi(u) \int_{\frac{\abs{u}}{2}}^\infty r^{1-\sigma-n} \parens{r^2-\frac{\abs{u}^2}{4}}^{(n-4)/2} \, dr \, d\haus{2}{u}.
 $$
 Using the transformation $r \to \frac{\abs{u}}{2}s^{-1/2} \implies dr = \frac{-\abs{u}}{4}s^{-3/2} ds$ and $r \to \abs{u}/2 \implies s \to 1, \, r \to \infty \implies s \to 0$ we find
@@ -905,12 +958,12 @@ Using the transformation $r \to \frac{\abs{u}}{2}s^{-1/2} \implies dr = \frac{-\
 \end{IEEEeqnarray*}
 Plugging this back into the above integral we find
 $$
-\kappa_\sigma \cdot n = -2^{\sigma-1/2}\omega_{n-3}^2 B\parens{\frac{3}{2},\frac{n-2}{2}} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} }
+\kappa_\sigma \cdot n = -2^{\sigma-3/2}\omega_{n-3}^2 B\parens{\frac{3}{2},\frac{n-2}{2}} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} }
 \int_\mathbb{R^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \, d\haus{2}{u}.
 $$
 Just as with the 3D calculation, we're able to convert to polar coordinates and reuse the 2D calculation to find
 $$
-\kappa_\sigma \cdot n = \frac{2\omega_{n-3}^2}{\pi}  B\parens{\frac{3}{2},\frac{n-2}{2}} \frac{\pi2^{\sigma-1/2}}{\sigma} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} } B\parens{\frac{1}{2}, \frac{1-\sigma}{2}}.
+\kappa_\sigma \cdot n = \frac{\omega_{n-3}^2}{\pi}  B\parens{\frac{3}{2},\frac{n-2}{2}} \frac{\pi2^{\sigma-1/2}}{\sigma} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} } B\parens{\frac{1}{2}, \frac{1-\sigma}{2}}.
 $$
 
 %:
