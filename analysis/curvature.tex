@@ -147,17 +147,25 @@ $$
 $$
 
 With this change of variables our computation becomes:
-$$
-\kappa_\sigma \cdot n = \sqrt{2} \int_{[0, 2\pi] \times \mathbb{R}^+} \frac{\chi_1\parens{r, \begin{pmatrix} \cos \theta \\ \sin \theta \end{pmatrix}}}{r^{1+\sigma}} \parens{- \cos^2 \theta - \sin^2 \theta} \chi_2\parens{r, \begin{pmatrix} \cos \theta \\ \sin\theta \end{pmatrix}} \, dr \, d\theta,
-$$
+\begin{IEEEeqnarray*}{rCl}
+  \kappa_\sigma \cdot n &=&
+  \sqrt{2} \int_{[0, 2\pi] \times \mathbb{R}^+}
+\frac{\chi_1\parens{r, \begin{pmatrix} \cos \theta \\ \sin \theta \end{pmatrix}}}{r^{1+\sigma}} \parens{- \cos^2 \theta - \sin^2 \theta} \chi_2\parens{r, \begin{pmatrix} \cos \theta \\ \sin\theta \end{pmatrix}}
+  \, dr \, d\theta \\
+  &=&
+  -\sqrt{2} \int_{[0, 2\pi] \times \mathbb{R}^+} \frac{\chi_1\parens{r, \theta}}{r^{1+\sigma}} \chi_2\parens{r, \theta} \, dr \, d\theta \\
+\end{IEEEeqnarray*}
 where $\chi_2 = \chi_{\prescript{1}{}{\aeven} \cup \aodd} - \chi_{\prescript{2}{}{\aeven}}$. Fix $\chi = \chi_1 \chi_2 = \chi_{\prescript{1}{}{\aeven}} - \chi_{\prescript{2}{}{\aeven} \cup \aodd}$ so that
 \begin{IEEEeqnarray*}{rCl}
-  \kappa_\sigma \cdot n &=& -\sqrt{2}\lim_{\epsilon \downarrow 0} \int_0^{2\pi} \int_{\epsilon}^\infty \frac{\chi(r, \theta)}{r^{1+\sigma}} \, dr \, d\theta \\
-  &=& -\sqrt{2}\lim_{\epsilon \downarrow 0} \parens{\int_0^\pi \int_\epsilon^{\sin\theta} r^{-1-\sigma} \, dr \, d\theta - \int_0^\pi \int_{\sin \theta}^\infty r^{-1-\sigma} \, dr \, d\theta - \int_\pi^{2\pi} \int_\epsilon^\infty r^{-1-\sigma} \, dr \, d\theta} \\
-  &=& \frac{\sqrt{2}}{\sigma} \lim_{\epsilon \downarrow 0} \parens{ \int_0^\pi \left. r^{-\sigma} \right|_{\epsilon}^{\sin \theta} \, d\theta - \int_0^\pi \left. r^{-\sigma} \right|_{\sin \theta}^\infty \, d\theta - \int_\pi^{2\pi} \left. r^{-\sigma} \right|_{\epsilon}^\infty } \\
-  &=& \frac{\sqrt{2}}{\sigma} \lim_{\epsilon \downarrow 0} \parens{ \int_0^\pi \sin^{-\sigma} \theta \, d\theta - \pi \epsilon^{-\sigma} + \int_0^\pi \sin^{-\sigma} \theta \, d\theta + \pi \epsilon^{-\sigma} } \\
-  &=& \frac{2\sqrt{2}}{\sigma} \int_0^\pi \sin^{-\sigma} \theta \, d\theta = \frac{2\sqrt{2}}{\sigma} \int_{-\pi / 2}^{\pi / 2} \cos^{-\sigma} \theta \, d\theta = \frac{4\sqrt{2}}{\sigma} \int_0^{\pi / 2} \cos^{-\sigma} \theta \, d\theta \\
-  &=& \frac{2\sqrt{2}}{\sigma} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}}
+  \int_{[0, 2\pi] \times \mathbb{R}^+} \frac{\chi_1\parens{r, \theta}}{r^{1+\sigma}} \chi_2\parens{r, \theta} \, dr \, d\theta
+    &=&
+  \lim_{\epsilon \downarrow 0} \int_0^{2\pi} \int_{\epsilon}^\infty \frac{\chi(r, \theta)}{r^{1+\sigma}} \, dr \, d\theta \\
+  &=& \lim_{\epsilon \downarrow 0} \parens{\int_0^\pi \int_\epsilon^{\sin\theta} r^{-1-\sigma} \, dr \, d\theta - \int_0^\pi \int_{\sin \theta}^\infty r^{-1-\sigma} \, dr \, d\theta - \int_\pi^{2\pi} \int_\epsilon^\infty r^{-1-\sigma} \, dr \, d\theta} \\
+  &=& \frac{-1}{\sigma} \lim_{\epsilon \downarrow 0} \parens{ \int_0^\pi \left. r^{-\sigma} \right|_{\epsilon}^{\sin \theta} \, d\theta - \int_0^\pi \left. r^{-\sigma} \right|_{\sin \theta}^\infty \, d\theta - \int_\pi^{2\pi} \left. r^{-\sigma} \right|_{\epsilon}^\infty } \\
+  &=& \frac{-1}{\sigma} \lim_{\epsilon \downarrow 0} \parens{ \int_0^\pi \sin^{-\sigma} \theta \, d\theta - \pi \epsilon^{-\sigma} + \int_0^\pi \sin^{-\sigma} \theta \, d\theta + \pi \epsilon^{-\sigma} } \\
+  &=& \frac{-2}{\sigma} \int_0^\pi \sin^{-\sigma} \theta \, d\theta = \frac{-2}{\sigma} \int_{-\pi / 2}^{\pi / 2} \cos^{-\sigma} \theta \, d\theta = \frac{-4}{\sigma} \int_0^{\pi / 2} \cos^{-\sigma} \theta \, d\theta \\
+  &=& \frac{-2}{\sigma} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}} \\
+  \implies \kappa_\sigma \cdot n &=& \frac{2^{3/2}}{\sigma} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}}
 \end{IEEEeqnarray*}%:
 
 \subsection{Fractional Curvature of Unit Circle in 3D}%;
@@ -467,46 +475,49 @@ $$%:
 
 Our computation simplifies to
 $$
-\kappa_\sigma \cdot n = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{R}(u)} \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u) = \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\abs{u}/2}^\infty \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u).
+\kappa_\sigma \cdot n 
+= \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\mathcal{R}(u)} \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u) 
+= \frac{-\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\abs{u}/2}^\infty \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr \, d\mathcal{H}^2(u).
 $$
 Substitute $r = \frac{\abs{u}}{2} s^{-1/2}$ so that $r \to \abs{u}/2 \implies s \to 1, \, r \to \infty \implies s \to 0, \, dr = \frac{-\abs{u}}{4} s^{-3/2} ds$ and
 \begin{IEEEeqnarray*}{rCl}
-  \kappa_\sigma \cdot n &=& \frac{\pi}{4\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_1^0
+  \int_{\abs{u}/2}^\infty \frac{1}{r^{2+\sigma}\sqrt{r^2 - \frac{\abs{u}^2}{4}}} \, dr &=&
+  \int_1^0
 \frac{\abs{u}}{4}
 \frac{
-  s^{-3/2}
+  -s^{-3/2}
 }{
   \frac{\abs{u}^{2+\sigma}}{2^{2+\sigma}} s^{-(2+\sigma)/2} \sqrt{\frac{\abs{u}^2}{4} s^{-1} - \frac{\abs{u}^2}{4}}
-} \, ds \, d\mathcal{H}^2(u) \\
+} \, ds \\
   &=&
-  -\pi 2^{\sigma-1/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+  \parens{\frac{2}{\abs{u}}}^{2+\sigma} \int_0^1
 \frac{\abs{u}}{4}
 \frac{
   s^{(2+\sigma-3)/2}
 }{
   \frac{\abs{u}}{2} \sqrt{\frac{1}{s} - 1}
-} \, ds \, d\mathcal{H}^2(u) \\
+} \, ds \\
   &=&
-  -\pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+  \frac{2^{1+\sigma}}{\abs{u}^{2+\sigma}} \int_0^1
 \frac{
   s^{(\sigma-1)/2}
 }{
   \sqrt{\frac{1-s}{s}}
-} \, ds \, d\mathcal{H}^2(u) \\
+} \, ds \\
   &=&
-  - \pi 2^{\sigma-3/2} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \int_0^1
+  \frac{2^{1+\sigma}}{\abs{u}^{2+\sigma}} \int_0^1
   s^{\sigma/2}\parens{1-s}^{-1/2}
-  \, ds \, d\mathcal{H}^2(u) \\
-  &=& -\pi 2^{\sigma - 3/2} B\parens{\frac{\sigma + 2}{2}, \frac{1}{2}} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \, d\mathcal{H}^2(u).
+  \, ds \\
+  &=&
+  \frac{2^{1+\sigma}}{\abs{u}^{2+\sigma}} B\parens{\frac{\sigma + 2}{2}, \frac{1}{2}} \\
+  \implies \kappa_\sigma \cdot n &=& -\pi 2^{1+\sigma-5/2} B\parens{\frac{\sigma + 2}{2}, \frac{1}{2}} \int_{\mathbb{R}^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \, d\haus{2}{u}.
 \end{IEEEeqnarray*}
 
 After converting to polar coordinates we're able to reuse our 2D calculation to evaluate the final integral, thus
 
-\begin{IEEEeqnarray*}{rCl}
-  \kappa_\sigma \cdot n &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} B \parens{\frac{\sigma + 2}{2}, \frac{1}{2}} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}} \\
-  &=& \frac{\pi 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}} \frac{\Gamma\parens{\frac{1}{2}} \Gamma\parens{\frac{1 - \sigma}{2}}}{\Gamma\parens{\frac{2-\sigma}{2}}} \\
-  &=& \frac{\pi^2 2^{\sigma - 1/2}}{\sigma} \frac{\Gamma\parens{\frac{\sigma+2}{2}} \Gamma\parens{\frac{1-\sigma}{2}}}{\Gamma\parens{\frac{\sigma+3}{2}}\Gamma\parens{\frac{2-\sigma}{2}}}.
-\end{IEEEeqnarray*}%:
+$$
+  \kappa_\sigma \cdot n = \frac{\pi 2^{\sigma-1/2}}{\sigma} B\parens{\frac{\sigma + 2}{2}, \frac{1}{2}} B\parens{\frac{1}{2}, \frac{1-\sigma}{2}}
+$$%:
 
 %:
 
@@ -743,7 +754,7 @@ where, for $\mathcal{R}(u, r) = \sqrt{r^2 - \frac{\abs{u}^2}{4}}$, we put
 $$
 \nu = \parens{ \frac{\mathcal{R}(u, r)}{\mathcal{R}(u, \sqrt{2}r)} b, \frac{r}{2 \mathcal{R}(u, r) \mathcal{R}(u, \sqrt{2}r)} \parens{u - 2ra} }.
 $$
-Similarly, we know $T_b \mathcal{B}(u, r) = \lsp{ e_i, \frac{\nu_2}{\abs{\nu_2}} }$ and so we can compute
+Similarly, we know $T_b \mathcal{B}(u) = \lsp{ e_i, \frac{\nu_2}{\abs{\nu_2}} }$ and so we can compute
 $$
 \nabla \xi (a, b) =
 \begin{blockarray}{cccc}
@@ -795,18 +806,18 @@ $$
 $$
 This is an $n-3$ dimensional sphere located at $\frac{u}{2r}$ with radius $\sqrt{1 - \frac{\abs{u}^2}{4r^2}}$ and thus we have
 \begin{IEEEeqnarray*}{rCl}
-  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} &=& \haus{n-3}{\mathcal{A}(u, r, b)} = S^{n-3}\parens{\sqrt{1 - \frac{\abs{u}^2}{4r^2}}} \\
-  &=& \frac{2 \pi^{\frac{n}{2} - 1}}{\Gamma\parens{ \frac{n}{2} }} \parens{1 - \frac{\abs{u^2}}{4r^2}}^{(n-3)/2}
+  \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} &=& \haus{n-3}{\mathcal{A}(u, r, b)} = S_{n-3}\parens{\sqrt{1 - \frac{\abs{u}^2}{4r^2}}} \\
+  &=& \omega_{n-3} \parens{1 - \frac{\abs{u^2}}{4r^2}}^{(n-3)/2}
   =
-  \frac{2 \pi^{\frac{n}{2} - 1}}{\Gamma\parens{ \frac{n}{2} }} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r).
+  \omega_{n-3} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r),
 \end{IEEEeqnarray*}
-Putting this back into our top-level integral gives us
+where $\omega_{n-1} = \frac{2\pi^{n/2}}{\Gamma(n/2)}$ is the surface area of a unit ball in $\mathbb{R}^n$. Putting this back into our top-level integral gives us
 \begin{IEEEeqnarray*}{ll}
   \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} & \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2
   \int_{\mathcal{A}(u, r, b)} \, d \haus{n-3}{a} \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
   &= \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{1}{r^{2+\sigma} \mathcal{R}(u, r) } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
-  \frac{2 \pi^{\frac{n}{2} - 1}}{\Gamma\parens{ \frac{n}{2} }} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r) \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
-  &= \frac{-\pi^{n/2 - 1}}{\sqrt{2}\Gamma\parens{\frac{n}{2}}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
+  \omega_{n-3} \frac{1}{r^{n-3}} \mathcal{R}^{n-3}(u, r) \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
+  &= \frac{-\omega_{n-3}}{2\sqrt{2}} \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
   \, d \haus{n-2}{b} \, dr \, d \haus{2}{u}. \\
 \end{IEEEeqnarray*}
 %:
@@ -827,28 +838,28 @@ $$
 $$
 thus
 $$
-\zeta^{-1}\parens{\braces{v}} = \braces{ b \in \mathcal{B}(u) \mid b \cdot \frac{u^\perp}{\abs{u^\perp}} = v, \, \sqrt{\parens{b \cdot f_1} + \parens{b \cdot f_2} + \cdots + \parens{b \cdot f_{n-2}}^2} = \sqrt{1-q^2} },
+\zeta^{-1}\parens{\braces{v}} = \braces{ b \in \mathcal{B}(u) \mid b \cdot \frac{u^\perp}{\abs{u^\perp}} = v, \, \sqrt{\parens{b \cdot f_1} + \parens{b \cdot f_2} + \cdots + \parens{b \cdot f_{n-2}}^2} = \sqrt{1-v^2} },
 $$
 and so
 $$
-\int_{\zeta^{-1}(v)} \, d\haus{n-3}{x} = \haus{n-3}{\zeta^{-1}(v)} = \haus{n-3}{S_{n-3}\parens{\sqrt{1-v^2}}} = \frac{2\pi^{n/2-1}}{\Gamma\parens{n/2-1}}\parens{1-v^2}^{(n-3)/2}.
+\int_{\zeta^{-1}(v)} \, d\haus{n-3}{x} = \haus{n-3}{\zeta^{-1}(v)} = \haus{n-3}{S_{n-3}\parens{\sqrt{1-v^2}}} = \omega_{n-3}\parens{1-v^2}^{(n-3)/2}.
 $$
-In order to apply the co-area formula we also need to compute $J \zeta$. To that end, notice $\mathbb{R}^n = \lsp{\frac{u}{\abs{u}}, \frac{u^\perp}{\abs{u^\perp}}, u^*, g_1, \ldots, g_{n-3}}$ when
+In order to apply the co-area formula we also need to compute $J \zeta$. To that end, notice $\mathbb{R}^n = \lsp{\frac{u}{\abs{u}}, u^*, b, g_1, \ldots, g_{n-3}}$ when
 $$
-u^* = \frac{b - \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} \frac{u^\perp}{\abs{u}^\perp}}{\sqrt{1-\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}}, \, \braces{g_i} \text{ orthonormal}
+u^* = \frac{\frac{u^\perp}{\abs{u^\perp}} - \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} b}{\sqrt{1-\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}}, \, \braces{g_i} \text{ orthonormal}
 $$ and thus, since $b \in \mathcal{B}(u) \implies \abs{b} = 1, \, b \cdot u = 0$ we find
 $$
-T_b(\mathcal{B}(u)) = \lsp{\frac{u^\perp}{\abs{u^\perp}}, g_1, \ldots g_{n-3}}.
+T_b(\mathcal{B}(u)) = \lsp{b^*, g_1, \ldots g_{n-3}}.
 $$
 With this characterization we're able to see
 $$
 \nabla \zeta(b) =
 \begin{blockarray}{ccccc}
-  \frac{u^\perp}{\abs{u^\perp}} & g_1 & \ldots & g_{n-3} \\
+  b^* & g_1 & \ldots & g_{n-3} \\
   \begin{block}{(cccc)c}
-    1 & 0 & \cdots & 0 & 1 \\
+    \sqrt{1-\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}  & 0 & \cdots & 0 & 1 \\
   \end{block}
-\end{blockarray} \implies J \zeta(b) = 1.
+\end{blockarray} \implies J \zeta(b) = \sqrt{1-\parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}}^2}.
 $$
 Lastly, before applying the co-area formula, notice
 $$
@@ -857,21 +868,23 @@ $$
 Now we're ready to finally apply the co-area formula to see
 \begin{IEEEeqnarray*}{rCl}
   \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 \, d\haus{n-2}{b} &=&
-  \int_{-1}^1 \abs{v}^2 \int_{\zeta^{-1}\parens{\braces{v}}} \, d\haus{n-3}{x} \, dv \\
+  \int_{-1}^1 \abs{v}^2 \int_{\zeta^{-1}\parens{\braces{v}}} \frac{1}{\sqrt{1-v^2}}\, d\haus{n-3}{x} \, dv \\
   &=&
-  \frac{2\pi^{n/2-1}}{\Gamma\parens{n/2-1}} \int_{-1}^1 v^2 \parens{1-v^2}^{(n-3)/2} \, dv \\
+  \int_{-1}^1 \abs{v}^2 \parens{1-v^2}^{-1/2} \int_{\zeta^{-1}\parens{\braces{v}}} \, d\haus{n-3}{x} \, dv \\
   &=&
-  \frac{4\pi^{n/2-1}}{\Gamma\parens{n/2-1}} \int_{0}^1 v^2 \parens{1-v^2}^{(n-3)/2} \, dv \\
+  \omega_{n-3} \int_{-1}^1 v^2 \parens{1-v^2}^{(n-4)/2} \, dv \\
   &=&
-  \frac{2\pi^{n/2-1}}{\Gamma\parens{n/2-1}} \int_{0}^1 v^{1/2} \parens{1-v}^{(n-3)/2} \, dv = \frac{2\pi^{n/2-1}}{\Gamma\parens{n/2-1}} B\parens{\frac{3}{2}, \frac{n-1}{2}},
+  2\omega_{n-3} \int_{0}^1 v^2 \parens{1-v^2}^{(n-4)/2} \, dv \\
+  &=&
+  \omega_{n-3} \int_{0}^1 v^{1/2} \parens{1-v}^{(n-4)/2} \, dv = \omega_{n-3} B\parens{\frac{3}{2}, \frac{n-2}{2}},
 \end{IEEEeqnarray*}
-where we use evenness of the integrand \& the transformation $t^2 \to t$ for the last two lines. Plugging this back into our top-level calculation gives the following:
+where we use evenness of the integrand \& the transformation $v^2 \to v$ for the last two lines. Plugging this back into our top-level calculation gives the following:
 \begin{IEEEeqnarray*}{ll}
-  \frac{-\pi^{n/2 - 1}}{\sqrt{2}\Gamma\parens{\frac{n}{2}}} &\int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
-  \, d \haus{n-2}{b} \, dr \, d \haus{2}{u}. \\
+  \frac{-\omega_{n-3}}{2\sqrt{2}} &\int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \int_{\mathcal{B}(u)} \abs{\sproj b^\perp}^2 
+  \, d \haus{n-2}{b} \, dr \, d \haus{2}{u} \\
   &=
-  \frac{-\pi^{n/2 - 1}}{\sqrt{2}\Gamma\parens{\frac{n}{2}}} \frac{2\pi^{n/2-1}}{\Gamma\parens{n/2-1}} B\parens{\frac{3}{2}, \frac{n-1}{2}}
-  \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \, dr \, d\haus{2}{u}
+  \frac{-\omega_{n-3}^2}{2\sqrt{2}} B\parens{\frac{3}{2}, \frac{n-2}{2}}
+  \int_{\mathbb{R}^2} \chi(u) \int_{\phi(\mathcal{D}(u))} \frac{\mathcal{R}^{n-4}(u, r)}{r^{\sigma+n-1} } \, dr \, d\haus{2}{u}.
 \end{IEEEeqnarray*}
 %:
 
@@ -880,7 +893,7 @@ where we use evenness of the integrand \& the transformation $t^2 \to t$ for the
 Our computation simplifies to
 $$
 \kappa_\sigma \cdot n =
-  \frac{-\sqrt{2}\pi^{n-2}\parens{\frac{n}{2}-1}}{\parens{\Gamma\parens{\frac{n}{2}}}^2} B\parens{\frac{3}{2},\frac{n-1}{2}}
+  \frac{-\omega_{n-3}^2}{2\sqrt{2}} B\parens{\frac{3}{2},\frac{n-2}{2}}
   \int_{\mathbb{R}^2} \chi(u) \int_{\frac{\abs{u}}{2}}^\infty r^{1-\sigma-n} \parens{r^2-\frac{\abs{u}^2}{4}}^{(n-4)/2} \, dr \, d\haus{2}{u}.
 $$
 Using the transformation $r \to \frac{\abs{u}}{2}s^{-1/2} \implies dr = \frac{-\abs{u}}{4}s^{-3/2} ds$ and $r \to \abs{u}/2 \implies s \to 1, \, r \to \infty \implies s \to 0$ we find
@@ -892,12 +905,12 @@ Using the transformation $r \to \frac{\abs{u}}{2}s^{-1/2} \implies dr = \frac{-\
 \end{IEEEeqnarray*}
 Plugging this back into the above integral we find
 $$
-\kappa_\sigma \cdot n = \frac{-2^{3/2+\sigma}\pi^{n-2}\parens{\frac{n}{2}-1}}{\parens{\Gamma\parens{\frac{n}{2}}}^2} B\parens{\frac{3}{2},\frac{n-1}{2}} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} }
+\kappa_\sigma \cdot n = -2^{\sigma-1/2}\omega_{n-3}^2 B\parens{\frac{3}{2},\frac{n-2}{2}} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} }
 \int_\mathbb{R^2} \frac{\chi(u)}{\abs{u}^{2+\sigma}} \, d\haus{2}{u}.
 $$
 Just as with the 3D calculation, we're able to convert to polar coordinates and reuse the 2D calculation to find
 $$
-\kappa_\sigma \cdot n = \frac{-2^{3+\sigma}\pi^{n-2}\parens{\frac{n}{2}-1}}{\sigma\parens{\Gamma\parens{\frac{n}{2}}}^2} B\parens{\frac{3}{2},\frac{n-1}{2}} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} } B\parens{\frac{1}{2}, \frac{1-\sigma}{2}}.
+\kappa_\sigma \cdot n = \frac{2\omega_{n-3}^2}{\pi}  B\parens{\frac{3}{2},\frac{n-2}{2}} \frac{\pi2^{\sigma-1/2}}{\sigma} B\parens{ \frac{\sigma+2}{2}, \frac{n-2}{2} } B\parens{\frac{1}{2}, \frac{1-\sigma}{2}}.
 $$
 
 %:
