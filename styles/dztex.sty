@@ -39,17 +39,41 @@
 % Customizing section etc.
 \RequirePackage{titlesec}
 
-% It me
-\author{Dan Zimmerman}
-
 \newcommand{\declcolor}[2]{%
 \definecolor{#1}{RGB}{#2}%
 \expandafter\newcommand\csname #1\endcsname[1]{\textcolor{#1}{##1}}}
 
-% My colors
-%\declcolor{dzcol}{139, 112, 194}
+\newcommand{\checkfor}[3]{%
+  \ifcsname#1\endcsname%
+  #2
+  \else%
+  #3
+  \fi%
+}
 
-% Taken from my terminal colors 8)
+\checkfor{dznopagestyle}{
+
+\declcolor{dzwhite}{218,223,224}
+\declcolor{dzcyan}{0,0,0}
+
+\declcolor{dzcol}{0,0,0}
+
+\declcolor{dzmagenta}{0,0,0}
+\declcolor{dzblue}{0,0,0}
+\declcolor{dzyellow}{0,0,0}
+\declcolor{dzgreen}{0,0,0}
+\declcolor{dzred}{0,0,0}
+\declcolor{dzgray}{0,0,0}
+\declcolor{dzbrtwhite}{0,0,0}
+\declcolor{dzbrcyan}{0,0,0}
+\declcolor{dzbrmagenta}{0,0,0}
+\declcolor{dzbrblue}{0,0,0}
+\declcolor{dzbryellow}{0,0,0}
+\declcolor{dzbrgreen}{0,0,0}
+\declcolor{dzbrred}{0,0,0}
+\declcolor{dzbrgray}{0,0,0}
+
+}{
 \declcolor{dzwhite}{218,223,224}
 \declcolor{dzcyan}{81,180,169}
 
@@ -69,11 +93,36 @@
 \declcolor{dzbrgreen}{144,203,130}
 \declcolor{dzbrred}{247,96,80}
 \declcolor{dzbrgray}{153,153,153}
+  % It me
+  \author{Dan Zimmerman}
 
-% Lists
-\newlist{dzenum}{enumerate}{2}
-\setlist[dzenum,1]{label={\color{dzcol} (\alph*)}}
-\setlist[dzenum,2]{label={\color{dzcol} (\roman*)}}
+  \setlength{\parindent}{0pt}
+  \setlength{\headheight}{36pt}
+
+  % Changes style for first page
+  \thispagestyle{fancy}
+  \fancyhead[R]{{\large \dzhdr{\inserttitle}}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
+  \fancyhead[L]{\today \vspace{1mm}}
+
+  \titleformat*{\section}{\LARGE\bfseries\sffamily\color{dzcol}}
+  \titleformat*{\subsection}{\Large\bfseries\sffamily\color{dzcol}}
+  \titleformat*{\subsubsection}{\large\sffamily}
+  \titleformat*{\paragraph}{\large\sffamily}
+  \titleformat*{\subparagraph}{\large\sffamily}
+
+  \renewenvironment{proof}{\begin{quote}\dzbrgray{\textsf{Proof.}}}{\newline\qed\end{quote}}
+
+  % Lists
+  \newlist{dzenum}{enumerate}{2}
+  \setlist[dzenum,1]{label={\color{dzcol} (\alph*)}}
+  \setlist[dzenum,2]{label={\color{dzcol} (\roman*)}}
+
+}
+
+% My colors
+%\declcolor{dzcol}{139, 112, 194}
+
+% Taken from my terminal colors 8)
 
 % Auto-sized DeclarePairedDelimiter
 \newcommand\swapifbranches[3]{#1{#3}{#2}}
@@ -99,8 +148,6 @@
 \newcommand{\pagehline}{\noindent\rule{\textwidth}{0.4pt}}
 
 \makeatletter
-\let\inserttitle\@title
-\let\insertauthor\@author%
 % I prefer upgamma
 \let\oldgamma\gamma
 \renewcommand{\gamma}{\@ifstar{\gamma}{\upgamma}}
@@ -117,12 +164,6 @@
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{subsection}}
 
-\titleformat*{\section}{\LARGE\bfseries\sffamily\color{dzcol}}
-\titleformat*{\subsection}{\Large\bfseries\sffamily\color{dzcol}}
-\titleformat*{\subsubsection}{\large\sffamily}
-\titleformat*{\paragraph}{\large\sffamily}
-\titleformat*{\subparagraph}{\large\sffamily}
-
 \newtheoremstyle{dztheorem}
 {\topsep}             % Space above
 {\topsep}             % Space below
@@ -138,8 +179,6 @@
     }%
   }%
 }                % Theorem head spec
-
-\newenvironment{claim}[1][]{{\bfseries\sffamily \dzblue{\fbox{Claim}} }\slshape}{\newline}
 
 \newtheoremstyle{dzlemma}
 {1em}             % Space above
@@ -188,8 +227,6 @@
   }%
 }                % Theorem head spec
 
-\theoremstyle{dzlemma}
-\newtheorem{lemma}{Lemma}
 \theoremstyle{dzlemmanonum}
 \newtheorem{lem}{Lemma}
 
@@ -197,22 +234,22 @@
 \newtheorem{exercise}{Exercise}
 
 \theoremstyle{dztheorem}
-\newtheorem{theorem}{Theorem}
+
+\theoremstyle{dzlemma}
 
 % Use subsection number when numbering
-\numberwithin{lemma}{subsection}
-\numberwithin{theorem}{subsection}
+\checkfor{dznopagestyle}{
+  \newtheorem{theorem}{Theorem}[section]
+  \newtheorem{lemma}[theorem]{Lemma}
+}{
+  \newtheorem{lemma}{Lemma}
+  \numberwithin{theorem}{subsection}
+  \numberwithin{lemma}{subsection}
+}
 
 % Capitalizes "Theorem"/"Lemma" when referencing theorems/lemmas
 \crefname{lemma}{Lemma}{Lemmas}
 \crefname{theorem}{Theorem}{Theorems}
 
-\renewenvironment{proof}{\begin{quote}\dzbrgray{\textsf{Proof.}}}{\newline\qed\end{quote}}
+\newenvironment{claim}[1][]{{\bfseries\sffamily \dzblue{\fbox{Claim}} }\slshape}{\newline}
 
-\setlength{\parindent}{0pt}
-\setlength{\headheight}{36pt}
-
-% Changes style for first page
-\thispagestyle{fancy}
-\fancyhead[R]{{\large \dzhdr{\inserttitle}}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
-\fancyhead[L]{\today \vspace{1mm}}
