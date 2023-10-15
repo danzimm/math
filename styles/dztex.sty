@@ -31,13 +31,13 @@
 % For eqref
 \RequirePackage{amsmath}
 
-% For cref & hyperlinks
-\RequirePackage{hyperref}
-% N.B. Order is important here 
-\RequirePackage{cleveref}
-
 % Customizing section etc.
 \RequirePackage{titlesec}
+
+% For cref & hyperlinks; needs to be second to last
+\RequirePackage[pdfencoding=auto]{hyperref}
+% N.B. Order is important here 
+%\RequirePackage{cleveref}
 
 \newcommand{\declcolor}[2]{%
 \definecolor{#1}{RGB}{#2}%
@@ -248,8 +248,8 @@
 }
 
 % Capitalizes "Theorem"/"Lemma" when referencing theorems/lemmas
-\crefname{lemma}{Lemma}{Lemmas}
-\crefname{theorem}{Theorem}{Theorems}
+%\crefname{lemma}{Lemma}{Lemmas}
+%\crefname{theorem}{Theorem}{Theorems}
 
 \newenvironment{claim}[1][]{{\bfseries\sffamily \dzblue{\fbox{Claim}} }\slshape}{\newline}
 
