@@ -1,0 +1,170 @@
+\documentclass{article}
+
+\newcommand{\dznopagestyle}{}
+
+%; Packages
+\usepackage{mathtools}
+\usepackage{IEEEtrantools}
+\usepackage{blkarray}
+\usepackage{bigints}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{titling}
+\usepackage{ifthen}
+\usetikzlibrary{arrows.meta,arrows,positioning}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.5.1}
+\pgfplotsset{every tick label/.append style={font=\footnotesize}}
+\usepackage{dztex}
+%:
+
+%; Commands
+\renewcommand{\familydefault}{\sfdefault}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\hm}{\mathcal{H}}
+\DeclareMathOperator{\betop}{\mathcal{B}}
+\DeclareMathOperator{\gamop}{\Gamma}
+\DeclareMathOperator{\codim}{\mathrm{codim}}
+\newcommand{\bet}[1]{\betop\parens{#1}}
+\newcommand{\gam}[1]{\gamop\parens{#1}}
+\newcommand{\aeven}{\mathcal{A}_{\mathrm{even}}^+}
+\newcommand{\aodd}{\mathcal{A}_{\mathrm{odd}}^+}
+\newcommand{\bec}[1]{\mathbf{#1}}
+\newcommand{\ud}{\mathrm{d}}
+\newcommand{\eqlbl}[1]{\opstack{=}{#1}}
+\newcommand{\opstack}[2]{\stackrel{\mathclap{\normalfont\tiny \mbox{#2}}}{#1}}
+\newcommand{\dby}[1]{\frac{\ud}{\ud #1}}
+\newcommand{\lsp}[1]{\mathrm{lsp}\braces{#1}}
+\newcommand{\utp}{\mathcal{U}_2^\perp}
+
+\newcommand{\haus}[2]{\mathcal{H}^{#1}\parens{#2}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\optparens}[1]{\ifthenelse{\equal{#1}{}}{}{\parens{#1}}}
+\newcommand{\U}[1]{\mathcal{U}\optparens{#1}}
+\newcommand{\UTP}[1]{\mathcal{U}_2^\perp\optparens{#1}}
+\newcommand{\chit}[2]{\overline{\chi}_{#1}\optparens{#2}}
+\newcommand{\D}[1]{\mathcal{D}\optparens{#1}}
+\newcommand{\E}[1]{\mathcal{E}\optparens{#1}}
+\newcommand{\F}[1]{\mathcal{F}\optparens{#1}}
+\newcommand{\Et}[1]{\mathcal{E}_2\optparens{#1}}
+\newcommand{\Eo}[1]{\mathcal{E}_1\optparens{#1}}
+\newcommand{\A}{\mathcal{A}^{+}}
+\newcommand{\Ae}{\A_{\textup{Even}}}
+\newcommand{\Ao}{\A_{\textup{Odd}}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\ks}{\kappa_\sigma}
+\newcommand{\B}[1]{B\parens{#1}}
+\newcommand{\G}[1]{\Gamma\parens{#1}}
+\newcommand{\sgn}[1]{\mathrm{sgn}\parens{#1}}
+\newcommand{\J}[1]{\mathcal{J}{#1}}
+\newcommand{\JJ}[1]{\overline{\mathcal{J}}{#1}}
+\newcommand{\Pu}{\Pi^+}
+\newcommand{\Nu}{\Pi^-}
+\newcommand{\Prs}{\mathcal{P}_S}
+\newcommand{\Prsbp}{\Prs b^\perp}
+\newcommand{\Prsbpa}{\abs{\Prsbp}}
+\newcommand{\T}[2]{\mathcal{T}_{#2}\parens{#1}}
+\newcommand{\gflow}[1]{\gamma_{#1}}
+\newcommand{\flowder}[2]{\left. \dby{s} #1\parens{\gflow{#2}\parens{s}}\right|_{s=0}}
+\newcommand{\eab}{\epsilon_{a,b}}
+
+\newcommand{\sproj}{\Prs}
+\makeatletter
+% Customize \S for convenience
+\let\oldS\S
+\renewcommand{\S}{\@ifstar{\S}{\mathcal{S}}}
+\makeatother
+
+% Hijack \dot
+\let\olddot\dot
+\renewcommand{\dot}[2]{{#1}\cdot{#2}}
+\newcommand{\pdot}[2]{\parens{\dot{#1}{#2}}}
+%:
+
+\begin{document}
+
+\section{Premise}%;
+Our project is to show that non-local curvature agrees with classical curvature in an approprite limit, and namely we want to determine exactly what constants are in order to rigorously define the "appropriate limit". So far we've shown that the non-local curvature of a unit circle sitting in the plane spanned by the first two coordinates agrees with classical curvature in an appropriate limit (and we determined the exact constant necessary to define this limit).
+%:
+\section{Strategy for Approximation}%;
+Next on our agenda is to show the non-local curvature of a general curve agrees, again in some sort of limit, with the non-local curvature of a parabolic curve with identical classical curvature. Concretely, this looks like showing
+$$
+\abs{ \kappa_\sigma^\mathcal{C}(z) - \kappa_\sigma^{\mathcal{C}'} } = \abs{\int_{\mathcal{D}} \parens{\chi_\mathcal{C} - \chi_{\mathcal{C}'}}(a, b, r) \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)} a}{r^{1+\sigma}} \, d\haus{2n-2}{a,b,c}} \to_{\sigma lim} 0 \textup{ as } \sigma \to 1
+$$
+where $\mathcal{D}$ is the set of disks represented by $a, b, r$ with $b \cdot t(z) > 0$, $\mathcal{C}$ is the general curve, $\mathcal{C}'$ is the parabolic (2nd order) approximation of $\mathcal{C}$, $\kappa_\sigma^\mathcal{C}$ (resp. $\kappa_\sigma^{\mathcal{C}'}$ is the $\sigma$ non-local curvature of $\mathcal{C}$ (resp. $\mathcal{C}'$) and $\chi_\mathcal{C}$ (resp. $\chi_{\mathcal{C}'}$) is $1$ when the number of intersections of the disk with $\mathcal{C}$ (resp. $\mathcal{C}'$) represented by $a, b, r$ is even and $-1$ when odd.
+
+N.B. $\to_{\sigma lim}$ is shorthand for "appropriate limit", i.e. we multiple the value by some sort of expression including $\sigma$ before taking the limit.
+
+In order to show this our plan is to break this problem into two sub-problems:
+\begin{enumerate}
+  \item Break $\mathcal{D}$ up into
+    \begin{itemize}
+      \item[$\mathcal{D}_{\gamma}$] the set of disks whose boundary intersects the ribbon formed between $\mathcal{C}$ and $\mathcal{C}'$. We use $\gamma$ as that was the variable we used to define the homotopy between $\mathcal{C}$ and $\mathcal{C}'$. This set is the one we actually care about for our computation in the second sub-problem below.
+      \item[$\mathcal{D}_{Tan}$] the set of disks tangent to the ribbon formed between $\mathcal{C}$ and $\mathcal{C}'$. We want to show $\haus{2n-2}{\mathcal{D}_{Tan}} = 0$
+      \item[$\mathcal{D}_{Eq}$] the set of all other disks, i.e. the disks who are not tangent to the ribbon, nor whose boundary falls in the ribbon. In particular these disks are transversal to the ribbon, by definition. We want to show the parity of intersection of each of these disks with $\mathcal{C}$ and $\mathcal{C}'$ agrees.
+    \end{itemize}
+    With this partition (and the desired properties listed) we can show
+    $$
+    \abs{ \kappa_\sigma^\mathcal{C}(z) - \kappa_\sigma^{\mathcal{C}'} }
+    \le 2 \abs{\int_{\mathcal{D}\gamma} \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)} a}{r^{1+\sigma}} \, d\haus{2n-2}{a,b,c}} .
+    $$
+\item With the above out of the way, our objective becomes showing
+  $$
+    \abs{ \int_{\mathcal{D}_{\gamma}} \frac{ \parens{a \cdot t(z)}b - \parens{b \cdot t(z)} a}{r^{1+\sigma}} \, d\haus{2n-2}{a,b,r} } \to_{\sigma lim} 0 \textup{ as } \sigma \to 0.
+  $$
+\end{enumerate}
+
+In 2D (2) can be shown by using an area formula (i.e. we can parameterize each disk by the point its boundary intersects the ribbon and do the integral directly that way). In order to expand this calculation to N-D we need to first do a co-area calculation (namely we slice on each point in the ribbon) and then an area calculation to parameterize the ribbon by its two inputs. This is where the work you were doing fits in-- namely determining a way to efficiently do this calculation and show that the above property is as we desire.
+
+N.B. As part of these calculations we split up this integral into the disks where $r < \epsilon_r(\sigma)$ where $\epsilon_r(\sigma)$ is some small parameter dependent on $\sigma$ since we can show the integral vanishes in the $\sigma lim$ as $\sigma \to 0$ for large $r$.
+%:
+\section{Breaking up $\mathcal{D}$}%;
+We have 3 sets to analyze which partition $\mathcal{D}$:
+\begin{itemize}
+  \item[$\mathcal{D}_{\gamma}$] the set of disks whose boundary intersects the ribbon formed between $\mathcal{C}$ and $\mathcal{C}'$. We handle these disks in our calculation in the 2nd subproblem above, so we don't need to further analyze these.
+
+  \item[$\mathcal{D}_{Tan}$] the set of disks tangent to the ribbon formed between $\mathcal{C}$ and $\mathcal{C}'$. Roughly, we have a classic measure $0$ argument here, namely that the tangency introduces an additional constraint which reduces the dimension of the generated manifold. In order to rigorously show this we should be able to define a lipscitz function defined whose image under a $\haus{2n-2}{\cdot}$ measure $0$ set contains these disks. With this rough sketch in place, we'll ignore this bit for now.
+
+  \item[$\mathcal{D}_{Eq}$] the set of all other disks, i.e. the disks who are not tangent to the ribbon, nor whose boundary falls in the ribbon. The discussion below summarizes the different solution spaces we've explored to show that the parity of intersections of each disk with $\mathcal{C}$ agrees with the parity of intersections with $\mathcal{C}'$.
+\end{itemize}
+%:
+\section{Transversality \& Intersection modulo $2$}%;
+In Differential Topology by Guillemin \& Pollack the idea of transversality, as, in some sense, the antithesis of tangency is introduced. Namely, given a manifold $X$, a (boundaryless) manifold $Y$ and a (boundaryless) sub-manifold $Z \subset Y$ we call $f : X \to Y$ transversal to $Z$ if
+$$
+\mathrm{Img}\parens{d f_x} + T_{f(x)}(Z) = T_{f(x)}(Y),
+$$
+and when this is the case we have
+$$
+\codim\parens{f^{-1}(Z)} = \codim(Z) \iff \dim X - \dim f^{-1}(Z) = \dim Y - \dim Z.
+$$
+Of note: this book only ever deals with boundaryless $Y, Z$ in this setup. Even in the chapter where manifolds with boundary are introduced the initial result mirroring the above definition for manifolds with boundary only allows $X$ to have boundary (see page 62).
+\,\\
+Ignoring this, the theorem we wish to reuse is that on the bottom of page 78, namely:
+\begin{theorem}
+  If $f_0, f_1 : X \to Y$ are homotopic and both transversal to $Z$, then $I_2(f_0, Z) = I_2(f_1, Z)$, where $X$ is any compact manifold, $Y$ is boundaryless, $Z$ is closed in $Y$ and $\dim X + \dim Z = \dim Y$.
+\end{theorem}
+The proof of this theorem contains 3 steps:
+\begin{enumerate}
+  \item It takes the homotopy and perturbs it so that it's transversal to $Z$. Call the transversal homotopy $F$. This is done with the extension theorem on page 72.
+  \item Next it shows $\dim F^{-1}(Z) = 1$ and is a manifold with boundary and characterizes its boundary. This is done with the theorem on page 60.
+  \item Finally it uses the classification of one manifolds combined with the above characterization to show the desired result. The classification of one manifolds is discussed on pages 64 \& 65.
+\end{enumerate}
+
+In our situation we're fixing $f_0, f_1$ as parameterizations of $\C, \C'$, considering $Y$ the ambient space ($\R{2}$ for the 'easy' case) and $Z$ the disk lying within that space. With these definitions the result is exactly what we want: namely the parity of intersections of $\C,\C'$ with the disk ($Z$) is equal. Unfortunately this theorem doesn't cleanly apply because:
+\begin{itemize}
+  \item $X$ is not compact, at least not in this basic setup where we consider the parameterizations defined on some small open interval around $0$.
+  \item $Z$ is not closed (i.e. boundaryless and compact)
+\end{itemize}
+In order to address the first issue we can take each parameterization and connect the two ends so that the domain is a circle. We should connect the ends outside of the radius $\epsilon_r(\sigma)$ so that when integrating, this change doesn't affect the computation. Additionally, we can ensure the parameterizations both agree where they're connected, this is so that the parity of intersections agreeing on this "connected" or "extended" set of parameterizations will imply the parity agrees for the original parameterizations too (this detail needs to be worked out more rigorously, but this should generally work). With this change our domain $X$ is now a compact boundaryless manifold (i.e. a circle).
+
+Addressing the second issue is a bit more difficult, but we can work set $Z$ to be the interior (from a manifold sense) of the disk since we know the homotopy will never sweep through the boundary of the disk (so, for all intents and purposes, we don't need the boundary)-- N.B. this is where we use the context of our problem, namely that the boundary of the disk doesn't lie in the ribbon, aka the image of the homotopy. Now let's see how the proof steps go:
+\begin{enumerate}
+  \item The homotopy is transversal by construction (since we separated out $\mathcal{D}_{Tan}$)
+  \item The theorem on page 60 doesn't state anything about the closedness of $Z$, just that it's boundaryless (which, with our adaption above, it is), so we can characterize the boundary of $F^{-1}(Z)$ just as the theorem does
+  \item Finally the characterization of one manifolds is the same, so we end up with the same result.
+\end{enumerate}
+It's natural to ask: but the theorem originally stated $Z$ needed to be closed, but we don't have closed $Z$: what gives? Well, the first step of the theorem relies on the extension theorem, which requires closed $Z$, but since our construction gives us the desired property, we don't need that theorem, so we don't need $Z$ to be closed!
+
+%:
+\end{document}
