@@ -379,7 +379,7 @@
   \framesubtitle{A fractional notion of length and an associated nonlocal curvature - Seguin (2020)}
   Minimizing over $\mc$ with fixed boundary, $z \in \mc$
   $$
-  \parens{\int_{\Aodd(z)} - \int_{\Aeven(z)}} \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)}a}{r^{1+\sigma}} d\haus{2n-2}{a, b, r} = 0
+  \parens{\int_{\Aeven(z)} - \int_{\Aodd(z)}} \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)}a}{r^{1+\sigma}} d\haus{2n-2}{a, b, r} = 0
   $$
   \pau
   \begin{figure}
@@ -451,20 +451,20 @@
 \begin{frame}
   \frametitle{$z \in \C_R$, $n=2$}
   $$
-    \kappa_\sigma = \parens{\int_{\Aodd} - \int_{\Aeven}} \frac{\parens{a \cdot t}b - \parens{b \cdot t}a}{r^{1+\sigma}} d\haus{2}{a, b, r}
+    \kappa_\sigma = \parens{\int_{\Aeven(z)} - \int_{\Aodd(z)}} \frac{\parens{a \cdot t}b - \parens{b \cdot t}a}{r^{1+\sigma}} d\haus{2}{a, b, r}
   $$
   \onslide<2->{
     $\R{2} = \mathrm{span}\braces{t, n}$
     \onslide<3->{
       \begin{align*}
-        \indot{\kappa_\sigma}{t} &= \parens{\int_{\Aodd} - \int_{\Aeven}} \frac{\idot{a}{t}\idot{b}{t} - \idot{b}{t}\idot{a}{t}}{r^{1+\sigma}} d\haus{2}{a, b, r} = 0 \\
+        \indot{\kappa_\sigma}{t} &= \parens{\int_{\Aeven(z)} - \int_{\Aodd(z)}} \frac{\idot{a}{t}\idot{b}{t} - \idot{b}{t}\idot{a}{t}}{r^{1+\sigma}} d\haus{2}{a, b, r} = 0 \\
         \onslide<4->{
-          \indot{\kappa_\sigma}{n} &= \parens{\int_{\Aodd} - \int_{\Aeven}} \frac{\idot{a}{t}\idot{b}{n} - \idot{b}{t}\idot{a}{n}}{r^{1+\sigma}} d\haus{2}{a, b, r} \\
-          \onslide<5->{&= \int_{\Ap} \chit{\Aeven}{a,b,r} \frac{\idot{a}{t}\idot{b}{n} - \idot{b}{t}\idot{a}{n}}{r^{1+\sigma}} d\haus{2}{a, b, r}}
+          \indot{\kappa_\sigma}{n} &= \parens{\int_{\Aeven(z)} - \int_{\Aodd(z)}} \frac{\idot{a}{t}\idot{b}{n} - \idot{b}{t}\idot{a}{n}}{r^{1+\sigma}} d\haus{2}{a, b, r} \\
+          \onslide<5->{&= \int_{\Ap(z)} \chit{\Aeven(z)}{a,b,r} \frac{\idot{a}{t}\idot{b}{n} - \idot{b}{t}\idot{a}{n}}{r^{1+\sigma}} d\haus{2}{a, b, r}}
         }
       \end{align*}
       \onslide<5->{
-        \raggedleft $\footnotesize \chitt{\Aeven} = \chi_{\Aeven} - \chi_{\parens{\Aeven}^c} = \chi_{\Aeven} - \chi_{\Aodd}$
+        \raggedleft $\footnotesize \chitt{\Aeven(z)} = \chi_{\Aeven(z)} - \chi_{\parens{\Aeven(z)}^c} = \chi_{\Aeven(z)} - \chi_{\Aodd(z)}$
       }
     }
   }
@@ -591,7 +591,7 @@
   \frametitle{$z \in \C_R$, $n \ge 2$}
   \vspace{-5mm}
   $$
-    \kappa_\sigma(z) := \parens{\int_{\Aodd(z)} - \int_{\Aeven(z)}} \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)}a}{r^{1+\sigma}} d\haus{2n-2}{a, b, r}
+    \kappa_\sigma(z) := \parens{\int_{\Aeven(z)} - \int_{\Aodd(z)}} \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)}a}{r^{1+\sigma}} d\haus{2n-2}{a, b, r}
   $$
   \begin{enumerate}
     \item<2-> Slice on intersection with $t \times n$ plane (i.e. $u$ in $2$d)
@@ -646,7 +646,7 @@
 \setbeamertemplate{frametitle}[default]
 \begin{frame}
   \frametitle{$2$nd order approximation}
-  Want $\limuo (1-\sigma) \abs{\kappa_\sigma(z; \C) - \kappa_\sigma(z; \C_R)} = 0$ for arbitrary $\C$, $\C_{R=1/\kappa_\sigma}$
+  Want $\limuo (1-\sigma) \abs{\kappa_\sigma(z; \C) - \kappa_\sigma(z; \C_R)} = 0$ for arbitrary $\C$, $\C_{R=1/\kappa}$
   \onslide<2->{
     \begin{align*}
       \abs{\kappa_\sigma(z; \C) - \kappa_\sigma(z; \C_R)} &\lesssim \int_{\Ap} \frac{\abs{\chitt{\Aeven(\C)} - \chitt{\Aeven(\C_R)}}}{r^{1+\sigma}}
@@ -704,7 +704,7 @@
   New definition?
   $$
     \hspace{-2mm}
-    \kappa_\sigma(z) := \frac{1}{K(n)} \parens{\int_{\Aodd(z)} - \int_{\Aeven(z)}} \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)}a}{r^{1+\sigma}} d\haus{2n-2}{a, b, r}
+    \kappa_\sigma(z) := \frac{1}{K(n)} \parens{\int_{\Aeven(z)} - \int_{\Aodd(z)}} \frac{\parens{a \cdot t(z)}b - \parens{b \cdot t(z)}a}{r^{1+\sigma}} d\haus{2n-2}{a, b, r}
   $$
 \end{frame}
 %%%:
