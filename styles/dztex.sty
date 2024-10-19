@@ -36,8 +36,6 @@
 
 % For cref & hyperlinks; needs to be second to last
 \RequirePackage[pdfencoding=auto]{hyperref}
-% N.B. Order is important here 
-%\RequirePackage{cleveref}
 
 \newcommand{\declcolor}[2]{%
 \definecolor{#1}{RGB}{#2}%
@@ -77,7 +75,8 @@
 \declcolor{dzwhite}{218,223,224}
 \declcolor{dzcyan}{81,180,169}
 
-\declcolor{dzcol}{81,180,169}
+%\declcolor{dzcol}{81,180,169}
+\declcolor{dzcol}{50,145,186}
 
 \declcolor{dzmagenta}{202,101,108}
 \declcolor{dzblue}{50,145,186}
@@ -93,17 +92,23 @@
 \declcolor{dzbrgreen}{144,203,130}
 \declcolor{dzbrred}{247,96,80}
 \declcolor{dzbrgray}{153,153,153}
+
   % It me
   \author{Dan Zimmerman}
 
   \setlength{\parindent}{0pt}
   \setlength{\headheight}{36pt}
 
-  % Changes style for first page
+\makeatletter
+\edef\inserttitle{\@title}%
+\makeatother
+\makeatletter
+\edef\insertauthor{\@author}%
+\makeatother
+
   \thispagestyle{fancy}
   \fancyhead[R]{{\large \dzhdr{\inserttitle}}\\ \vspace{1mm} \insertauthor \vspace{1mm}}
   \fancyhead[L]{\today \vspace{1mm}}
-
   \titleformat*{\section}{\LARGE\bfseries\sffamily\color{dzcol}}
   \titleformat*{\subsection}{\Large\bfseries\sffamily\color{dzcol}}
   \titleformat*{\subsubsection}{\large\sffamily}
@@ -220,7 +225,7 @@
 {}                % Punctuation after theorem head % default: no punctuation
 { }               % Space after theorem head
 {%
-  \dzbrgreen{%
+  \dzblue{%
     \fbox{%
       \thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (#3)}}%
     }%
@@ -233,16 +238,17 @@
 \theoremstyle{dzexercise}
 \newtheorem{exercise}{Exercise}
 
-\theoremstyle{dztheorem}
-
-\theoremstyle{dzlemma}
-
 % Use subsection number when numbering
 \checkfor{dznopagestyle}{
   \newtheorem{theorem}{Theorem}[section]
   \newtheorem{lemma}[theorem]{Lemma}
 }{
+
+  \theoremstyle{dztheorem}
+  \newtheorem{theorem}{Theorem}
+  \theoremstyle{dzlemma}
   \newtheorem{lemma}{Lemma}
+
   \numberwithin{theorem}{subsection}
   \numberwithin{lemma}{subsection}
 }
