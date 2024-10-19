@@ -577,7 +577,7 @@
         &= \frac{2^{3/2}\sqrt{\pi}}{R} \limuo \parens{1-\sigma} \G{\frac{1-\sigma}{2}} 
         \onslide<7->{
           = \paumathbox<8->{
-            \alt<9>{\overbrace{2^{5/2}\sqrt{\pi}}^{1/K_2} \overbrace{\frac{1}{R}}^{\kappa_\sigma}}{2^{5/2}\sqrt{\pi} \frac{1}{R}}
+            \alt<9>{\overbrace{2^{5/2}\sqrt{\pi}}^{K_2} \overbrace{\frac{1}{R}}^{\kappa}}{2^{5/2}\sqrt{\pi} \frac{1}{R}}
           }
         }
       }
@@ -633,7 +633,7 @@
     \onslide<3->{
       &= 
         \alt<4>{
-          \overbrace{\omega_{n-3}^2 \sqrt{2\pi} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}}}^{1/K(n)} \overbrace{\frac{1}{R}}^{\kappa_\sigma}
+          \overbrace{\omega_{n-3}^2 \sqrt{2\pi} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}}}^{K(n)} \overbrace{\frac{1}{R}}^{\kappa}
         }{
           \omega_{n-3}^2 \sqrt{2\pi} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}} \frac{1}{R}
         }
@@ -696,7 +696,7 @@
 \setbeamertemplate{frametitle}[default]
 \begin{frame}
   \frametitle{Final Result}
-  Arbitrary $\C$, $K(n) = \parens{\omega_{n-3}^2 \sqrt{2\pi} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}}}^{-1}$, $z \in \C$
+  Arbitrary $\C$, $K(n) = \omega_{n-3}^2 \sqrt{2\pi} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}}$, $z \in \C$
   $$
     \mathbox[LUCRed]{\limuo \parens{1-\sigma} \frac{1}{K(n)} \kappa_\sigma(z) = \kappa(z)}
   $$
