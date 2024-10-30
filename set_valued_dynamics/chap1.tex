@@ -1,0 +1,196 @@
+\documentclass{article}
+
+\title{Chapter 1 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{xspace}
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\ud}{\,\mathrm{d}}
+\newcommand{\cara}{Carath\'eodry\xspace}
+\newcommand{\kras}{Krasovskii\xspace}
+\newcommand{\flip}{Flippov\xspace}
+\newcommand{\conc}{\mathrm{\overline{con}}\,}
+
+\begin{document}
+\begin{ex}{1.2}
+  Starting with (a), due to the Maximum Principle
+  $$
+  u(t) = \begin{cases} -1 & t < \tau \\ 1 & t \ge \tau \end{cases}
+  $$
+  since the vehicle needs to initial accelerate towards the wall, for some $\tau \in [0, T]$. We can do a bit of analysis with this characterization of $u$:
+  $$
+    \ddot{z}(t) = u(t) \implies \dot{z}(t) = \begin{cases} 
+      -t + \dot{z}(0) & t < \tau \\
+      t - 2\tau + \dot{z}(0) & t \ge \tau
+    \end{cases}, z(t) = \begin{cases}
+      -\frac{t^2}{2} + \dot{z}(0)t + z(0) & t < \tau \\
+      \frac{t^2}{2} - 2\tau t + \dot{z}(0) t + \tau^2 + z(0) & t \ge \tau
+    \end{cases}
+  $$
+  We also know that $\dot{z}(T) = z(T) = 0$-- we can leverage that to solve for both $\tau, T$ by first analyzing the velocity equation:
+  $$
+  \dot{z}(T) = 0 \implies T = 2\tau - \dot{z}(0)
+  $$
+  And now similarly the acceleration equation:
+  $$
+  \ddot{z}(T) = 0 \implies 0 = \frac{T^2}{2} - 2\tau T + \dot{z}(0) T + \tau^2 + z(0)
+  $$
+  Plugging in the the former equation for the latter we get:
+  $$
+  0 = \tau^2 - 2 \dot{z}(0) \tau - z(0) + \frac{\dot{z}(0)^2}{2}
+  $$
+  For (a) this reduces to $0 = \tau^2 - 2 \implies \tau = \sqrt{2}$ and so $T = 2\sqrt{2}$. For (b) we must consider the above scenario and the one where the sign of $u$ flips in each branch. In the flipped scenario our equations become
+  $$
+    \ddot{z}(t) = u(t) \implies \dot{z}(t) = \begin{cases} 
+      t + \dot{z}(0) & t < \tau \\
+      -t + 2\tau + \dot{z}(0) & t \ge \tau
+    \end{cases}, z(t) = \begin{cases}
+      \frac{t^2}{2} + \dot{z}(0)t + z(0) & t < \tau \\
+      -\frac{t^2}{2} + 2\tau t + \dot{z}(0)t - \tau^2 + z(0) & t \ge \tau
+    \end{cases}
+  $$
+  Similarly using $\dot{z}(T) = z(T) = 0$ we find the following:
+  $$
+  T = 2\tau + \dot{z}(0), \; 0 = -\frac{T^2}{2} + 2\tau T + \dot{z}(0)T - \tau^2 + z(0)
+  $$
+  and combining we get
+  $$
+  0 = \tau^2 + 2\dot{z}(0)\tau + \frac{\dot{z}(0)^2}{2} + z(0)
+  $$
+  So, for (b) we have $z(0) = 2, \dot{z}(0) = -2$ so using the first construction of $u$ gives
+  $$
+  \tau^2 + 4\tau - 2 + 2 = 0 \implies \tau = 0, T = 2
+  $$
+  and the second construction:
+  $$
+  \tau^2 - 4\tau + 4 = 0 \implies \tau = \frac{4 \pm \sqrt{16 - 16}}{2} = 2 \implies T = 2
+  $$
+  Both choices of $u$ minimize with $T = 2$, and in fact with the given $\tau$ the two constructions are identical, i.e. $u = 1$ with $T = 2$. Lastly for (c) we have $z(0) = 2, \dot{z}(0) = -4$. In the first construction of $u$ we would get
+  $$
+  \tau^2 + 8 \tau + 6 = 0 \implies \tau = \frac{-8 \pm \sqrt{64 - 24}}{2} = -4 \pm \sqrt{10} < 0
+  $$
+  which isn't valid, so our only possible minimizing $u$ is from the second construction, which would give us
+  $$
+  \tau^2 - 8\tau + 10 = 0 \implies \tau = \frac{8 \pm \sqrt{64 - 40}}{2} = 4 \pm \sqrt{5}, T = 8 \pm 2\sqrt{5} - 4 = 4 \pm 2\sqrt{5}
+  $$
+  Of the above choices only $T = 4 + 2\sqrt{5}$ is valid, thus it's the minimal time, with $\tau = 4 + \sqrt{5}$ specifying the minimizing control (from the second variant of $u$).
+\end{ex}
+\begin{ex}{1.5}
+  With an initial condition of $(0, 1)$ then the solution lies entirely on the x-axis, so our differential equation reduces to
+  $$
+  \dot{x}_1 = x_1^2 u(x_1, t)
+  $$
+  For $x_1 \ge \delta$ then $x + e(t) \ge 0$ and so $u(x + e(t)) = -1$, thus the solution continues towards the origin. However once $x_1 \in (-\delta, \delta)$ then $u$ will flip between $1, -1$ depending on whether $t \in \bracp{-\frac{\pi}{2\omega}, \frac{\pi}{2\omega}} + \frac{2\pi n}{\omega}$ for some $n \in \mathbb{Z}$, so in particular the solution cannot converge to the origin as it will flip direction every $\frac{\pi n}{\omega}$ time units (i.e. its periodic).
+\end{ex}
+\begin{ex}{1.7}
+  If $x \ge 1$ then notice $y > 0$ will be a minimizer, and so calculus tells us $y = x - 1$. When $x \in (0, 1)$ then $y = 0$ is a minimizer. Thus given a $x_0 > 0$ it will take $\floor{x_0} + 1$ steps to reach $0$. The same argument can be made about negative $x$, except when $x \le -1$ the minimizer is $y = x + 1$.
+\end{ex}
+\begin{ex}{1.8}
+  For our solutions we consider a constant sequence of $\phi_i := \phi$, with $\phi$ described below:
+  \begin{itemize}
+    \item
+      Fix $I = \braces{0, 1, 2}$ and $e(0) = 6.5, \phi(1) = 0.5, e(1) = 0, \phi(2) = 0$.
+    \item
+      Fix $I = \braces{0, 1, 2, 3}$ and $e(0) = 0, \phi(1) = 4, e(1) = 4.5, \phi(2) = 8.5, e(2) = 0, \phi(3) = 0$.
+  \end{itemize}
+\end{ex}
+\begin{ex}{1.9}
+  Classically if such $\phi, T$ exist then $\dot{\phi}(0)$ must exist and so for any $\epsilon > 0$ the mean value theorem tells us $\exists c \in (0, \epsilon)$ so that $\dot{\phi}(c) = \frac{\dot{\phi}(\epsilon)}{\epsilon}$, i.e. $\mathrm{sgn}\, \dot{\phi}(\epsilon) = \mathrm{sgn}\, \phi(\epsilon)$. W.l.o.g. consider $\mathrm{sgn}\,\phi(\epsilon) = 1$, then from the diff eq we know $\dot{\phi}(\epsilon) = -1$, a contradiction.
+
+  Now suppose such a $\phi, T$ exist as a \cara solution. Take a points $c, d \in [0, T]$ s.t. $c < d$ and w.l.o.g. consider $0 \le \phi(c) < \phi(d)$ then $\dot{\phi}(c) = \phi(d) = -1$. By absolute continuity we have:
+  $$
+  \phi(d) - \phi(c) = \int_{c}^{d} \dot{\phi}(t) \ud t = \int_{c}^{d} -1 \ud t = - \delta
+  $$
+  but $\phi(d) > \phi(c)$. N.B. we know we can find an increasing segment of $\phi$ when $\phi$ is positive by continuity (and we would be able to find a decreasing segment when $\phi$ is negative to show the same contradiction).
+\end{ex}
+\begin{ex}{1.10}
+  The convex regularization of $f$ contains the line segment between $(0, 1) -- (0, -1)$, thus $0 \in F(0)$ and so $\phi = 0$ is a \flip / \kras solution. For
+  $$
+  f(x, y) = \begin{cases}
+    (2, 1) & y < 0 \\
+    (5, 2) & y \ge 0
+  \end{cases}
+  $$
+  $x$ is free in the sense that $\dot{\phi}_x$ can be chosen based off $\dot{\phi}_y$. Ergo, the differential equation simplifies to:
+  $$
+  y' = f_y(y) := \begin{cases}
+    1 & y < 0 \\
+    2 & y \ge 0
+  \end{cases}
+  $$
+  Our \cara solutions look like:
+  $$
+  y_0 < 0 \implies \phi(t) = \begin{cases}
+    t + y_0 & t < -y_0 \\
+    2t + 2y_0 & t > -y_0
+  \end{cases}, \; y_0 \ge 0 \implies \phi(t) = 2t + y_0
+  $$
+  Note, for $y_0 < 0$ $\phi(-y_0)$ can be anything, as $\dot{\phi}(-y_0)$ doesn't need to be defined (as per the definition of a \cara solution).
+
+  \,\\
+
+  The \kras regularization of our simplified differential equation is trivially $F_{K}(y) = \braces{f_y(y)}$ whenever $y \ne 0$. If $y_0 > 0$ then it's clear the regularization is can be identified directly $f_y$ (since the derivative is always positive), so the \kras, and therefore \flip solutions are the same as the \cara solutions. When $y_0 < 0$ the solutions are identical until $\phi(t) = 0 (t = -y_0)$. In effect the \cara solutions agree with \kras (and therefore \flip) solutions a.e..
+
+  \,\\
+  N.B. I'm not sure if this is enough, i.e. is agreeing almost everywhere the same as being "the same"?
+
+  ---
+  \,\\
+  For
+  $$
+  f(x, y) = \begin{cases}
+    (2, 1) & y < 0 \\
+    (1, 0) & y = 0 \\
+    (5, -2) & y > 0
+  \end{cases}
+  $$
+  A \flip solution that's not \cara is
+  $$
+  \phi(t) = \begin{cases}
+    (2t + 1, t -1) & t \in [0, 1] \\
+    (3t, 0) & t \in (1, \infty)
+  \end{cases}
+  $$
+  since the regularization allows $F((x, 0))$ to be any point on the line segment between $(2, 1) - (5, -2)$ (N.B. $(1, 0)$ is excluded since the x-axis is a set of measure $0$ here), while the original differential equation doesn't allow $\phi'(t)_x = 3$ for $t \in (1, \infty)$. A \kras solution that's not \flip is
+  $$
+  \phi(t) = \begin{cases}
+    (2t, t-1) & t \in [0, 1] \\
+    (t + 1, 0) & t \in (1, \infty)
+  \end{cases}
+  $$
+  since $(1, 0) \not\in F((t+1, 0))$ (i.e. it doesn't lie on the line segment between $(2, 1) - (5, -2)$), but $(1, 0) \in F_K((t + 1, 0))$ since $F_k((\cdot, 0))$ is the triangle between $(2, 1), (5, -2), (1, 0)$.
+\end{ex}
+\begin{ex}{1.11}
+  Start by putting
+  $$
+  \phi_{0}(t) = \begin{cases}
+    (2t, t) & t \in [0, 2/3] \\
+    (5(t-2/3) + 4/3, -2(t-2/3) + 2/3) & t \in (2/3, 1]
+  \end{cases}
+  $$
+  Next we will define $\phi_i$ recursively. To start, for any  $i$ put $g_i : [0, 2] \to \mathbb{R}$ as
+  $$
+  g_i(t) = \begin{cases}
+    \phi_i(t) & t \in [0, 1] \\
+    \phi_i(t-1) + 3 & t \in (1, 2]
+  \end{cases},
+  $$
+  i.e. duplicating $\phi_i$. Now put $\phi_{i+1}(t) = \frac{g_i(2t)}{2}$. Notably $i$ there're $2^i$ triangles between $\phi_x$ and $\phi_{x, i}$ with base $\sqrt{2}/2^i$ and height $h_0 / 2^i$ ($h_0$ being the height of the triangle formed by $\phi_0$) so that
+  $$
+  \int_0^1 \parens{\phi_x - \phi_{i,x}} = 2^i \cdot \frac{1}{2} \cdot \frac{\sqrt{2}}{2^i} \cdot \frac{h_0}{2^i} = \frac{h_0\sqrt{2}}{2^{i+1}}
+  $$
+  A similar argument can be made about $\phi_y$ and $\phi_{i, y}$ and thus $\phi_i \to \phi$ uniformly. Lastly, specify $e_i$ so that $e_{i,x} = 0$ and $e_{i,y}$ is so that $\phi_{i, y}$ is negative when $\dot{\phi}_y = 2$ and positive otherwise. This error indeed shrinks to $0$ as the heights of the triangles formed by $\phi_{i, y}, \phi_y$ vanish (i.e. we can take the error to be $-h_i + \frac{\chi_i(t)}{i}$ where $\chi_i = \pm 1$, depending on what slope is needed).
+
+  --- \, \\
+  For $\psi$ proceed as above, but instead of splitting the interval into $2/3$ and $1/3$, split it into $\lambda_1, \lambda_2, \lambda_3$ so that $\sum_i \lambda_i = 1$ and $2 \lambda_1 + 1\lambda_2 + 3\lambda_3 = 2$. Indeed $\psi_{i, y}$ will still vanish (as the only difference is the inclusion of subintervals with $0$ slope) and by the second equality as $i \to \infty$ $\psi_{i, x} \to 2t$.
+\end{ex}
+\begin{ex}{1.14}
+  If the initial condition is in the top left or bottom right quadrants then put $\sigma(t) = 1$ until the solution hits the x-axis. Then put $\sigma(t) = 2$ until the solution hits the y-axis, followed by $\sigma(t) = 1$ until it hits the x-axis. Proceed this way and the solution will converge to the origin as everytime the solution hits either the x or y axis and switches it will get strictly closer to the origin until it reaches it.
+\end{ex}
+\end{document}

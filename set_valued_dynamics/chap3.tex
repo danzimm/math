@@ -1,0 +1,157 @@
+\documentclass{article}
+
+\title{Chapter 3 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\inte}{\mathrm{Int}\,}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\sgn}{sgn}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+
+\begin{document}
+%%%; 3.1
+\begin{ex}{3.1}
+  Consider ${e_i}_{i=1}^n$ the eigenbasis of $\R{n}$ and $\lambda_i$ the corresponding eigenvalue.
+  \begin{itemize}
+    \item[$(a) \implies (b)$]
+      If $\abs{\lambda_i} < 1$ then for any $x_0$ any solution to the difference equation $x^+ = Ax$ must look like
+      $$
+      \phi(j) = A^j x_0 = A^j \sum_i \parens{x_0 \cdot e_i} e_i = \sum_i \parens{x_0 \cdot e_i} A^j e_i = \sum_i \parens{x_0 \cdot e_i} \lambda_i^j e_i = \lambda_i^j x_0 \to 0 \text{ as } j \to \infty
+      $$
+    \item[$(a) \impliedby (b)$]
+      Now suppose all solutions to the difference equation converge to $0$, then in particular for each $x_0 = e_i$ we must have
+      $$
+      \phi(j) = A^j e_i = \lambda_i^j e_i \to 0 \iff \abs{\lambda_i} < 1
+      $$
+  \end{itemize}
+  As for the examples, put
+  $$
+  A_1 = \begin{pmatrix}
+    0 & -1/2 \\
+    1 & 0
+  \end{pmatrix}, \,
+  A_2 = \begin{pmatrix}
+    0 & -1 \\
+    1/2 & 0
+  \end{pmatrix}
+  $$
+  then each matrix rotates a point $90\deg$ counterclockwise, with an additional contraction in either the $x$ or $y$ coordinate to ensure repeated application of either $A_1$ or $A_2$ spins towards $0$. However
+  $$
+  \begin{pmatrix}
+    0 & -1/2 \\
+    1 & 0
+  \end{pmatrix}\begin{pmatrix}
+    0 & -1 \\
+    1/2 & 0
+  \end{pmatrix} = \begin{pmatrix}
+    -1/4 & 0 \\
+    0 & -1
+  \end{pmatrix}
+  $$
+  so that, when $y_0 \ne 0$ a solution to the difference inclusion exists where we alternate between $A_1$ and $A_2$, however the $y$ coordinate never converges, i.e. it flips between $y_0, -y_0$. If $y_0 = 0$ but $x_0 \ne 0$ then applying $A_2$ first then $A_1$ and alternating again will lead to a similar issue with the x coordinate. Together this shows for non $0$ initial conditions there are solutions to the difference inclusion which diverge.
+\end{ex}
+%%%:
+%%%; 3.5
+\begin{ex}{3.5}
+  Stuck after two hours-ish, so skipping for now.
+\end{ex}
+%%%:
+%%%; 3.6
+\begin{ex}{3.6}
+  If $(x, y) \in \gph G$ then $y \in \bigcup_{u\in K(x)} h(x, u)$. Fix some $u \in K(x)$- we'll show for any such $u$ $(x, h(x, u)) \in \overline{\gph h}$. By definition of $K$, exercise 2.4 and the definition of $\liminf$ of sets we know for any $u \in K(x)$ there's a sequence $u_i \in k(x + i^{-1}\B)$ s.t. $u_i \to u$. By construction there's a corresponding $x_i \in x + i^{-1}\B$ where $u_i = k(x_i)$ and $x_i \to x$. Fixing $y_i := h(x_i, u_i) = h(x_i, k(x_i))$ then $(x_i, y_i) \in \gph g$. By continuity of $h$ we know $y_i \to h(x, u)$ and so $(x, h(x, u)) \in \overline{\gph g}$.
+\end{ex}
+%%%:
+%%%; 3.8
+\begin{ex}{3.8}
+  Fix $j \in I$ and put $x_i := \phi_i(j)$, then $x_i \to x := \phi(j)$ by hypothesis. Similarly with $y_i := \phi_i(j+1)$, then $y_i \to y := \phi(j+1)$. Since each $\phi_i$ solves the difference inclusion we know $y_i \in G(x_i)$. By osc we know $y \in G(x)$, hence $\phi(j+1) \in G(\phi(j))$ so that $\phi$ is also a solution to the difference inclusion.
+\end{ex}
+%%%:
+%%%; 3.10
+\begin{ex}{3.10}
+  For both of the cases below consider $\xi_i \to \xi$.
+  \begin{itemize}
+    \item[(osc)]
+      Consider $(x_{0,i}, x_{1, i}, ..., x_{J, i}) \to (x_0, x_1, ..., x_J)$ where $(x_{0,i}, x_{1, i}, ..., x_{J, i}) \in S(\xi_i)$. By construction we have $x_{k+1,i} \in G(x_{k, i})$ for any fixed $k$. Since $x_{k+1,i} \to x_{k+1}, x_{k, i} \to x_k$, and since $G$ is osc, we know $x_{k+1} \in G(x_k)$. Since additionally $x_{0, i} = \xi_i \to \xi = x_0$ it's true that $(x_0, x_1, ..., x_J) \in S(\xi)$, so that $S$ is osc.
+    \item[(isc)]
+      Consider $(x_0, x_1, ..., x_J) \in S(\xi)$. Since $x_1 \in G(\xi)$ with $\xi_i \to \xi$, isc of $G$ says for $i > N_1 \; \exists x_{1, i} \in G(\xi_i)$ with $x_{1, i} \to x_1$. Similarly $x_2 \in G(x_1)$, so for $i > N_2$ $\exists x_{2,i} \in G(x_{1, i})$ where $x_{2, i} \to x_2$. We can do this for all $x_k$ so that, fixing $x_{0, i} = \xi_i$, we find $(x_{0, i}, x_{1, i}, ..., x_{J, i})$ for $i > \max\braces{N_1, N_2, ..., N_J}$, with the property that each $x_{k,i} \to x_k$ and $x_{k+1, i} \in G(x_{k,i})$. This means $(x_{0, i}, x_{1, i}, ..., x_{J, i}) \in G(\xi_i)$ with $(x_{0, i}, x_{1, i}, ..., x_{J, i}) \to (x_0, x_1, ..., x_J)$ and so $G$ is isc.
+  \end{itemize}
+\end{ex}
+%%%:
+%%%; 3.13
+\begin{ex}{3.13}
+  Since a finite union of compact sets is compact, we only need to show $\mr_{j=J}(K)$ is compact. Additionally, since $\mr_{j=J}(K) = G^J(K)$, if we can show $G(K)$ is compact, then we can apply our argument $J-1$ more times to show the desired result. To that end we strive to show $G(K)$ is bounded and closed. In order to see it's bounded, notice we can build up an open covering of $K$ by considering $\bigcup_{x \in K} N(x)$ where $N(x)$ is the (open) neighborhood of each $x$ so that $S(N(x))$ is bounded. By compactness there are $N(x_k)$ for $k = 1,2,...N$ so that $K \subset \bigcup_{k=1}^N N(x_k)$. Notably, then $G(K) \subset \bigcup_{k=1}^N G(N(x_k))$, and since a finite union of bounded sets is bounded that means $G(K)$ is bounded.
+  \, \\
+  Now to show $G(K)$ is closed take a sequence $x_i \in G(K)$ such that $x_i \to x$. Since $x_i \in G(K)$ that means $G^{-1}(x_i) \ne \emptyset$. Put $k_i \in G^{-1}(x_i)$ for each $i$. Since $k_i \in K$, and $K$ is compact there's a subsequence $k_{i_j}$ such that $k_{i_j} \to k \in K$. Now by osc of $G$, since $k_{i_j} \to k$ and $x_{i_j} \to x$ with $x_{i_j} \in G(k_{i_j})$ we must have $x \in G(k) \subset G(K)$, hence $G(K)$ is closed, and thus compact.
+\end{ex}
+%%%:
+%%%; 3.15
+\begin{ex}{3.15}
+  Put $G(x) = \frac{1}{x^2}$ when $x \ne 0$ and $1$ when $x = 0$, then $\phi$ is a forward complete solution to $x^+ \in G(x)$ when defined by
+  $$
+  \phi(j) = \begin{cases}
+    2 & j = 0, \\
+    2^{(-2)^j} \text{ otherwise}
+  \end{cases}
+  $$
+  Notably $0 \in \omega(\phi)$ since $\lim_{i \to \infty} \phi(2i+1) = \lim_{i \to \infty} 2^{(-2)^{2i + 1}} = \lim_{i \to \infty} 2^{-(2)^{2i+1}} = 0$. However $G(0) = 1$ is not in $\omega(\phi)$ as for large $i$ $\phi(i)$ is either a really big number or a number very close to $0$, hence it doesn't stay in any close neighborhood of $1$. Together this shows $\omega(\phi)$ is not weakly forward invariant.
+  \, \\
+  \, \\
+  N.B. I feel like I'm missing something here. Maybe the above solution is good enough, but I'm not sure I understand the 'spirit' of the problem.
+\end{ex}
+%%%:
+%%%; 3.17
+\begin{ex}{3.17}
+  It's clear that $\inf_\phi \abs{\phi(0)} + \abs{\phi(2)} \ge 0$. We aim to find a sequence of $\phi_i$ that are solutions whereas the limit of the objective of these solutions converges to $0$. To that end put
+  $$
+    \phi_i(0) = i^{-1},\, \phi_i(1) = i, \, \phi_i(2) = i^{-1}
+  $$
+  then $\phi_i$ is a solution to $x^+ = H(x)$ and $\lim_{i \to \infty} \abs{\phi(0)} + \abs{\phi(1)} = \lim_{i \to \infty} 2i^{-1} = 0$, so $\inf_\phi \abs{\phi(0)} + \abs{\phi(2)} = 0$. Now suppose there is an optimal solution $\phi$ where this $\inf$ is achieved. Then $\phi(0) = 0$. In order for $\phi$ to be a solution then $\phi(1) = 1$, which in turn forces $\phi(2) = 1$, but then the cost is not $0$, hence such a solution doesn't exist.
+\end{ex}
+%%%:
+%%%; 3.18
+\begin{ex}{3.18}
+  Put $c(a, b) = \abs{a} + \abs{b}$ and consider
+  $$
+  g(x) = \begin{cases}
+    e^{\sqrt{2}} & x = 0, \\
+    e^{2i - 1} & x = e^{-i}, i \in \mathbb{N}^+ \\
+    e^{2i} & x = e^{2i-1}, i \in \mathbb{N}^+, \\
+    e^{-i} & x = e^{2i}, i \in \mathbb{N}^+, \\
+    0 & \text{otherwise}
+  \end{cases}
+  $$
+  $g$ is indeed locally bounded and discontinuous. In order to minimize $c(\phi(0), \phi(2))$ consider $\phi(0) = 0, \phi(1) = e^{\sqrt{2}}, \phi(2) = 0$ then $\phi$ is a minimizer since $c$ is bounded below by $0$, and $c(\phi(0), \phi(2)) = 0$. Consider $\phi_i$ defined by
+  $$
+  \phi_i(0) = e^{-i}, \phi_i(1) = e^{2i + 1}, \phi_i(2) = e^{2i}, \phi_i(3) = e^{-i},
+  $$
+  then $\phi_i$ are solutions to $x^+ = g(x)$, and $\lim_{i \to \infty} c(\phi(0), \phi(1)) = \lim_{i \to \infty} 2e^{-i} = 0$, hence since also $c(\phi(0), \phi(3))$, $\inf_\phi c(\phi(0), \phi(3)) = 0$. Now suppose we can find $\phi$ optimial so that $c(\phi(0), \phi(3)) = 0$, then $\phi(1) = e^{\sqrt{2}}$, $\phi(2) = 0$ and $\phi(3) = e^{\sqrt{2}}$ hence $c(\phi(0), \phi(3)) = e^{\sqrt{2}}$, a contradiction so no such $\phi$ can exist.
+\end{ex}
+%%%:
+%%%; 3.20
+\begin{ex}{3.20}
+  Our plan is to use the 'direct' method to show an optimal solution exists. Since $\mathcal{U}$ is non-empty $\exists u \in \mathcal{U}$ and so we can form at least one solution to $x^+ \in G(x)$ by putting $x(1) = g(\xi, u), x(2) = g(x(1), u)$ all the way up to $x(J)$. Next, the cost function is bounded below by $0$ since $g, l$ (and thus $L$) only map to non-negative numbers. Together these points tell us
+  $$
+  \alpha := \inf\braces{ c(x) \mid x(0) = \xi, x(j+1) = x(j) \, \forall j \in J_{-} } \text{ is finite, where } c(x) := \sum_{j=0}^{J-1} L(x(j), x(j+1)) + d(x(J))
+  $$
+  By definition of $\inf$ there's a sequence of solutions $x_i$ such that $c(x_i) \to \alpha$. By local boundedness of $G$ $x_i(1) \in G(x(0) + i^{-1}\B)$, which is bounded, hence theres a convergent subsquence $x_{i_k}(1)$ and corresponding. Since $G^{-1}(x_{i_k}) \ne \emptyset$ we can find a subsequence of $x^{(i_k)}$ (without relabeling) s.t. $x^{(i_k)}(0) \to x(0)$. If we fix $x(1) := \lim_k x_{i_k}(1)$, then by osc of $G$ we know $x(1) \in G(x(0))$. We can proceed this way for $x(2), x(3), ... x(J)$ to show that $x := \lim_i x_i$ is a solution to $x^+ \in G$. Since $L$ is lsc \& $d$ is continuous, we must have
+  $$
+  c(x) = \sum_{j=0}^{J-1} L(x(j), x(j+1)) + d(x(J)) \le \lim_{i \to \infty} \sum_{j=0}^{J-1} L(x_i(j), x_i(j+1)) + d(x_i(J)) = \lim_{i \to \infty} c(x_i) = \alpha,
+  $$
+  so $x$ must be an optimal solution.
+  \, \\
+  \, \\
+  N.B. The sequences $x^{(i_k)}(j)$ are not necessarily the same as the sequences $x_{i_k}(j)$ for any fixed $j$, hence the change in notation.
+\end{ex}
+%%%:
+\end{document}

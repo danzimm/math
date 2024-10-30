@@ -1,0 +1,267 @@
+\documentclass{article}
+
+\title{Chapter 4 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{amssymb} % \rightrightarrows
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\proj}{proj}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\inte}{Int}
+\DeclareMathOperator*{\con}{con}
+\newcommand{\clo}[1]{\overline{#1}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+\newcommand{\idot}[2]{#1 \cdot #2}
+\newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+
+\begin{document}
+\begin{ex}{4.1} %;
+  \,\\
+  \begin{itemize}
+    \item[(ii)]
+      \newcommand{\ab}{\overline{a}}
+      \newcommand{\bb}{\overline{b}}
+      First to show $AC$ is convex consider $a, b \in AC$ and $\lambda \in [0, 1]$. We know $\exists \ab \in A^{-1}a, \bb \in A^{-1}b$ (where $A^{-1}$ is the set valued preimage), so that $A\ab = a, A\bb = b$. Because $A$ is convex we know $\lambda \ab + (1-\lambda)\bb \in C$ and so
+      $$
+      A(\lambda\ab + (1-\lambda)\bb) = \lambda A\ab + (1-\lambda) A \bb = \lambda a + (1-\lambda) b \in AC
+      $$
+      so $AC$ is convex. For the second part, let $\lambda \in [0, 1]$ and fix $a, b \in A^{-1}D$ then 
+      $$
+      A(\lambda a + (1-\lambda) b) = \lambda Aa + (1-\lambda)Ab \in D
+      $$
+      by construction of $a, b$ and convexity of $D$, hence $\lambda a + (1-\lambda)b \in A^{-1}D$.
+    \item[(v)]
+      \newcommand{\cb}{\overline{c}}
+      \newcommand{\db}{\overline{d}}
+      If $C, D$ are convex then consider $(c, d), (\cb, \db) \in C \times D$ and fix $\lambda \in [0,1]$. By convexity of $C$ $\lambda c + (1-\lambda)\cb \in C$ and likewise $\lambda d + (1-\lambda)\db \in D$ so that
+      $$
+      \lambda (c, d) + (1-\lambda) (\cb, \db) = (\lambda c + (1-\lambda) \cb, \lambda d + (1-\lambda) \db) \in C \times D
+      $$
+      so that $C \times D$ is convex. \, \\
+
+      Now lets assume $C \times D$ is convex \& non-empty, consider $c, \cb \in C$ and fix $\lambda \in [0, 1]$. Since $C \times D$ is non-empty there's a point $d \in D$ so that $(c, d), (\cb, d) \in C \times D$, so convexity gives us $\lambda (c, d) + (1-\lambda) (\cb, d) \in C \times D$, and thus $\lambda c + (1-\lambda) \cb \in C$, so that $C$ is convex. Since the cartesian product is symmetric it must also be the case that $D$ is convex. \, \\
+
+      N.B. I think the extra non-empty condition is necessary. Otherwise consider $C = \emptyset, D$ any non-convex set. $C \times D = \emptyset$ is vacuously convex, however $D$ is not.
+    \item[(i) Part 2]
+      \newcommand{\xb}{\overline{x}}
+      Let $x, \xb \in C + D$ and $\lambda \in [0, 1]$. By definition of $C + D$ we must have $x = c + d, \xb = \cb + \db$ for some $c, \cb \in C$ and $d, \db \in D$. Convexity of $C, D$ then tell us $\lambda c + (1-\lambda)\cb \in C$ and $\lambda d + (1-\lambda)\db \in D$. Consequently
+      $$
+      \lambda (c + d) + (1-\lambda)(\cb + \db) = \lambda c + (1-\lambda)\cb + \lambda d + (1-\lambda)\db \in C + D
+      $$
+      so that $C+D$ is convex.
+    \item[(iii) Part 2]
+      Consider $x, \xb \in \inte C$ and fix $\lambda \in [0, 1]$. By definition of interior, $\exists \delta, \overline{\delta} > 0$ s.t. $x + \delta \B \subset C, \xb + \overline{\delta} \B \subset C$. By convexity of $C$ we know
+      $$
+      \lambda x + (1-\lambda) \xb + (\lambda \delta + (1-\lambda)\overline{\delta}) \B = \lambda (x + \delta \B) + (1-\lambda) \parens{\xb + \overline{\delta} \B} \subset C
+      $$
+      so that $\lambda x + (1-\lambda) \xb \in \inte C$.
+  \end{itemize}
+\end{ex} %:
+\begin{ex}{4.2} %;
+  Since $C$ is non-empty and compact, $\exists y \in \argmin_{x \in C} \idot{v}{x}$. W.l.o.g. we can consider $\abs{v} = 1$ since the minimization problem stays the same regardless of $v$'s magnitude. For the sake of contradiction suppose there exists $z \in \argmin_{x \in C} \idot{v}{x}, z \ne y$. By strict convexity $\exists \delta > 0$ so that $\frac{y + z}{2} + \delta \B \subset C$. Notably $-v \in \B$ and so $\frac{y + z}{2} - \delta v \in C$. However
+  $$
+  \parens{\frac{y + z}{2} - \delta v} \cdot v = \idot{y}{v} - \delta < \idot{y}{v}
+  $$
+  indicating that $\idot{y}{v}$ (nor $\idot{z}{v}$) were minimizers, a condtradiction.
+\end{ex} %:
+\begin{ex}{4.3} %;
+  We're considering
+  $$
+  D := \braces{ \sum_{k=0}^l \lambda_k x_k : x_k \in C, \sum_{k=0}^l \lambda_k = 1, \lambda_k \ge 0, l \ge 0 }
+  $$
+  First we'll show it's convex. Consider $\sum_{k=0}^l \lambda_k x_k, \sum_{k=0}^j \gamma_k y_k \in D$ and fix $\omega \in [0, 1]$. Now define $x_{l+1} = y_0, x_{l+2} = y_2, ..., x_{l+j+1} = y_j$ and $\lambda_{k > l} := 0$, so that
+  $$
+  \sum_{k=0}^{l + j} \lambda_k x_k = \sum_{k=0}^l \lambda_k x_k
+  $$
+  Additionally put $\gamma_k' := 0$ for $k = 0, 1, .., l$ and $\gamma_{l+1}' = \gamma_0, \gamma_{l+2}' = \gamma_1, ..., \gamma_{l+j+1} = \gamma_j$ so that
+  $$
+  \sum_{k=0}^{l + j} \gamma_k' x_k = \sum_{k=0}^j \gamma_k y_k
+  $$
+  We can use these reformations to see
+  $$
+  \omega \sum_{k=0}^l \lambda_k x_k + (1-\omega) \sum_{k=0}^j \gamma_k y_k = \omega \sum_{k=0}^{l + j} \lambda_k x_k + (1-\omega) \sum_{k=0}^{l + j} \gamma_k' x_k = \sum_{k=0}^{l + j} \parens{\omega \lambda_k + (1-\omega) \gamma_k'}x_k \in D
+  $$
+  since $\omega \lambda_k + (1-\omega) \gamma_k' \ge 0$, $l + j \ge 0$, $x_k \in C$ and
+  $$
+  \sum_{k=0}^{l+j} \omega \lambda_k + (1-\omega) \gamma_k' = \omega \sum_{k=0}^{l+j} \lambda_k + (1-\omega) \sum_{k=0}^{l+j} \gamma_k' = \omega \sum_{k=0}^{l} \lambda_k + (1-\omega) \sum_{k=l+1}^{l+j} \gamma_k' = \omega + (1-\omega) = 1
+  $$
+  Now suppose $D$ wasn't the convex hull of $C$, i.e. $\exists \sum_{k=0}^l \lambda_k x_k \in D$ such that $\sum_{k=0}^l \lambda_k x_k \not \in \con C$. We immediately arrive at a contradiction: in general for any $l$ points in a convex set we can form any convex combination of them and stay within that convex set. Since $\con C$ is convex, $x_k \in C \in \con C$ and $\lambda_k$ are so that $\sum_{k=0}^l \lambda_k x_k$ is a convex combination, we have $\sum_{k=0}^l \lambda_k x_k \in \con C$, a contradiction.
+\end{ex} %:
+\begin{ex}{4.7} %;
+  The hint shows that $\con \clo{C} \subset \clo{\con C}$, and since $C$ is non-empty Proposition 4.6 tells us $\clo{\con C} = \clo{\con} C$ so that $\con \clo{C} \subset \clo{\con} C$. If $C$ is also bounded then $\clo{C}$ is compact so that, by Corollary 4.5 $\con \clo{C}$ is compact, so closed. Since $\con C \subset \con \clo{C}$, the definition of closure tells us $\clo{con} C = \clo{\con C} \subset \con \clo{C}$, thus $\clo{\con} C = \con \clo{C}$.
+\end{ex} %:
+\begin{ex}{4.8} %;
+  \,\\
+  \begin{enumerate}
+    \item[(a)]
+      Because $C$ is unbounded there's a sequence $x_k$ such that $\abs{x_k} \to \infty$. Put $y_k = \frac{x_k - x_0}{\abs{x_k - x_0}}$, then $y_k \in \B$ and hence has a convergent subsequence, without relabeling, $y_k \to y \in \B$. For each $k$ put
+      $$
+      C_k := \braces{ \lambda x_0 + \parens{1-\lambda}x_{k} \mid \lambda \in [0, 1] } = \braces{ x_0 + \parens{1-\lambda}\abs{x_{k} - x_0}y_{k} \mid \lambda \in [0, 1] }
+      $$
+      so that $C_k \subset C$ because $x_0, x_{k} \in C$ and $C$ is convex. Since this is for every $k$, and since $C$ is closed
+      $$
+      \clo{\bigcup_k C_k} \subset C
+      $$
+      In order to complete the proof we need to show $\braces{ x_0 + ty \mid t \in [0, \infty) } \subset \clo{\bigcup_k C_k}$. To do so we'll show any $x + ty$ is a limit point of $\bigcup_k C_k$, so in the closure. Let $\epsilon > 0$ and fix $N$ so that $k>N \implies \abs{x_k - x_0} > t$ (this is possible because $x_k$ are unbounded). Fix $M$ so that $k > M \implies \abs{y_k - y} < \frac{\epsilon}{t}$. Then put
+      $$
+      w_k := x_0 + \parens{1 - \parens{1 - \frac{t}{\abs{x_k - x_0}}}}\abs{x_k - x_0}y_k
+      $$
+      Since $\abs{x_k - x_0} > t$ $1 - \frac{t}{\abs{x_k - x_0}} \in [0, 1]$ and so $w_k \in C_k$. We have
+      $$
+      \abs{w_k - x_0 - ty} = \abs{\frac{t}{\abs{x_k - x_0}}\abs{x_k - x_0}y_k - ty} = t \abs{y_k - y} < \epsilon
+      $$
+      and thus our claim has been shown.
+    \item[(b)]
+      Let $y \in C$, and put for every $k \in \mathbb{N}$,
+      $$
+      C_k := \braces{ \lambda y + (1-\lambda) (x + kv) \mid \lambda \in [0, 1] } \subset C
+      $$
+      I claim $\braces{ y + tv \mid t \ge 0 } \subset \limsup_{k \to \infty} C_k$ which would tell us $\braces{ y + tv \mid t \ge 0 } \subset C$ because $C$ is closed. Let $y + tv$ be given and consider the subsequence of $C_{k_i}$ so that $k_0 > t$ and $k_{i+1} = k_{i} + 1$. Then consider $\lambda_{k_i} = 1 - \frac{t}{k_i}$ and fix $x_{k_i} = \lambda_{k_i} y + (1 - \lambda_{k_i}) \parens{x + k_i v}$ so that $x_{k_i} \in C_{k_i}$. We have
+      $$
+      \abs{\lambda_{k_i} y + (1 - \lambda_{k_i}) \parens{x + k_i v} - (y + tv)} = \abs{ \parens{\lambda_{k_i} - 1} y + \parens{1-\lambda_{k_i}} x + \parens{(1-\lambda_{k_i})k_i - t}v } = \abs{-\frac{t}{k_i} y + \frac{t}{k_i} x} \to 0
+      $$
+      as $k_i \to \infty$ so that $x_{k_i} \to y + tv$, thus $y + tv \in \limsup_{k \to \infty} C_k$, giving us our desired result.
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{4.10} %;
+  While $A, B$ weren't specified, I assume they're matrices of appropriate shapes.
+  \begin{enumerate}
+    \item[(a)] First, notice for $I_m$ m-dimensional identity matrix
+      $$
+      \gph A = \begin{pmatrix}
+        I_m \\
+        A
+      \end{pmatrix} \R{m}
+      $$
+      Since $\R{m}$ is convex, by property (ii) from the beginning of the chapter tells us $\gph A$ is convex. Since $U$ is convex, $BU$ is then also convex, and by property (v) so is $(0, BU) = \bigcup_{u \in U} (0, Bu)$. Property (i) tells us that
+      $$
+      \gph S = (x, Ax + BU) = (x, Ax) + (0, BU)
+      $$
+      is convex.
+    \item[(b)] Fix a point $(x, y)$ such that $\exists (x_i, y_i) \to (x, y)$ with $(x_i, y_i) \in \gph S$. We must have $y_i \in Ax_i + BU$ so that $\exists u_i \in U$ where $y_i = Ax_i + Bu_i$. Since $U$ is compact there's a convergent subsequence, $u_{i_j} \to u \in U$. Combined with the fact that $x_i \to x$, we find $Ax_{i_j} + Bu_{i_j} \to Ax + Bu$ so that $y = Ax + Bu$ and thus $(x, y) \in \gph S$.
+  \end{enumerate}
+  With the above, as long as $U$ is non-empty, convex \& compact then $S$ always takes on non-empty values, is convex \& closed so Proposition 4.9 tells us $S$ is continuous on $\inte \R{m} = \R{m}$.
+\end{ex} %:
+\begin{ex}{4.12} %;
+  Above this exercise you states that polyhedral $U$ ensure $\gph S$ is closed, thus 4.10 says continuous as long as $U$ is non-empty. In this problem we have a polyhedral set since
+  $$
+  U = \braces{ x \mid -I x \le 0 }
+  $$
+  and trivially $0 \in U$ so that $\gph S$ is closed. \, \\
+
+  I spent too much time trying to prove this without the fact about polyhedral sets. Something about this $U$ is allowing us to pick bounded $u_i \in B^{-1}(y_i)$ where $y_i \in BU$, $y_i \to y$, but I haven't figured exactly what out yet. Indeed if we can choose bounded $u_i$ then each $u_i \cdot e_k$ lives in a compact set for large $i$ and then converges to some $u \cdot e_k$ ($e_k$ an orthonormal basis of $\R{m}$). Putting $u = \sum_{k=1}^m \pdot{u}{e_k} e_k$ we'll have $u_i \to u$ and hence since $B$ is continuous we'll find $Bu_i \to Bu$, and since $y_i = Bu_i$ we have $Bu = y$, thus $BU$ is closed, causing $\gph S$ to be closed.
+\end{ex} %:
+\begin{ex}{4.14} %;
+  Every point of that triangle can be specified via the expression
+  $$
+  \lambda_1 (1, 0) + \lambda_2 (2, 0) + \lambda_3 (1, 3)
+  $$
+  where $\lambda_1 + \lambda_2 + \lambda_3 = 1$ and each $\lambda_i \ge 0$. By Lemma 4.13 $(2, 0)$ is the closest point if and only if, for any $\lambda_1,\lambda_2,\lambda_3$
+  $$
+  0 \ge \parens{(38, 11) - (2,0)} \cdot \parens{\lambda_1 (1, 0) + \lambda_2 (2, 0) + \lambda_3 (1, 3) - (2, 0)} = (36, 11) \cdot (\lambda_1 + 2\lambda_2 + \lambda_3 - 2, 3\lambda_3) = 36\lambda_1 + 72\lambda_2 + 36\lambda_3 - 72 + 33\lambda_3 = 36\lambda_1 + 72\lambda_2 + 69\lambda_3 - 72
+  $$
+  Indeed this holds for any $\lambda_i$ triplet since the weighted average of $36,72,69$ can be at most the max of the set, $72$. Now for the point $(38, 13)$ consider $(1, 3)$: it's in the triangle but
+  $$
+  \parens{(38, 13) - (2, 0)} \cdot \parens{(1, 3) - (2, 0)} = (36, 13) \cdot (-1, 3) = -36 + 39 > 0
+  $$
+  so Lemma 4.13 tells us $(2, 0)$ is not the closest point.
+\end{ex} %:
+\begin{ex}{4.17} %;
+  I have suspicion that $C$ is supposed to be convex \& closed in the statement of this exercise. Let me do the exercise with this additional requirement, then at the end I'll give reasoning why I think it should be this way. \, \\
+
+  First suppose $C$ is the intersection of all closed half-spaces containing $C$. Each half space is convex, and so by property (iv) $C$ being the intersection of these convex spaces, it is also convex. Similarly the intersection of closed sets is closed, so $C$ is convex and closed. \, \\
+
+  Now suppose $C$ is convex, closed and let $H_\alpha$ be all the closed half-spaces so that $C \subset H_\alpha$ (n.b. $\alpha$ is a continuous index). Trivially $C \subset \bigcap_\alpha H_\alpha$, so we must show $\bigcap_\alpha H_\alpha \subset C$. Take $x \in \bigcap_\alpha H_\alpha$ and suppose for contradiction $x \not\in C$. By Prop. 4.15 there's a closest point $y \in C$ to $x$. Because $C$ is closed $\parens{x + \frac{\abs{x-y}}{2} \B} \cap C = \emptyset$. Put $e = \frac{x-y}{\abs{x-y}}$, i.e. the unit vector in the direction from $y$ to $x$ and
+  $$
+  D := \braces{ z \in \R{n} \mid z \cdot e \le y \cdot e + \frac{\abs{y-x}}{2} }
+  $$
+  This is a half-space since $x, e, \delta$ are all fixed, and it's easily seen as closed. Additionally, if $w \in C$ then by Lemma 4.13
+  $$
+  \parens{w - y} \cdot \parens{x - y} \le 0 \implies \parens{w - y} \cdot e \le 0 \implies w \cdot e \le y \cdot e \implies w \in D
+  $$
+  so that $D$ is a closed half space containing $C$, thus $x \in D$ by construction so
+  $$
+  x \cdot e \le y \cdot e + \frac{\abs{y - x}}{2} \implies \parens{x - y} \cdot \frac{x - y}{\abs{x-y}} \le \frac{\abs{x - y}}{2} \implies \abs{x - y} \le \frac{\abs{x - y}}{2}
+  $$
+  which is only possible if $x = y$, but $y \in C$ and $x \not\in C$, hence we get a contradiction. \, \\
+
+  Now I think $C$ must be closed because we can consider $\R{}$ with $C = (-\infty, 0)$. $C$ is convex, and any closed half-space containing it must be of the form $(-\infty, c]$ for $c \ge 0$. Takeing the intersection over all such half-spaces gives us $(-\infty, 0]$, hence $C$ is not the intersection over all closed half spaces containing it.
+\end{ex} %:
+\begin{ex}{4.18} %;
+  First we'll show $\con S$ is locally bounded. Let $x \in \R{m}$ then $\exists N(x)$ so that $S(N(x))$ is bounded. Since $S(N(x))$ is bounded it fits inside some ball $B$. $B$ is convex and contains $S(N(x))$ and thus $\parens{ \con S }(N(x)) = \con (S(N(x))) \subset B$. This says $N(x)$ is a neighborhood of $x$ so that $\parens{\con S}(N(x))$ is bounded, hence $\con S$ is locally bounded. \, \\
+
+  Now to prove osc let $x_i \to x$, $y_i \to y$ with $y_i \in \con S(x_i)$. By theorem 4.4 each $y_i$ can be written as
+  $$
+  y_i = \sum_{k=0}^n \lambda_{i,k} y_{i,k}
+  $$
+  where $y_{i, k} \in S(x_i)$, $\lambda_{i,k} \ge 0$ and $\sum_{k=0}^n \lambda_{i,k} = 1$. By local boundedness, for each fixed $k$ $y_{i,k}$ is in a bounded set, so that there's a convergent subsequence (without relabeling) so that $y_{i,k} \to y_k$ for some $y_k$. We can do this $n+1$ times to gather $n$ subsequences of subsequences so that we find $y_k$ for each $y_{i,k}$ to converge to. Similarly $\lambda_{i,k}$ all live in $[0, 1]$ so we can take subsequences of the subsequences extracted for each $y_{i,k}$ to find $\lambda_k$ that each $\lambda_{i,k}$ converges to. We can do this subsequence of subsequence process because we're doing it a finite number of times (otherwise we may run out of elements to take a subsequence from). Altogether we have $y_{i,k} \to y_k$ and $\lambda_{i,k} \to \lambda_k \in [0,1]$ for $k = 0, 1, ..., n$. By osc of $S$, since $y_{i,k} \in S(x_i)$, $y_k \in S(x)$. By continuity of addition we also have $\sum_{k=0}^n \lambda_k = 1$. Altogether this gives us
+  $$
+  \sum_{k=0}^n \lambda_{i,k} y_{i,k} \to \sum_{k=0} \lambda_k y_k \in \con S(x)
+  $$
+  so that $\con S$ is osc at $x$. \, \\
+
+  To prove isc (and thus continuity), consider a similar $x_i \to x$ and $y \in \con S(x)$. By theorem 4.4
+  $$
+  y = \sum_{k=0} \lambda_k y_k
+  $$
+  for $y_k \in S(x)$, $\lambda_k \ge 0$ and $\sum_{k=0}^n \lambda_k = 1$. By isc of $S$ $\exists y_{i,k} \to y_k$ with $y_{i,k} \in S(x_i)$ for each $k$. Then
+  $$
+  y_i := \sum_{k=0}^n \lambda_k y_{i,k} \in \con S(x_i)
+  $$
+  and $y_i \to y$ so that $S$ is isc.
+\end{ex} %:
+\begin{ex}{4.22} %;
+  To begin notice $\braces{ f \mid \xi \in (x + \delta \B) \cap O, f \in F(\xi) } = F\parens{(x + \delta\B) \cap O}$ so that
+  $$
+  F_K(x) = \bigcap_{\delta > 0} \clo{\con} F\parens{(x + \delta\B) \cap O}
+  $$
+  Since $F$ is locally bounded there's an $\epsilon > 0$ so that $F((x + \epsilon \B) \cap O)$ is bounded. Notably $F_K\parens{x + \frac{\epsilon}{2}\B} \subset \clo{\con} F((x + \epsilon\B) \cap O)$ and hence $F_K$ is locally bounded. \,\\
+
+  In order to show osc, consider $x_i \to x$, $y_i \in F_K(x_i)$ with $y_i \to y$. Each $y_i \in \clo{\con} F((x_i + \delta \B) \cap O)$ for every $\delta > 0$. By Exercise 4.7, since $F_K$ is locally bounded, we know
+  $$
+  \clo{\con} F((x_i + \delta \B) \cap O) = \con \clo{F((x_i + \delta \B) \cap O)}
+  $$
+  and so by Theorem 4.4 we can write for each $i$
+  $$
+  y_i = \sum_{k=0}^n \lambda_{i,k} y_{i,k} \text{ where } \sum_k \lambda_{i,k} = 1, \lambda_{i, k} \ge 0, y_{i,k} \in \clo{F((x_i + \delta \B) \cap O)}
+  $$
+  By local boundedness we know $y_{i,k}$ are bounded, and hence fixing $k$ there're subsequences so that $y_{i,k} \to y_k$ for some $y_k$. Similarly $\lambda_{i,k}$ live in a compact space so that $\lambda_{i,k} \to \lambda_k$ via appropriate subsequences of subsequences. Of note $\sum_k \lambda_k = 1, \lambda_k \ge 0$ by basic limit properties. \, \\
+
+  N.B. We need to take subsequences of subsequences here, otherwise the next steps don't work (i.e. all the subsequences need to be using the same index). Notably we can keep taking subsequences of subsequences because we're doing so finitely many times. \, \\
+
+  Since $y_{i,k} \in \clo{F((x_i + \delta \B) \cap O)}$ we know $y_k \in \clo{F((x + \delta \B) \cap O)}$ and hence
+  $$
+  \sum_{k=0}^n \lambda_k y_k \in \con \clo{F((x + \delta \B) \cap O)} \implies y \in \con \clo{F((x + \delta \B) \cap O)} \implies y \in \clo{\con} F((x + \delta \B) \cap O)
+  $$
+  Since this holds for every $\delta > 0$ we know $y \in \bigcap_{\delta > 0} \clo{\con} F((x + \delta \B) \cap O) = F_K(x)$ so that $F_K$ is osc. \, \\
+
+  Lastly, at each $x$ $F(x) \subset F_K(x)$ and so $F_K(x)$ is non-empty. Since $F_K(x)$ is an intersection of closed convex sets it is a closed convex set. Finally, closedness combined with local boundedness gives us $F_K(x)$ is compact.
+\end{ex} %:
+\begin{ex}{4.27} %;
+  After racking my brain on this one, I think $X'$ needs to be closed relative to $X$. Let me start by proving the claim with this extra constraint: \, \\
+
+  Since sets consisting of single points are non-empty, closed \& convex all we need to do is show $F'$ is isc relative to $X$. To that end let $x_i \to x$ and $y \in F'(x)$. If $x_i \in X'$ for all large $i$ then continuity of $f'$ gives us $f'(x_i) \to f'(x)$. If $x_i \in X \setminus X'$ for large $i$ then isc of $F$ gives $y_i \in F(x_i)$ where $y_i \to y$. If the previous cases don't hold then we can partition $x_i$ into two subsequences, $x_{i_j} \in X', x_{i_k} \in X \setminus X'$. Notably $x \not\in X \setminus X'$ since $X \setminus X'$ is relatively open by the extra stipulation that $X'$ is relatively closed (and hence $x \in X \setminus X'$ would fall into the previous case that $x_i \in X \setminus X'$ for large $i$. Hence $x \in X'$ and so $y_{i_j} := f'(x_{i_j}) \to f'(x)$ by continuity. Since $f'(x) \in F(x)$ isc of $F$ gives us a sequence $y_{i_k} \in F(x_{i_k})$ so that $y_{i_k} \to y$, so merging $y_{i_j}, y_{i_k}$ gives us a sequences $y_i \to y$.
+  \, \\
+
+  Why do I think $X'$ needs to be relatively closed? Take for instance $X = [0, \pi], F : \R{} \rightrightarrows \R{}$ given by $F(x) = [0, 1]$, then $X$ is non-empty \& compact, $F$ is trivially isc \& takes non-empty, closed, convex values on $X$. Put $X' = [0, \pi/2)$ and $f'(x) = \sin(x)$ then $f'$ is a continuous selection so that in our setting we have
+  $$
+  F'(x) = \begin{cases}
+    \braces{\sin(x)} & x \in [0, \pi/2) \\
+    [0, 1] & x \in [\pi/2, \pi]
+  \end{cases}
+  $$
+  Now take $x_i = \frac{\pi}{2} + \frac{(-1)^i}{i}$ so that $x_i \to \frac{\pi}{2}$, and fix $y = 0 \in F'\parens{\frac{\pi}{2}}$. We have $x_{2i+1} \in X'$, so $f(x_{2i+1}) \to 1$ thus $F'(x_{2i+1}) \to \{1\}$. Thus for large $i$ there is not a sequence $y_i \in F'(x_i)$ so that $y_i \to 0$, hence $F'$ is not isc.
+\end{ex} %:
+\end{document}

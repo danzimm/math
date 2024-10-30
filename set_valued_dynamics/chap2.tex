@@ -1,0 +1,254 @@
+\documentclass{article}
+
+\title{Chapter 2 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\inte}{\mathrm{Int}\,}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\sgn}{sgn}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+
+\begin{document}
+\begin{ex}{2.3}
+  Fix a point $x \in \overline{\limsup_i C_i}$, then there are $x_k \in \limsup C_i$ such that $x_k \to x$. By definition, for each $x_k$ there are $C_{i_j}$ and $x_k^{(i_j)} \in C_{i_j}$ so that $x_k^{(i_j)} \to x_k$. Now define $y_j$ by $x_j^(q)$ where $q$ is such that $\abs{x_j^q - x_j} < \frac{1}{2j}$. I claim $y_j \to x$, thus showing $x \in \limsup_i C_i$. Let $\epsilon > 0$ then fix $N_1$ so that $\frac{1}{N_1} < \epsilon$ and put $N_2$ so that
+  $$
+  \abs{x_k - x} < \frac{1}{2N_1} \, \forall k > M.
+  $$
+  Finally put $M = \max\braces{N_1, N_2}$ so that $\forall j > M$ we know
+  $$
+  \abs{y_j - x} \le \abs{y_j - x_j} + \abs{x_j - x} < \frac{1}{2N_1} + \frac{1}{2N_1} = \frac{1}{N_1} < \epsilon.
+  $$
+  The proof for $\liminf_i C_i$ is identical except $y_j$'s definition changes according to the definition of $\liminf$. If $\lim_i C_i$ exists, then due to the previous two facts, it must also be closed.
+\end{ex}
+\begin{ex}{2.4}
+  I'll show this by showing
+  $$
+  \limsup_i C_i \subset \bigcap_i \overline{C_i} \subset \liminf_i C_i
+  $$
+  and then equality comes from the fact that $\liminf_i C_i \subset \limsup_i C_i$.
+  \,\\
+  Starting with the first inclusion, let $x \in \limsup_i C_i$ then by definition $\exists C_{i_k}$ and $x_{i_k} \in C_{i_k}$ where $x_{i_k} \to x$. By the fact that the sets are non-increasing we know, for any $i$ the tail of the sequence $x_{i_k} \in C_i$ (tail meaning with at most finite terms removed, dependent on $i$). Since the tail exists in $C_i$ then $\lim_i x_{i_k} \in \overline{C_i}$ and thus $x \in \overline{C_i}$, showing the claim.
+  \, \\
+  For the second inclusion take $x \in \bigcap_i \overline{C_i}$. For every $i$ put $x_i \in \overline{C_i}$ such that $\abs{x_i - x} < 1/i$-- this is possible, since otherwise $x \not\in \overline{C_i}$. These $x_i \to x$, thus showing the claim.
+\end{ex}
+\begin{ex}{2.5}
+  Let $x \in \limsup_i C_i$ then $\exists C_{i_k}, x_{i_k} \in C_{i_k}$ s.t. $x_{i_k} \to x$. By uniform convergence for any $\epsilon > 0$ $\exists N$ s.t. $i_k > N$ gives us
+  $$
+  \abs{f_{i_k}(x_{i_k}) - f(x_{i_k})} < \epsilon / 2
+  $$
+  By continuity we also know, for $i_k > M$
+  $$
+  \abs{f(x_{i_k}) - f(x)} < \epsilon / 2
+  $$
+  so that for $i_k > \max\{N,M\}$
+  $$
+  \abs{f_{i_k}(x_{i_k}) - f(x)} = \abs{f_{i_k}(x_{i_k}) - f(x_{i_k}) + f(x_{i_k}) - f(x)} \le \abs{f_{i_k}(x_{i_k}) - f(x_{i_k})} + \abs{f(x_{i_k}) - f(x)} < \epsilon
+  $$
+  so that $f_{i_k}(x_{i_k}) \to f(x)$ as $k \to \infty$. By uniform convergence we also know for any $z \in [a, b]$ $f_{i_k}(z) \to f(z)$, so combined with the previous gives us $f_{i_k}(z) - f_{i_k}(x_{i_k}) \to f(z) - f(x)$. By construction
+  $$
+  0 \le f_{i_k}(z) - f_{i_k}(x_{i_k}) \implies 0 \le f(z) - f(x) \implies f(x) \le f(z)
+  $$
+  so that $x \in C$.
+\end{ex}
+\begin{ex}{2.6}
+  \begin{enumerate}[label=(\alph*)] \, \\
+    \newcommand{\cp}{C_\rho}
+    \item
+      Take $x \in C$, then, by continuity $\exists N(x)$ so that $\rho \ge M > 0$ on $N(x)$. For any $y \in \inte \parens{(x + M\B) \cap N(x)}$
+      $$
+      \abs{y - x} \le M \le \rho(y) \implies x \in y + \rho(y)\B \implies y \in \cp \implies \inte \parens{(x + M\B) \cap N(x)} \subset \cp.
+      $$
+      Since $x \in \inte \parens{(x + M\B) \cap N(x)}$ $x \in \inte \cp$.
+    \item
+      Let $x_i \to x$ with $x_i \in \cp$. Since $x_i \in \cp \, \exists y_i \in \parens{x_i + \rho(x_i)\B} \cap C$. Due to convergence and continuity of $\rho$ $y_i$ are in a compact space for large $i$ and hence $\exists y_{i_k} \to y$ for some $y \in C$ (the last inclusion due to closedness of $C$). If $y \not\in x + \rho(x)\B$ then you could form a neighborhood $N$ about $x + \rho(x)\B$ such that $y \not\in N$ (since $x + \rho(x)\B$ is closed). Since $x + \rho(x)$ is continuous $x_i + \rho(x_i) \B \cap N \ne \emptyset$ for large $i$, however, since $y \not\in N$, $y_{i_k} \not\in N$ for large $i_k$, a contradiction.
+    \item
+      \newcommand{\cpi}{C_{\rho_i}}
+      Since $C \subset \cpi \, \forall i$ we know $C \subset \limsup_i \cpi, C \subset \liminf_i \cpi$. We know $\liminf_i C_i \subset \limsup_i C_i$, so we must show $\limsup_i \subset C$ to complete the proof. \, \\
+      Take $x \in \limsup_i \cpi, x \not\in C$ for contradiction. Then $\exists C_{\ik}, x_{\ik} \in C_{\ik}$ s.t. $x_{\ik} \to x$. Because $C$ is closed we know $D := d_H({x}, C) > 0$. Now fix $M_1$ s.t. $\forall \ik > M_1, \, x_{\ik} \in N(x) := x + \frac{D}{4}\B$. Also fix $M_2$ s.t. $\forall \ik > M_2, \, \abs{\rho_{\ik}} < \frac{D}{4} \, \forall y \in N(x)$ (this is using uniform local convergence since $N(x)$ is compact). Together, for $\ik > \max{M_1, M_2}$
+      $$
+      \abs{x_{\ik} + \rho_{\ik} - x} < \frac{D}{2}
+      $$
+      so that $x_{\ik} + \rho_{\ik}\B \cap C = \emptyset$, a contradiction with the construction of $x_{\ik}$.
+  \end{enumerate}
+\end{ex}
+\begin{ex}{2.10} \, \\
+  \begin{itemize}
+    \item[(osc)]
+      \newcommand{\xb}{\overline{(a, b, c)}}
+      \newcommand{\yb}{\overline{x}}
+      \renewcommand{\xi}{(a_i, b_i, c_i)}
+      \newcommand{\yi}{x_i}
+      Let $\xi \to \xb, \, \yi \in S(\xi)$ with $\yi \to \yb$. We must show $\yb \in S(\xb)$. Since $(a, b, c, x) \to a x^2 + b x + c$ is a continuous function we know
+      $$
+      a_i x_i^2 + b_i x_i + c_i \to a x^2 + b x + c \implies a x^2 + b x + c = 0,
+      $$
+      hence the claim is proven.
+    \item[(not isc)] Put $(a, b, c) = (1, 0, 0)$ and $(a_i, b_i, c_i) = (1, 0, 1/i)$, then $0 \in S(x)$, however $S(\xi) = \emptyset \, \forall i$.
+  \end{itemize}
+\end{ex}
+\begin{ex}{2.11}
+  \begin{itemize} \, \\
+    \item[$(\implies)$]
+      \newcommand{\gph}{\mathrm{gph}\,}
+      Let $S$ be osc. Take $(x_i, y_i) \in \gph S$ s.t. $(x_i, y_i) \to (x, y)$. In particular $x_i \to x$, $y_i \to y$ and $y_i \in S(x_i)$ by definition of $\gph S$, so osc tells us $y \in S(x) \implies (x, y) \in \gph S$.
+    \item[$(\impliedby)$]
+      Consider $\gph S$ closed, and let $x_i \to x, \, y_i \to y$ with $y_i \in S(x_i)$. By the convergence of $x_i, y_i$ we know $(x_i, y_i) \to (x, y)$, and so by closedness of $\gph S$, and the fact that $y_i \in S(x_i) \iff (x_i, y_i) \in \gph S$, $(x, y) \in \gph S$ hence $y \in S(x)$, thus $S$ is osc
+  \end{itemize}
+\end{ex}
+\begin{ex}{2.12} \, \\
+  \begin{itemize}
+    \item[$(\implies)$]
+      \newcommand{\xb}{\overline{x}}
+      Let $S$ be locally bounded and let $U \subset \R{m}$ be bounded. For the sake of contradiction suppose $S(U)$ is unbounded so that $\exists u_i \in S(U)$ s.t. $\abs{u_i} \to \infty$ and $\abs{u_i}$ is monotonically increasing (i.e. we want $\forall M \in \R{+} \, \exists N \in \mathbb{N}$ s.t. $\forall i > N \, \abs{u_i} > M$).
+
+      By boundedness of $U$ there's a convergent subsequence $u_{i_k} \to u \in \overline{U}$. By local boundedness of $S$ there's a neighborhood $N(u)$ of $u$ such that $S(N(u))$ is bounded. For large enough $k$ $u_{i_k} \in N(u)$, hence $S(u_{i_k})$ is bounded, but this contradicts the construction of $u_i$
+    \item[$(\impliedby)$]
+      Let $x \in \R{n}$ and fix $U$ a bounded neighborhood of $x$ then by hypothesis $S(U)$ is bounded, completing the proof.
+  \end{itemize}
+\end{ex}
+\begin{ex}{2.13}
+  W.l.o.g. we operate as if $S$ is fully single valued, since we can look locally enough (i.e. large enough $i$) so that it is, and so consider $S(x) = {s(x)}$ for some single valued $s$. \, \\
+  --- \, \\
+  \newcommand{\xb}{\overline{x}}
+  \newcommand{\yb}{\overline{y}}
+  (a) $\implies$ (c) by definition. To show (b) $\implies$ (c) let $x_i \to \xb$, $\yb \in S(\xb) \iff \yb = s(\xb)$. By local boundedness $\exists N(x)$ bounded such that $s(N(x))$ is bounded. For large $i$ $x_i \in N(x)$ and so $y_i := s(x_i) \in s(N(x))$. Since $s(N(x))$ is bounded there's a convergent subsequence $y_{i_k} \to y^*$. By osc we know $y^* \in S(x) \iff y^* = s(x) = \yb$, hence isc.
+
+  --- \, \\
+  So, I think there's an error above, but I can't figure out at the moment how to get around it: we need to show that $y_i$ converges, not that $y_{i_k}$ converges, since osc operates on convergent $y_i := S(x_i)$.
+
+  --- \, \\
+  Finally to show (c) $\implies$ (a), since continuity of $S$ at $\xb$ is the same as standard continuity of $s$ at $\xb$, it suffices to show $\lim_i s(x_i) = s(\xb)$ for any $x_i \to \xb$. Due to isc, for $\yb = s(\xb)$, and any $x_i \to \xb$ we have $\lim_i \parens{y_i := s(x_i)} = y = s(x)$, hence $s$ is continuous and so $S$ is as well.
+\end{ex}
+\begin{ex}{2.15} \, \\
+  \newcommand{\xb}{\overline{x}}
+  \newcommand{\yb}{\overline{y}}
+  \newcommand{\ub}{\overline{u}}
+  \begin{itemize}
+    \item[(osc)] Let $x_i \to \xb$ and $y_i \to \yb$ where $y_i \in F(x_i)$. By construction $y_i \in \bigcup_{u \in U(x_i)} f(x, u)$, so that $y_i = f(x, u_i)$ for some $u_i \in U(x_i)$ (since $U$ never takes on empty values). Because $U$ is locally bounded we know $\exists N(x)$ s.t. $U(N(x))$ is bounded. Since $x_i \in N(x)$ for large $i$ we have $u_i \in U(N(x))$ for large $i$, so we can find a subsequence $u_{i_k} \to \ub$ for some $\ub$. Since $U$ is assumed to be osc, $\ub \in U(x)$. Together with the fact that $f$ is continuous we know $f(x_i, u_{i_k}) \to f(\xb, \ub) \in F(\xb)$.
+    \item[(isc)] Let $x_i \to \xb$ and $\yb \in F(\xb)$. By construction $\yb \in \bigcup_{u \in U(\xb)} f(\xb, u)$ so that $\yb = f(\xb, \ub)$ for some $\ub \in U(\xb)$. By isc of $U$ $\exists u_i \in U(x_i)$ (which we can assume exist for all $i$ since $U$ never takes empty values) s.t. $u_i \to \ub$. Fix $y_i = f(x_i, u_i)$ then $y_i \to \yb$ by continuity of $f$.
+    \item[(continuous)] The two results above together show if $U$ is continuous then $F$ is as well.
+  \end{itemize}
+\end{ex}
+\begin{ex}{2.18}
+  \newcommand{\xb}{\overline{x}}
+  \newcommand{\yb}{\overline{y}}
+  \begin{itemize} \, \\
+    \item[(isc)] Let $x_i \to \xb$ and $\yb \in S(\xb)$. Suppose there doesn't exist a sequence $y_i \in S(x_i)$ for large $i$ such that $y_i \to \yb$. Then there's some $\delta > 0$ so that $y_i \not\in \yb + k\delta\B$ for infinitely many $i$. However, eventually $x_i \in x + \delta\B$ for all $i > N \in \mathbb{N}$, so by Lipschitz, $\forall i > N$
+      $$
+      S(x_i) \subset S(\xb) + k\delta\B
+      $$
+      but $y_i \in S(x_i)$, a contradiction.
+    \item[(usc)]
+      Let $O$ be open containing $S(\xb)$, then $\exists \delta > 0$ so that $S(\xb) + k\delta\B \subset O$. Put $N(x) = x + \delta \B$ then $\forall x' \in N(x)$
+      $$
+      S(x') \subset S(\xb) + k\norm{x - x'}\B
+      $$
+      by construction of $S$ and so
+      $$
+      S(N(\xb)) = \bigcup_{x' \in N(\xb)} S(x') \subset \bigcup_{x' \in N(\xb)} S(\xb) + k\norm{x - x'}\B = S(\xb) + \bigcup_{x' \in N(x)} k\norm{x' - x}\B \subset S(\xb) + k\delta\B \subset 0.
+      $$
+    \item[(osc)]
+      When $S(\xb)$ is closed, with the fact that $S$ is usc at $\xb$, Prop 2.16 tells us $S$ is osc at $\xb$.
+    \item[(continuous)]
+      If $S$ takes on closed values then $S$ is osc $\forall \xb$ and so, combined with being isc, this tells us $S$ is continuous.
+  \end{itemize}
+\end{ex}
+\begin{ex}{2.20} \, \\
+  \begin{itemize}
+    \item Finding an open loop control so that $u^2(0) + u^2(1)$ is minimized: \, \\
+      If $x_0$ is outside $[-2, 2]$ then no such $u$ exists. If $x_0 = 0$ then $u = 0$. If $x_0 > 0$ then we must have $u(0) + u(1) = -x_0$. To minimize $u^2(0) + u^2(1)$ it must be that $u(0), u(1) < 0$, otherwise either $x_0 > 1$ and $u$ cannot be constructed, or $u(0) = -x_0, u(1)$ has smaller objective than one with e.g. $u(1) > 0$. Now we must decide how much of $x_0$ goes into either $u(0) \lor u(1)$, i.e. for what $\lambda$ is
+      $$
+      \parens{-x_0\lambda}^2 + \parens{-x_0(1-\lambda)}^2 = x_0^2 \parens{1 - 2\lambda + 2\lambda^2}
+      $$
+      minimized (since indeed $-x_0\lambda + -x_0(1-\lambda)$ generically describes the set of possible $u(0), u(1)$. Taking the derivative and finding critical points in terms of $\lambda$ we see $\lambda = \frac{1}{2}$ minmizes the above expression (as the objective is $1$ at endpoints and $1/2$ at $\lambda = 1/2$), so that $u(0) = u(1) = \frac{-x_0}{2}$ is a control minimizing the objective. For $x_0 < 0$ the analysis is identical except with $u(0) = u(1) = \frac{x_0}{2}$ appropriately.
+    \item Finding $M(x_0)$: The same analysis from above works to show
+      $$
+      M(x_0) = -(\sgn x_0)\parens{\frac{x_0}{2}, \frac{x_0}{2}}
+      $$
+    \item Showing $m(x_0) = \frac{1}{2}x_0^2$: By our characterization of $M(x_0)$ we know int $\inf$ in $m(x_0)$ is achieved and so
+      $$
+      m(x_0) = p(x_0, M(x_0)) = \parens{-(\sgn x_0)\frac{x_0}{2}}^2 + \parens{-(\sgn x_0)\frac{x_0}{2}}^2 = \frac{1}{4}x_0^2
+      $$
+      This disagrees with what the book says $m(x_0)$ should be, I'm not sure how to close the gap.
+    \item When $p(x_0, u) = \abs{u_0} + \abs{u_1}$: Comparing with above, the same logic applies to show $u_0, u_1 < 0$, but now our minmization objective in terms of $\lambda$ becomes, w.l.o.g. with $x_0 > 0$
+      $$
+      \abs{-x_0 \lambda} + \abs{-x_0(1-\lambda)} = 1
+      $$
+      so that any $\lambda$ can minimize the objective, hence $M(x_0) = \braces{ -(\lambda, 1-\lambda) \mid \lambda \in [0, 1] }$. When $x_0 < 0$ then appropriately $M(x_0) = \braces{ (\lambda, 1-\lambda) \mid \lambda \in [0, 1] }$ and finally with $x_0 = 0$ $M(x_0) = {0}$. We can summarize
+      $$
+      M(x_0) = \begin{cases}
+        -\sgn x_0 \braces{ (\lambda, 1-\lambda) \mid \lambda \in [0, 1] } & x_0 \ne 0 \\
+        {0} & x_0 = 0
+      \end{cases}
+      $$
+      Consequently, since the objective is $1$ for $x_0 \ne 0$ and $0$ for $x_0 = 0$ we have
+      $$
+      m(x_0) = \begin{cases}
+        1 & x_0 \ne 0 \\
+        0 & x_0 = 0
+      \end{cases}
+      $$
+  \end{itemize}
+\end{ex}
+\begin{ex}{2.21} \, \\
+  \newcommand{\xb}{\overline{x}}
+  \newcommand{\pref}[1]{f^{-1}((-\infty, #1])}
+  \begin{itemize}
+    \item[$(\implies)$]
+      Suppose $f$ is lsc and let $r \in \mathbb{R}$. Take a sequence $x_i \to \xb$ where $x_i \in \pref{r} = \braces{ x \in \R{n} \mid f(x) \le r }$. By lsc and the definition of $\pref{r}$ we know
+      $$
+      f(\xb) \le \liminf_i f(x_i) \le r \implies f(\xb) \le r \implies \xb \in \pref{r}
+      $$
+      so that $\pref$ is closed.
+    \item[$(\impliedby)$] Now suppose $\forall r \in \R{}$ $\pref{r}$ is closed and let $x_i \to \xb$ be a sequence. If $\liminf_i f(x_i) = \infty$ then the inequality is trivially true. If $\liminf_i f(x_i) = -\infty$ then there's a subsequence $x_{i_k}$ so that $f(x_{i_k}) \to -\infty$ and $f(x_{i_k})$ is bounded above by $M$, so that $\pref{M}$ is not closed, hence $\liminf_i f(x_i)$ must be finite. Now
+      $$
+      \pref{\liminf_i f(x_i)} = \braces{ x \in \R{n} \mid f(x) \le \liminf_i f(x_i) }
+      $$
+      By definition of $\liminf$
+      $$
+      \liminf_i f(x_i) = \lim_i \inf \braces{ f(x_j) \mid j \ge i } \implies f(x_j) \le \liminf_i f(x_i) \, \forall j,
+      $$
+      the implication coming from the fact that the set whose $\inf$ is taken is shrinking as $i$ increases, causing the $\inf$ to only possibly increase, so $x_i \in \pref{\liminf_i f(x_i)}$, and thus closedness tells us $\xb \in \pref{\liminf_i f(x_i)}$ showing $f(\xb) \le \liminf_i f(x_i)$, thus $f$ is lsc at $\xb$.
+  \end{itemize}
+\end{ex}
+\begin{ex}{2.22}
+  \newcommand{\xb}{\overline{x}}
+  \newcommand{\yb}{\overline{y}}
+  Let $f$ be lsc and $C$ compact and suppose for contradiction $f$ is not bounded below on $C$, so that $\exists x_i \in C$ s.t. $x_i \to \xb$ but $f(x_i) \to -\infty$. By compactness $\xb \in C$, hence
+  $$
+  f(\xb) \le \liminf_i f(x_i)
+  $$
+  If $f$ isn't bounded below then $\liminf_i f(x_i) = -\infty$ but $f(\xb) \ne -\infty$ (by construction), a contradiction, hence $f$ is bounded below. Since $f$ is bounded below $\inf_{y \in C} f(y)$ is finite, and so there's a minimizing sequence $y_i$ s.t. $y_i \in C$ and $f(y_i) \to \inf_{y \in C} f(y)$. By compactness there's a convergent subsequence $y_{i_k} \to \yb \in C$ and so
+  $$
+  f(\yb) \le \liminf_i f(y_{i_k}) = \lim_i f(y_i) = \inf_{y \in C} f(y)
+  $$
+  where the middle equality comes from the fact that $\lim_i f(x_i)$ exists and is finite. Since $f(\yb) \le \inf_{y \in C} f(y)$ it must be $f(\yb) = \inf_{y \in C} f(y)$ so $\inf_{y \in C} f(y) = \min_{y \in C} f(y)$, hence every sequence in $\argmin_{y \in C} f(y)$ converges in $\argmin_{y \in C} f(y)$ so that $\argmin_{y \in C} f(y)$ is compact.
+\end{ex}
+\begin{ex}{2.25} \, \\
+  \newcommand{\xb}{\overline{x}}
+  \begin{enumerate}[label=(\alph*)]
+    \item Suppose $S, T$ are locally bounded at $\xb$, so there's $N_S(\xb), N_T(\xb)$ neighborhoods of $x$ so that $S(N_S(\xb)), T(N_T(\xb))$ are bounded. $N_S(\xb) \cap N_T(\xb)$ is a neighborhood of $\xb$, then, so that
+      $$
+      (S + T)(N_S(\xb) \cap N_T(\xb)) = \braces{ s + t \mid s \in S(N_S(\xb) \cap N_T(\xb)), t \in T(N_S(\xb) \cap N_T(\xb)) }
+      $$
+      is bounded (since each value in the summand is guaranteed bounded).
+    \item
+      Let $x_i \to x$ and fix $y \in (S + T)(x)$, then $y = s + t$ for some $s \in S(x), t \in T(x)$. By isc of $S, T$ $\exists s_i \in S(x_i), t_i \in T(x_i)$ where $s_i \to s, t_i \to t$. By continuity of standard addition we have
+      $$
+      s_i + t_i \to s + t
+      $$
+      and since $s_i + t_i \in (S + T)(x_i)$ it's shown $S+T$ is isc at $x$.
+    \item
+      Continuity follows from showing the osc case, and combining with the above isc case. Let $x_i \to x$ and let $y_i \in (S + T)(x_i)$ be so that $y_i \to y$. By definition for each $y_i$ $\exists s_i \in S(x_i), t_i \in T(x_i)$ so that $y_i = s_i + t_i$. W.l.o.g. consider $S$ locally bounded, so that there's a convergent subsequence $s_{i_k} \to s$. By osc of $S$ $s \in S(x)$. Since $s_{i_k} \to s$ $t_{i_k} \to y - s$ and hence $y - s \in T(x)$. Altogether this shows $y \in (S+T)(x)$, thus osc.
+  \end{enumerate}
+\end{ex}
+\end{document}

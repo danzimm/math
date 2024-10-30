@@ -1,0 +1,117 @@
+\documentclass{article}
+
+\title{Chapter 5 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{amssymb} % \rightrightarrows
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\inte}{Int}
+\DeclareMathOperator*{\con}{con}
+\newcommand{\clo}[1]{\overline{#1}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+\newcommand{\idot}[2]{#1 \cdot #2}
+\newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+
+\begin{document}
+\begin{ex}{5.1} %;
+  First we want to show a lexographically minimal point exists. By compactness of $K$ it's bounded and closed. Projecting onto the first coordinate we get another bounded closed $1D$ set so that there's a minimal element. Call it $u_1$. Now consider $K_1 := K \cap \braces{ x_1 = u_1 }$, i.e. the intersection with the hyperplane specified by $x_1 = u_1$. This is closed since its the intersection of closed sets \& bounded because a subset of a bounded set, hence compact. Project $K_1$ onto its second coordinate to get another $1D$ compact set, hence with a minimal element $u_2$. We can iteratively do this $m$ times to come up with $u = (u_1, u_2, ..., u_m)$. By construction this is lexographically minimal. \, \\
+
+  Now suppose there's a second point $w$ that's also lexographically minimal. By the definition of lexographic minimality of $u$ for some $i$ one of $u_i < w_i$. This means $w$ is not lexographically smaller than $u$, hence it's not lexographically minimal.
+\end{ex} %:
+\begin{ex}{5.3} %;
+  The proof of this is very similar to Lemma 5.2. Put $A \subset [0, T]$ where $\dot{\phi}(t) \in F(\phi(t))$ for $t \in A$. Define $v(t) = \dot{\phi(t)}$ for $t \in A$ and for every $t \not\in A$ pick arbitrary $u^*(t) \in U(\phi(t))$ and  put $v(t) = f(\phi(t), u(t))$ then $v : [0, T] \to \R{n}$ where $v(t) = \dot{\phi}(t)$ a.e. $t$ and hence $v$ is measurable. Define $M : [0, T] \rightrightarrows U(\phi([0, T]))$ by
+  $$
+  M(t) = \begin{cases}
+    \braces{ u \in U(\phi(t)) \mid v(t) = f(\phi(t), u) } & t \in A \\
+    \braces{ u^*(t) } & t \in [0, T] \setminus A
+  \end{cases}
+  $$
+  We have the following properties on $M$ at each $t \in A$:
+  \begin{itemize}
+    \item $M(t)$ is non-empty by construction of $v$
+    \item Since $\phi([0, T])$ is bounded, $U$ is locally bounded, Exercise 2.12 tells us $U(\phi([0, T]))$ is bounded, hence $M(t)$ is bounded.
+    \item We want to show each $M(t)$ is also closed so that $M(t)$ is compact. Let $u_i \in M(t)$ where $u_i \to u$. By definition of $M(t)$ we know $u_i \in U(\phi(t))$, and so by osc we know $u \in U(\phi(t))$ (our sequence in the domain is the constant sequence $\phi(t) \to \phi(t)$). Continuity of $f$ gives us $v(t) = f(\phi(t), u)$, so that $u \in M(t)$ and thus $M(t)$ is compact.
+  \end{itemize}
+  Trivially all the above conclusions follow for $t \not\in [0, T] \setminus A$, so that $M$ takes compact non-empty values. Just as in Lemma 5.2 define $u(t)$ as the lexographic minimal value in $M(t)$. We have $u : [0, t] \to U(\phi([0, T]))$ so that
+  $$
+  v(t) = f(\phi(t), u(t)) \; \forall t \in [0, T]
+  $$
+  All that's left to show is that $u$ is measurable. We do this just like in Lemma 5.2 inductively with Lusin's Theorem. We start again with $u_1, u_2, ... u_{k-1}$ coordinate functions measurable and will show $u_k$ is measurable. Pick $\epsilon > 0$. Lusin's Theorem gives us a compact $C \subset [0, T]$ so that $t \mapsto (u_1(t), u_2(t), ..., u_{k-1}(t), v(t))$ is continuous and $\mu([0, T] \setminus C) < \epsilon / 2$. Notably each $u_1, u_2, ..., u_{k-1}, v$ are continuous on $C$. \, \\
+
+  Now the goal is to show for arbitrary $r$ the set
+  $$
+  S := \braces{ t \in C \mid u_k(t) \le r }
+  $$
+  is closed. If this is the case then we can show our claim the same way the end of Lemma 5.2 does after showing this set is closed. \, \\
+
+  To this end, suppose $S$ is not closed, so that $\exists t_i \to \tau$ where $t_i \in S$. Since $C$ is closed and $t_i \in C$ we know $\tau \in C$. Because $U$ is locally bounded $u(t_i)$ is bounded and hence there's a convergent subsequence. Without relabeling we have $u(t_i) \to \clo{u}$, and by osc of $U$ we know $\clo{u} \in U(\tau)$. Continuity of $f, \phi$ tells us $f(\phi(t_i), u(t_i)) \to f(\phi(\tau), \clo{u})$ so that $\clo{u} \in M(\tau)$. \, \\
+
+  Continuity of $u_1, u_2, ..., u_{k-1}$ on $C$ gives us $\clo{u}_i = u_i(\tau)$ for $i = 1, 2, ..., k-1$. However, by our initial assumption $u_k(\tau) > r$, and since $u(t_i)_k \le r \implies \clo{u}_k \le r$ so that
+  $$
+  u_k(\tau) > \clo{u}_k,
+  $$
+  but this contradicts the fact that $u(\tau)$ is lexographically minimal in $M(\tau)$ (since $\clo{u} \in M(\tau)$), hence indeed $S$ is closed.
+\end{ex} %:
+\begin{ex}{5.4} %;
+  \begin{enumerate}
+    \item[(a)]
+      The forward implication comes from the definition of $\sup$. To prove the backward one, we start with $v$ so that $\idot{v}{p} \le \sup_{w \in C} \idot{w}{p}$ for every $p \in \R{n}$. Suppose for contradiction $v \not\in C$. By Theorem 4.16 that $\exists p \in \R{n}, \epsilon > 0$ so that
+      $$
+      \idot{w}{p} + \epsilon \le \idot{v}{p} \; \forall w \in C \implies \sup_{w\in C} \idot{w}{p} + \epsilon \le \idot{v}{p}
+      $$
+      which contradicts the initial assumption, so $v \in C$.
+    \item[(b)]
+      \begin{itemize}
+        \item
+          Let $(x_i, p_i) \to (x, p) \in C \times \R{n}$. Because $F$ is locally bounded $H(x_n, p_n)$ is finite. Thus, for each $n$, by definition of $\sup$ $\exists v_n \in F(x_n)$ where
+          $$
+          \sup_{v \in F(x_n)} \idot{v}{p_n} - \frac{1}{n} \le \idot{v_n}{p_n} \implies \limsup_{n \to \infty} H(x_n, p_n) \le \limsup_{n \to \infty} \idot{v_n}{p_n}
+          $$
+          Next, by definition of $\limsup$ $\exists \idot{v_{n_k}}{p_{n_k}} \to \limsup_{n \to \infty} \idot{v_n}{p_n}$. Since $F$ is locally bounded $\exists v_{n_{k_i}} \to \nu$, and by osc $\nu \in F(x)$. Using the fact that $p_n \to p$ we see $\idot{v_{n_k}}{p_{n_k}} \to \idot{\nu}{p}$ and so $\idot{\nu}{p} = \limsup_{n \to \infty} \idot{v_n}{p_n}$. Combined with the definition of $\sup$, the fact that $\nu \in F(x)$ means
+          $$
+          \limsup_{n \to \infty} \idot{v_n}{p_n} = \idot{\nu}{p} \le \sup_{v \in F(x)} \idot{v}{p} = H(x, p)
+          $$
+          Pulling in the initial major expression above we find our desired result
+          $$
+          \limsup_{n \to \infty} H(x_n, p_n) \le H(x, p)
+          $$
+        \item
+          Let $p_n \to p \in C$. By the definition of $\sup$ we can construct, $v_n \in F(x)$ so that $\idot{v_n}{p} \to \sup_{v \in F(x)} \idot{v}{p}$. By osc and local boundedness of $F$ there's a convergent subsequence so that
+          $$
+          v_{n_i} \to \nu \in F(x) \implies \idot{v_n}{p} \to \idot{\nu}{p}
+          $$
+          We also have
+          $$
+          \idot{\nu}{p_n} \le \sup_{v \in F(x)} \idot{v}{p_n} \implies \liminf_n \idot{\nu}{p_n} \le \liminf_n \sup_{v \in F(x)} \idot{v}{p_n} = \liminf_n H(x, p_n)
+          $$
+          So that combining $\liminf_n \idot{\nu}{p_n} = \idot{\nu}{p} = H(x, p)$, and usc of $H$ our claim is shown since
+          $$
+          \limsup_n H(x, p_n) \le H(x, p) \le \liminf_n H(x, p_n) \implies H(x, p_n) \to H(x, p)
+          $$
+      \end{itemize}
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{5.12} %;
+\end{ex} %:
+\begin{ex}{5.13} %;
+\end{ex} %:
+\begin{ex}{5.14} %;
+\end{ex} %:
+\begin{ex}{5.24} %;
+\end{ex} %:
+\begin{ex}{5.27} %;
+\end{ex} %:
+\end{document}
