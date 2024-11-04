@@ -105,13 +105,97 @@
   \end{enumerate}
 \end{ex} %:
 \begin{ex}{5.12} %;
+  Let $T$ be given. For each $n$ partition $[0, T]$ by $n$ $\frac{T}{n}$ intervals. For each $n$ fix
+  $$
+  \phi_n(t) = \begin{cases}
+    0 & t = 0 \\
+    -t + 2k\frac{T}{n} & t \in \left( 2k\frac{T}{n}, \parens{2k+1}\frac{T}{n} \right], k \in \mathbb{N} \\
+    t - \parens{2k+2}\frac{T}{n} & t \in \left( \parens{2k+1}\frac{T}{n}, \parens{2k+2}\frac{T}{n} \right], k \in \mathbb{N} \\
+  \end{cases}
+  $$
+  Then within each partition continuity is clear. At each $2k\frac{T}{n}$ from the left $\phi_n(t)$ is either $0$ when $k=0$ or $t - 2k\frac{T}{n} \to 0$ as $t \to 2k\frac{T}{n}$, and similarly $\phi_n(t) = -t + 2k\frac{T}{n} \to 0$ as $t \to 2k\frac{T}{n}$ from the right. A similar calculation shows that the function continuously takes the value $-\frac{T}{n}$ when $t = \parens{2k+1}\frac{T}{n}$. It's clear $\phi_n$ converges uniformly to the zero function since the max value vanishes. Similarly the partition's size is $\frac{T}{n} \to 0$. This tells us $\phi = 0$ is an Euler solution.
 \end{ex} %:
 \begin{ex}{5.13} %;
+  From $(-1,-1)$ the solution must stay on the $y=x$ line, i.e. for $(0, \tau)$ $\phi(t) = (1, 1)t$, where $\tau = \min\{T, 1\}$. If $\tau = T < 1$ then this is the only possible solution. Assuming $T > 1$, though, we can have two solutions on $t \in [1, T]$: $\phi(t) = (1, 0)t - (1, 0)$ or $\phi(t) = (1, 1)t - (1, 1)$. \, \\
+
+  The former solution comes from a sequence of partitions which all contain $t=1$. This ensures the sequence of solutions must solutions abide by $\phi(t) = (1, 0)t - (1, 0)$ for $t \in (1, 1+\epsilon)$, which perpetuates that same solution until $t = T$. \, \\
+
+  The latter solution comes by ensuring $t = 1$ is not in the partitioning so that solutions stay on the $y=x$ line at all times (i.e. the "problem" point at $t = 1$ is skipped over by the "approximation" done by $(1, 1)t$)
 \end{ex} %:
 \begin{ex}{5.14} %;
+  \begin{itemize}
+    \item
+      Let $x_0 \in \R{n}$. Since $f$ is locally bounded there's some $R$ s.t. $f(x_0 + R\B)$ is bounded, so fix $M = \max_{x \in x_0 + R\B} f(x)$. Put $T := \frac{R}{M}$. For each $n \in \mathbb{N}$ consider a uniform partition of $[0, T]$ by $n$ segments of length $\tau_n := \frac{T}{n}$. Put $\tau_{n,i} = i \tau_n$ and construct $\phi_n$ as follow; for $t \in [0, \tau_{n, 1}]$
+      $$
+      \phi_n(t) = x_0 + t f(x_0)
+      $$
+      Next for each $i = 1, 2, ..., n-1$ put $x_{n,i} := \phi_n(\tau_{n, i})$. where $\phi_n$ is given for $t \in (\tau_{n,i}, \tau_{n,i+1}]$ by
+      $$
+      \phi_n(t) = x_{n,i} + (t - \tau_{n,i}) f(x_{n,i})
+      $$
+      Notice $x_{n,1} = x_0 + \tau_{n,1}f(x_0) \in x_0 + \frac{T}{n} M \B = x_0 + \frac{R}{n} \B$ and for $i = 2, ... n-1$
+      $$
+      x_{n, i} = \phi(\tau_{n,i}) = x_{n,i-1} + \frac{T}{n} f(x_{n,i-1}) \in x_{n,i-1} + \frac{T}{n} M \B = x_{n,i-1} + \frac{R}{n} \B
+      $$
+      so that each $x_{n,i} \in x_0 + \frac{iR}{n}$. Consequently $\phi_n([0, \tau_{n,1}]) \subset x_0 + \frac{T}{n} M \B = x_0 + \frac{R}{n} \B$ and for $i = 1, 2, ... n-1$
+      $$
+      \phi_n((\tau_{n, i}, \tau_{n, i+1}]) \subset x_0 + \frac{iR}{n} \B + \frac{T}{n} M \B = x_0 + \frac{(i+1)R}{n} \B
+      $$
+      so that $\phi_n([0, T]) \subset x_0 + R \B$. \, \\
+
+      Of note: as compared to Theorem 5.11 we don't need to worry about well-formedness of $x_{n,i}$ because $\textrm{dom} \, f = \R{n}$. \, \\
+
+      It's easy to see each $\phi_n$ is an Euler Polygonal approximation for $\dot{x} = f(x)$. Additionally for each $i = 0, 1, ..., n-1$ on $(\tau_{n,i}, \tau_{n,i+1})$
+      $$
+      \dot{\phi_n}(t) = f(x_{n, i}) \implies \norm{\dot{\phi_n}(t)} \le M \; \text{ a.e. } t \in [0, T]
+      $$
+      Combined with the fact that $x_0 + R \B$ is compact and $\phi_n([0, T]) \subset x_0 + R \B$ Lemma 5.6 gives us a uniformly convergent subsequence of $\phi_n$ to some $\phi$, thus an Euler solution to (5.13). \, \\
+    \item
+      Given $T$ and an Euler solution $\phi$ on $[0, T]$ with $\phi_i$ which converge uniformly to $\phi$. We know, thanks to local boundedness we know $\phi_i$ are bounded. Additionally $F_K$ satisifies the Basic Assumptions as it trivially takes non-empty convex values, is locally bounded because $f$ is locally bounded and osc comes easily because the intersection of closed sets is closed. Lastly because $\phi$ is an Euler solution trivially
+      $$\dot{\phi_i}(t) \in F_K(\phi(t)) \text{ a.e. } t \in [0, T]$$
+      Since $\phi_i$ converge uniformly Theorem 5.7 tells us $\phi$ is a solution to $\dot{x} \in F_K(x)$ with $x(0) = x_0$. Lastly for $\phi$ to be a Krasovskii solution we need $\phi$ to be absolutely continuous. \, \\
+
+      Boundedness tells us $\phi_n([0, T]) \in M \B$ for some $M$, and local boundedness of $f$ tells us $\norm{\dot{\phi}(t)} \le L$ for some finite $L$, a.e. $t \in [0, T]$. Thus, Lemma 5.6 tells us $\phi$ is absolutely continuous so that the claim is shown.
+  \end{itemize}
 \end{ex} %:
 \begin{ex}{5.24} %;
+  We know
+  $$
+  \omega(\phi) = \limsup_{i \to \infty} \phi\parens{[i, \infty)} = \lim_{i \to \infty} \phi\parens{[i, \infty)}
+  $$
+  where the second equality comes because $\left.\phi\parens{[i, \infty)}\right|_i$ is non-increasing. This tells us $\omega(\phi)$ is closed. Since $\phi$ is bounded, $\forall i$ $\phi([i, \infty)) \subset R\B$ for some $R > 0$ so that $\omega(\phi)$ is bounded, and thus compact. In particualr $\phi(i)$ has a convergent subsequence in $R\B$ and so $\omega(\phi)$ is also non-empty. \, \\
+
+  To show $\omega(\phi)$ is weakly forward invariant let $x_0 \in \omega(\phi)$ s.t. $\exists t_k \to \infty$ and $\phi(t_k) \to x_0$. Put
+  $$
+  \phi_k(t) = \phi(t_k + t) \implies \dot{\phi_k(t)} = \dot{\phi(t_k+t)} \in F(\phi(t_k+t)) = F(\phi_k(t))
+  $$
+  thus each $\phi_k$ is a solution to (5.1). Since $\phi$ is bounded, $\phi_k$ are bounded so that we can invoke Theorem 5.7. That gives us a uniformly convergent subsequence of $\phi_k$ converging to some $\psi : [0, \infty) \to \R{n}$ s.t. $\psi$ is a solution to (5.1). Lastly
+  $$
+  \psi(t) = \lim_{k \to \infty} \phi_k(t) = \lim_{k \to \infty} \phi(t_k + t) \in \limsup_{k \to \infty} \phi([t_k, \infty)) \subset \limsup_{k \to \infty} \phi([k, \infty)) = \omega(\phi)
+  $$
+  so $\mathrm{rng}(\phi) \subset \omega(\phi)$ showing that $\omega(\phi)$ is weakly forward invariant.
 \end{ex} %:
 \begin{ex}{5.27} %;
+  Consider
+  $$
+  F(x, y) = \braces{(-1, \abs{x}), (1, \abs{x})}
+  $$
+  Let $T > 0$ and consider a solution $(x(t), y(t)) := \phi(t) \in \mathcal{S}_{[0, T]}$. Since $\dot{y} > 0$, MVT tells us $y$ is strictly increasing and so $y(t) > 0 \; \forall t > 0$, hence $y(T) > 0 \implies  y(T) \ne 0$. \, \\
+
+  Now consider for each $n$ a solution $\phi_n$ constructed as follows: split $[0, T]$ into $2n$ equal subintervals. On the odd subintervals (starting with the first subinterval have the solution adide by $(1, \abs{x})$ and on the even abide by $(-1, \abs{x})$. Then to start, with $(x_n(t), y_n(t)) := \phi_n(t)$
+  $$
+  \dot{x_n(t)} = 1 \implies x_n(t) = t, \, \dot{y_n(t)} = \abs{x_n(t)} = t \implies y_n(t) = \frac{t^2}{2} \implies \phi\parens{\frac{T}{2n}} = \parens{\frac{T}{2n}, \frac{T^2}{8n^2}}
+  $$
+  For the next sub interval I'll use relative $t$, i.e. again starting with $t=0$, but now we'll move according to $(-1, \abs{x})$ for $T/2n$ but with a start point of $\parens{\frac{T}{2n}, \frac{T^2}{8n^2}}$, so
+  $$
+  \dot{x_n(t)} = -1 \implies x_n(t) = \frac{T}{2n} - t, \, \dot{y_n(t)} = \frac{T}{2n} - t \implies y_n(t) = \frac{T}{2n}t - \frac{t^2}{2} + \frac{T^2}{8n^2}
+  $$
+  so that $\phi_n\parens{\frac{2T}{2n}} = \parens{0, \frac{T^2}{4n^2} - \frac{T^2}{8n^2} + \frac{T^2}{8n^2}} = \parens{0, \frac{T^2}{4n^2}}$. Repeating this pair of operations $n$ times to span the full $T$ interval will end us at
+  $$
+  \phi_n(T) = \parens{0, \frac{nT^2}{4n^2}} = \parens{0, \frac{T^2}{4n}} \in \mathcal{R}_{(0, 0)}
+  $$
+  As $n \to \infty$, though $\phi_n(T) \to (0, 0)$, but as shown above, $(0, 0) \not\in \mathcal{R}_{(0, 0)}$, so that $\mathcal{R}_{(0, 0)}$ is not closed. \, \\
+
+  As mentioned over email briefly, I'm still unsure of myself on this exercise. I don't intuitively understand what's going on... I more of less feel like I'm reciting a speech. I also struggled with how to write this up... was it ok to work "relatively" at each subinterval? I found the computations were very tedious if I tried to use the "absolute" domain at each step. At the same time, it might be the case that working "relatively" has lead me to an incorrect solution. Anyway, I'm glad this exercise is over... for now, until we chat about it again. So far in this class, this exercise takes the prize for my nemesis.
 \end{ex} %:
 \end{document}
