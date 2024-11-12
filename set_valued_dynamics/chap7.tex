@@ -1,0 +1,454 @@
+\documentclass{article}
+
+\title{Chapter 7 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{amssymb} % \rightrightarrows
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\inte}{int}
+\DeclareMathOperator*{\con}{con}
+\DeclareMathOperator*{\epi}{epi}
+\newcommand{\clo}[1]{\overline{#1}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+\newcommand{\idot}[2]{#1 \cdot #2}
+\newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+
+\begin{document}
+\begin{ex}{7.1} %;
+  \begin{enumerate}[label=(\alph*)] \, \\
+    \item For $x, y \in (0, \infty)$, $x \ne y$, $\lambda \in (0, 1)$ we know
+      \begin{align*}
+        0 &< (1-\lambda)\lambda (x-y)^2 \\
+        &= (1-\lambda)\lambda \parens{x^2 + y^2} + 2(\lambda-1)\lambda xy \\
+        &= (1-\lambda)\lambda \parens{x^2 + y^2} + \parens{\lambda^2  + 1 - 2\lambda + \lambda^2 - 1}xy \\
+        \implies xy &< (1-\lambda)\lambda \parens{x^2 + y^2} + \parens{\lambda^2 + \parens{ 1 - \lambda }^2}xy \\
+        &= \parens{(1-\lambda)y + \lambda x}\parens{(1-\lambda)x + \lambda y} \\
+        \implies \frac{xy}{(1-\lambda)x + \lambda y} &< (1-\lambda)y + \lambda x \\
+        \implies \frac{1}{(1-\lambda)x + \lambda y} &< \frac{(1-\lambda)}{x} + \frac{\lambda}{y}
+      \end{align*}
+      so that $x \mapsto 1/x$ is strictly convex.
+    \item
+      Suppose $Q$ is positive semidefinite. For $\lambda = 0 \lor 1$ its trivial to see the convexity inequality holds (with equality). Let $x, y \in \R{n}$, and notice for $x = 0 \lor y = 0 \lor x = y$ the claim is again trivial with equality holding, so supposing $x \ne y$ and $x, y \ne 0$ we have
+      \begin{align*}
+        \parens{(1-\lambda)x + \lambda y} \cdot Q \parens{(1-\lambda)x + \lambda y} &= (1-\lambda)x \cdot Q \parens{(1-\lambda)x + \lambda y} +  \lambda y \cdot Q \parens{(1-\lambda)x + \lambda y} \\
+        &= (1-\lambda)^2 x \cdot Q x + (1-\lambda)\lambda x \cdot Q y + (1-\lambda)\lambda y \cdot Q x + \lambda^2 y \cdot Q y \\
+        &= (1-\lambda)^2 x \cdot Q x + \lambda^2 y \cdot Q y + (1-\lambda)\lambda\parens{x \cdot Q y + y \cdot Q x} \\
+        &= (1-\lambda)^2 x \cdot Q x + \lambda^2 y \cdot Q y + (1-\lambda)\lambda \parens{ x \cdot Q x + y \cdot Q y - (x - y) \cdot Q (x - y) } \\
+        &= (1-\lambda) x \cdot Q x + \lambda y \cdot Q y - \parens{1-\lambda}\lambda (x - y) \cdot Q (x - y) \\
+        &\le (1-\lambda) x \cdot Q x + \lambda y \cdot Q y
+      \end{align*}
+      when $Q$ is positive semidefinite. When $Q$ is positive definite the above $\le$ becomes $<$ showing strict convexity then holds. Since all the above statements are equality, and the last inequality holds $\iff$ $Q$ is positive semidefinite/definite we've also shown $Q$ is positive semidefinite/definite when $x \mapsto x \cdot Q x$ is convex/strictly convex.
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{7.3} %;
+  \begin{enumerate}[label=(\alph*)] \, \\
+    \item
+      For the positive scalar property simply multiply the (strict) convexity inequality by $\alpha$ to get the desired property. For $f + g$ we have, for $\gamma := (1-\lambda)$
+      $$
+      (f+g)(\gamma x + \lambda y) = f(\gamma x + \lambda y) + g(\gamma x + \lambda y) \le \gamma f(x) + \lambda f(y) + \gamma g(x) + \lambda g(y) = \gamma (f + g)(x) + \lambda (f+g)(y)
+      $$
+    \item
+      Again putting $\gamma = (1-\lambda)$ we have
+      $$
+      g(f(\gamma x + \lambda y)) \le g(\gamma f(x) + \lambda f(y)) \le \gamma g(f(x)) + \lambda g(f(y))
+      $$
+      where the first inequality comes from $f$'s convexity and $g$'s nondecreasing-ness, and the second from $g$'s convexity. The strict convexity case with $g$ increasing is identical to the above except $\le$ is replaced with $<$, giving us our desired property.
+    \item For $\gamma = (1-\lambda)$
+      $$
+      f\parens{A\parens{\gamma x + \lambda y} + b} = f\parens{\gamma Ax + \gamma b + \lambda Ay + \lambda b} \le \gamma f(Ax + b) + \lambda f(Ay + b)
+      $$
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{7.7} %;
+  \newcommand{\dd}[2]{d_{#1}\parens{#2}^2}
+  \newcommand{\pp}[2]{P_{#1}\parens{#2}}
+  By Prop. 7.2 $d_C(\cdot)$ is convex, and combining that with Exercise 7.3 (b), and the fact that $x^2$ is convex, we know $\dd{C}{\cdot}$ is convex. \, \\
+
+  In order to avoid 80000 parens, I'll be using $\iprod{a}{b} := a \cdot b$. We need to show, where $e_i$ is the standard basis on $\R{n}$,
+  $$
+  \frac{\partial \parens{\dd{C}{x}}}{\partial x_i} = \lim_{t \to 0} \frac{\dd{C}{x + t e_i} - \dd{C}{x}}{t} = 2\iprod{e_i}{x-\pp{C}{x}}
+  $$
+  because, then since each of these partials is continuous, we would show the desired differentiability with the specified gradient. Using the hint, we know
+  $$
+  \dd{D}{x + t e_i} \le \dd{C}{x + t e_i} \le \dd{\{\pp{C}{x}\}}{x + t e_i}
+  $$
+  With these inequalities I aim to use the squeeze theorem, i.e. I want to show
+  $$
+  \lim_{t \to 0} \frac{\dd{D}{x + t e_i} - \dd{C}{x}}{t} = \lim_{t \to 0} \frac{\dd{\{\pp{C}{y}\}}{x + t e_i} - \dd{C}{x}}{t} = 2\iprod{x-\pp{C}{x}}{e_i}
+  $$
+  the second equality holds since
+  \begin{align*}
+    \dd{\{\pp{C}{y}\}}{x + t e_i} - \dd{C}{x} &= \iprod{x + te_i - \pp{C}{x}}{x+te_i-\pp{C}{x}} - \iprod{x - \pp{C}{x}}{x - \pp{C}{x}} \\
+    &= 2t \iprod{e_i}{x-\pp{C}{x}}
+  \end{align*}
+  Next we have
+  \begin{align*}
+    \dd{D}{x + t e_i} &- \dd{C}{x} \\
+    &= \iprod{x+te_i - \pp{D}{x+te_i}}{x+te_i - \pp{D}{x+te_i}} - \iprod{x - \pp{C}{x}}{x - \pp{C}{x}} \\
+    &= t^2 + 2t \iprod{e_i}{x-\pp{D}{x+te_i}} + \iprod{\pp{D}{x+te_i}}{\pp{D}{x+te_i}} - 2\iprod{x}{\pp{D}{x+te_i} - \pp{C}{x}} - \iprod{\pp{C}{x}}{\pp{C}{x}}
+  \end{align*}
+  Pausing on this calculation, notice by construction of $D$
+  \begin{align*}
+    &\iprod{\pp{D}{x+te_i} - \pp{C}{x}}{x-\pp{C}{x}} \le 0 \\
+    \implies & -2\iprod{x}{\pp{D}{x+te_i} - \pp{C}{x}} \ge -2 \iprod{\pp{D}{x+te_i} - \pp{C}{x}}{\pp{C}{x}} \\
+    \implies & - 2\iprod{x}{\pp{D}{x+te_i} - \pp{C}{x}} - \iprod{\pp{C}{x}}{\pp{C}{x}} \ge -2\iprod{\pp{D}{x+te_i}}{\pp{C}{x}} + \iprod{\pp{C}{x}}{\pp{C}{x}} \\
+    \implies & \iprod{\pp{D}{x+te_i}}{\pp{D}{x+te_i}} - 2\iprod{x}{\pp{D}{x+te_i} - \pp{C}{x}} - \iprod{\pp{C}{x}}{\pp{C}{x}} \ge \norm{\pp{D}{x+te_i}-\pp{C}{x}}^2
+  \end{align*}
+  Combining the computation of the right limit above, along with the above bounds we can see
+  \begin{align*}
+    2 \iprod{e_i}{x - \pp{C}{x}} &\ge \lim_{t \to 0} \frac{\dd{D}{x + t e_i} - \dd{C}{x}}{t} \\
+    & \ge \lim_{t \to 0} \frac{t^2 + 2t \iprod{e_i}{x-\pp{D}{x+te_i}} + \norm{\pp{D}{x+te_i}-\pp{C}{x}}^2}{t} \\
+    & = \lim_{t \to 0} 2\iprod{e_i}{x-\pp{D}{x+te_i}} + \frac{\norm{\pp{D}{x+te_i}-\pp{C}{x}}^2}{t}
+  \end{align*}
+  By construction of $D$ $\pp{D}{x} = \pp{C}{x}$ so we know, using Prop 4.15
+  $$
+  \lim_{t \to 0} \frac{\norm{\pp{D}{x+te_i}-\pp{C}{x}}^2}{t} = \lim_{t \to 0} \frac{\norm{\pp{D}{x+te_i}-\pp{D}{x}}^2}{t} \le \lim_{t \to 0} \frac{\norm{x + te_i - x}^2}{t} = 0
+  $$
+  Again leveraging prop 4.15 we know $\pp{D}{\cdot}$ is Lipschitz, hence continuous, so that
+  $$
+  \lim_{t \to 0} 2\iprod{e_i}{x-\pp{D}{x+te_i}} = 2\iprod{e_i}{x-\pp{D}{x}} = 2\iprod{e_i}{x-\pp{C}{x}}
+  $$
+  Altogether that gives us
+  $$
+  \lim_{t \to 0} \frac{\dd{D}{x + t e_i} - \dd{C}{x}}{t} = 2\iprod{e_i}{x-\pp{C}{x}} \implies \nabla \dd{C}{x} = 2\parens{x - \pp{C}{x}}
+  $$
+  A final note here: I do think I could avoid the partials and work with differentiability directly... the proof would probably be mostly the same (just replacing $t$ with $\norm{t}$ in various places), but I didn't feel like rewriting what I already wrote. \, \\
+  Another aside: I didn't really understand the dot product construction of half planes until this problem, so while it took me a while to figure out, I've come out a little bit better at geometry. I really do struggle with geometry...
+\end{ex} %:
+\begin{ex}{7.9} %;
+  \begin{itemize} \, \\
+    \item
+      By definition
+      $$
+      T_C((0, 1)) = \braces{ v \in \R{2} \mid \exists (x_i, y_i) \in C \to (0, 1), \lambda_i \downarrow 0 \text{ so that } \frac{(x_i, y_i) - (0, 1)}{\lambda_i} \to v }
+      $$
+      To begin let $v \in \R{} \times (-\infty, 0]$. Put
+      $$
+      x_i = \frac{-\sgn v_x}{i v_y}, \; y_i = 1 - \frac{1}{\abs{v_x} i}, \; \lambda_i = \frac{-1}{i \abs{v_x} v_y}
+      $$
+      then it's clear $x_i \to 0, \, y_i \to 1, \, \lambda_i \downarrow 0$ and
+      $$
+      \frac{x_i}{\lambda_i} = v_x, \, \frac{y_i - 1}{\lambda_i} = v_y
+      $$
+      All that's left to show is whether $(x_i, y_i) \in C$ for large enough $i$, indeed for
+      $$
+      i \ge \max\braces{ \frac{1}{\abs{v_y}}, \frac{1}{\abs{v_x}}, \frac{\abs{v_x}}{2}\parens{\frac{1}{v_x^2} + \frac{1}{v_y^2}} }
+      $$
+      we know
+      $$
+      i \ge \frac{1}{\abs{v_y}} \implies 1 \ge \frac{1}{i\abs{v_y}} \implies x_i \in [-1, 1] \text{ and } i \ge \frac{1}{\abs{v_x}} \implies y_i = 1 - \frac{1}{\abs{v_x} i} \ge 0
+      $$
+      and
+      \begin{align*}
+        i &\ge \frac{\abs{v_x}}{2}\parens{\frac{1}{v_x^2} + \frac{1}{v_y^2}} \\
+        \implies \frac{2}{\abs{v_x} i} &\ge \frac{1}{i^2} \parens{ \frac{1}{v_x^2} + \frac{1}{v_y^2} } \\
+        \implies 1 - \frac{1}{v_y^2 i^2} &\ge 1 + \frac{1}{v_x^2 i^2} - \frac{2}{\abs{v_x} i} = \parens{1 - \frac{1}{\abs{v_x} i}}^2 \\
+        \implies \sqrt{1 - x_i^2} &\ge \abs{1 - \frac{1}{\abs{v_x} i}} = y_i
+      \end{align*}
+      where the last equality comes from $y_i \ge 0$ as shown above, so that $\R{} \times (-\infty, 0] \subset T_C((0, 1))$. Suppose the opposite inclusion doesn't hold so that $\exists v \in T_C((0, 1)), \, v \not\in \R{} \times (-\infty, 0]$, then $v \in \R{} \times (0, \infty)$, and $\exists (x_i, y_i), \lambda_i$, so that in particular $y_i \in [0, 1], \lambda_i > 0$ and so
+      $$
+      \frac{y_i - 1}{\lambda_i} \le 0 \implies v_y \le 0
+      $$
+      a contradiction.
+    \item
+      By definition
+      $$
+      N((0, 1)) = \braces{ w \in \R{2} \mid w \cdot ((x, y) - (0, 1)) \le 0 \, \forall (x, y) \in C }
+      $$
+      Begin by letting $w \in \braces{0} \times [0, \infty)$ so that $w_x = 0, \, w_y \ge 0$. For any $(x, y) \in C$ $y \in [0, 1]$ so
+      $$
+      w \cdot ((x, y) - (0, 1)) = w_y \cdot (y - 1) \le 0 \implies w \in N((0, 1))
+      $$
+      For the reverse inclusion notice $(0, 0) \in C$ so that for $w \in N((0, 1))$
+      $$
+      0 \ge w \cdot ((0, 0) - (0, 1)) = - w_y \implies w_y \ge 0
+      $$
+      Suppose for contradiction $w_x \ne 0$ and w.l.o.g. $w_x > 0$ (symmetry allows us this). Consider $x < \frac{w_x}{w_y}$ then
+      $$
+      \frac{w_y}{w_x} < \frac{1}{x} = \frac{x}{x^2} < \frac{x}{1 - \sqrt{1-x^2}} \implies w_y \parens{1 - \sqrt{1-x^2}} < w_x x \implies 0 < w \cdot ((x, \sqrt{1-x^2}) - (0, 1)) \implies w \not\in N((0, 1))
+      $$
+      so that $w_x = 0$ and thus $N((0, 1)) \subset \braces{0} \times [0, \infty)$
+    \item
+      By definition
+      $$
+      T_C((1, 0)) = \braces{ v \in \R{2} \mid \exists (x_i, y_i) \in C \to (1, 0), \lambda_i \downarrow 0 \text{ so that } \frac{(x_i, y_i) - (1, 0)}{\lambda_i} \to v }
+      $$
+      Let $v \in (-\infty, 0] \times [0, \infty)$ and put
+      $$
+      \lambda_i = \frac{-1}{iv_x v_y}, \, x_i = 1- \frac{1}{i v_y}, \, y_i = \frac{-1}{i v_x}
+      $$
+      then clearly $\lambda_i \downarrow 0, \, x_i \to 1, y_i \to 0$ and
+      $$
+      \frac{x_i - 1}{\lambda_i} = v_x, \; \frac{y_i}{\lambda_i} = v_y
+      $$
+      Similar to above large enough $i$ give us that $(x_i, y_i) \in C$ so that $v \in T((1, 0))$. \, \\
+
+      Now for $v \in T((1, 0))$ $\exists (x_i, y_i) \in C \to (1, 0), \lambda_i \downarrow 0$ so that, since $\abs{x} \le 1, y \in [0, 1]$
+      $$
+      \frac{x_i - 1}{\lambda_i} \le 0 \implies v_x \le 0, \; \frac{y_i}{\lambda_i} \ge 0 \implies v_y \ge 0 \implies v \in (-\infty, 0] \times [0, \infty)
+      $$
+    \item
+      By definition
+      $$
+      N((1, 0)) = \braces{ w \in \R{2} \mid w \cdot ((x, y) - (1, 0)) \le 0 \, \forall (x, y) \in C }
+      $$
+      Let $w \in -T_C((1, 0)) = [0, \infty) \times (-\infty, 0]$ and $(x, y) \in C$ then $x - 1 \le 0$ and $y \ge 0$ so $w \cdot (x-1, y) = w_x (x - 1) + w_y y \le 0$. For the opposite inclusion let $w \in N((1, 0))$ so that for every $(x, y) \in C$
+      $$
+      w \cdot (x-1, y) \le 0
+      $$
+      then in particular $0 \ge w \cdot (0, 0) = -w_x \implies w_x \in [0, \infty)$. Assume for contradiction that $w_y > 0$ then $w \cdot (0, 1) = w_x + w_y > 0$ so that $w \not\in N((1, 0))$, thus $w_y \in (-\infty, 0]$.
+  \end{itemize}
+  A final note here: this problem took longer than I expected it to, but on the plus side I have a better intuition about these cones, I think?
+\end{ex} %:
+\begin{ex}{7.10} %;
+  \begin{enumerate}[label=(\alph*)]
+    \newcommand{\xb}{\overline{x}}
+    \item
+      Non-emptiness comes from the fact that $0 \in T_C(x) \cap N_C(x)$ (take the constant sequence $x_i = x, \lambda_i = 1/i$ to see the first inclusion, and the second inclusion is trivial since $0 \le 0$). \, \\
+      To show $T_C(\xb)$ is closed, fix a sequence $v_i \in T_C(\xb) \to v$. By construction for each $i$ $\exists x_{i,j} \in C \to \xb, \lambda_{i, j} \downarrow 0$ and $\frac{x_{i,j} - \xb}{\lambda_{i,j}} \to v_i$. Diagonalizing gives us $v \in T_C(\xb)$ (am I skipping too many details here?). \, \\
+
+      Now consider $w_i \in N(\xb) \to w$ then $\forall x \in C$ $w_i \cdot (x - \xb) \le 0$, so since the dot product is continuous $w \cdot (x - \xb) \le 0$. \, \\
+
+      To demonstrate convexity I'll use the fact that $T_C(\xb)$ and $N_C(\xb)$ are cones, and a cone $D$ is convex $\iff$ $x + y \in D$ for every $x, y \in D$ (which I did convince myself of, as you/the book suggested). Take $x, y \in T_C(\xb)$ then $exists x_i, y_i \in C \to \xb$ and $\lambda_i, \gamma_i downarrow 0$ such that
+      $$
+      \frac{x_i - \xb}{\lambda_i} \to x, \; \frac{y_i - \xb}{\gamma_i} \to y
+      $$
+      Fix $v_i = \frac{1}{\lambda_i + \gamma_i}\parens{\gamma_i x_i + \lambda_i y_i}$. First we must show $v_i \to \xb$, so let $\epsilon > 0$ and consider $i$ large enough so that $\abs{x_i - \xb} < \epsilon$ and $\abs{y_i - \xb} < \epsilon$ then
+      $$
+      \abs{\frac{1}{\lambda_i + \gamma_i}\parens{\gamma_i x_i + \lambda_i y_i} - \xb} \le \frac{\gamma_i}{\lambda_i + \gamma_i} \abs{x_i - \xb} + \frac{\lambda_i}{\lambda_i + \gamma_i} \abs{y_i - \xb} < \epsilon \parens{\frac{\gamma_i}{\lambda_i + \gamma_i} + \frac{\lambda_i}{\lambda_i + \gamma_i}} = \epsilon
+      $$
+      Next fix $\phi_i = \frac{\gamma_i \lambda_i}{\lambda_i + \gamma_i}$ so that $\phi_i \downarrow 0$ and finally
+      $$
+      \frac{\frac{1}{\lambda_i + \gamma_i}\parens{\gamma_i x_i + \lambda_i y_i} - \xb}{\frac{\lambda_i \gamma_i}{\lambda_i + \gamma_i}} = \frac{\lambda_i+\gamma_i}{\lambda_i \gamma_i} \frac{\gamma_i\parens{x_i - \xb} + \lambda_i \parens{y_i - \xb}}{\lambda_i+\gamma_i} = \frac{x_i - \xb}{\lambda_i} + \frac{y_i - \xb}{\gamma_i} \to x + y
+      $$
+      Lastly with $a, b \in N(\xb)$ it's trivial to see $a + b \in N(\xb)$ (skipping too much here?)
+    \item
+      To show $N_C$ is osc take $x_i \to x$ and $y_i \in N_C(x_i)$ such that $y_i \to y$, then since the dot product is continuous, for any $v \in C$
+      $$
+      \iprod{y_i, v - x_i} \le 0 \implies \iprod{y, v - x} \le 0
+      $$
+      so that $y \in N_C(x)$.
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{7.13} %;
+  \begin{enumerate}[label=(\alph*)] \, \\
+    \item
+      We only need to show the backward implication. Suppose $\epi f$ is closed. Let $x_i \to x$ then $\exists x_{i_k}$ so that $f\parens{x_{i_k}} \to \liminf_{i} f(x_i)$. We have $(x_{i_k}, f(x_{i_k})) \in \epi f$, so since $\epi f$ is closed $(x, \liminf_{i} f(x_i)) \in \epi f$ so that $\liminf_{i} f(x_i) \ge f(x)$, hence $f$ is lsc.
+    \item
+      Suppose $f$ is convex, then let $(x, y), (t, u) \in \epi f$ and $\lambda \in [0, 1]$ we know
+      $$
+      f(\lambda x + (1-\lambda) t) \le \lambda f(x) + (1-\lambda)f(t) \le \lambda y + (1-\lambda) u \implies \lambda (x, y) + (1-\lambda) (t, u) \in \epi f
+      $$
+      Conversely suppose $\epi f$ is convex, let $x, y \in \R{n}$ and $\lambda \in [0, 1]$ then, since $(x, f(x)), (y, f(y)) \in \epi f$
+      $$
+      \lambda (x, f(x)) + (1-\lambda) (y, f(y)) \in \epi f \implies \lambda f(x) + (1-\lambda) f(y) \ge f(\lambda x + (1-\lambda) y)
+      $$
+      so that $f$ is convex.
+    \item
+      This case is identical to above, but replacing $\epi f$ with the specified set and $\le$ with $<$ / $\ge$ with $>$ where relevant. \, \\
+
+      By the way, is this problem supposed to say 'strictly convex function'?
+  \end{enumerate}
+  As an aside, I wasn't careful with taking values of $\infty$. After briefly double checking, I don't think I do? Maybe in $(c)$, but not the other two? Let's chat about this next time we see each other.
+\end{ex} %:
+\begin{ex}{7.15} %;
+  Before I begin, I'd like it to be known that I am in fact partially illiterate: for a non-trivial amount of time I missed the assumption that $f_\alpha$ were lsc. Without this assumption I was able to come up with a counter example that $g$ is lsc. On the upside, now I think I can show that any proper convex function whose effective domain is open is lsc everywhere. Another way put: a convex function is lsc on the interior of its effective domain. Which, this is a pretty cool fact. \, \\
+
+  Now for the actual exercise... which is much easier to show than the above fact, in my opinion:
+  \begin{itemize}
+    \item
+      First we'll prove from the definition. Let $x_i \to x$ then we know for each $\alpha \in \mathcal{A}$
+      $$
+      g(x_i) \ge f_\alpha(x_i) \implies \liminf_i g(x_i) \ge \liminf_i f_\alpha(x_i) \ge f_\alpha(x)
+      $$
+      Taking the sup of the rhs gives us our desired inequality.
+    \item
+      Using exercise 7.13, we know $\epi f_\alpha$ is closed. We have $\epi g = \bigcap_\alpha \epi f_\alpha$ and so $\epi g$ is closed, thus invoking that same exercise we see $g$ is lsc.
+  \end{itemize}
+
+  EDIT: I read the next 2 pages in the book again... which shows the claim I stated at the top of this problem. Cool!
+\end{ex} %:
+\begin{ex}{7.20} %;
+  \begin{enumerate}[label=(\alph*)] \, \\
+    \newcommand{\xb}{\overline{x}}
+    \newcommand{\pp}[2]{P_{#1}\parens{#2}}
+    \item
+      Closedness comes from the continuity of the dot product. Let $v, w \in \partial f(x), \, \lambda \in [0, 1]$ and $x' \in \R{n}$ then with $\gamma = 1-\lambda$ we know $\lambda f(x') \ge \lambda f(x) + \lambda v \cdot (x' - x), \; \gamma f(x') \ge \gamma f(x) + \gamma w \cdot (x' - x)$ and so
+      $$
+      f(x') = \lambda f(x') + \gamma f(x') \ge \lambda f(x) + \lambda v \cdot (x' - x) + \gamma f(x) + \gamma w \cdot (x' - x) = f(x) + (\lambda v + \gamma w) \cdot (x' - x)
+      $$
+      so that $\partial f(x)$ is convex.
+    \item
+      Let $x \in \R{n}$ so that $f(x)$ is finite and lsc. Let $x_i \to x$ and fix $y_i \in \partial f(x_i)$ where $y_i \to y$ and let $x' \in \R{n}$. If $f(x') = \infty$ then trivially $f(x') \ge f(x) + y \cdot (x'-x)$. For finite $f(x')$ we know
+      $$
+      y_i \cdot (x' - x_i) \le f(x') - f(x_i) \implies y \cdot (x' - x) = \liminf_i y_i \cdot (x' - x_i) \le \liminf_i f(x') - f(x_i) \le f(x') - f(x)
+      $$
+      so that $y \in \partial f(x)$ hence $\partial f$ is osc at $x$.
+    \item
+      I'll start by showing $\partial f(x)$ is bounded. Since f is locally Lipschitz in the interior of the domain, there's $\epsilon > 0$ so that when $y, z \in x + \epsilon \B$ we have $\abs{f(x) - f(y)} \le K \norm{x - y}$ for some $K > 0$. Let $v \in \partial f(x)$ we know
+      $$
+      f\parens{x+\frac{\epsilon}{\norm{v}}v} - f(x) \ge \iprod{v}{x+\frac{\epsilon}{\norm{v}}v - x} = \epsilon \norm{v} \implies \norm{v} \le \frac{f\parens{x+\frac{\epsilon}{\norm{v}}v} - f(x)}{\epsilon} \le K
+      $$
+      where the last inequality comes because $\braces{x+\frac{\epsilon}{\norm{v}}v, x} \subset x + \epsilon \B$, and the fact that the numerator is positive. \, \\
+
+      To show $\partial f(x)$ is non-empty, I begin by claiming for each $i \in \mathbb{N}$ $(x, f(x) - 1/i) \not\in \clo{\epi f}$ since $f$ is locally Lipschitz around $x$. Suppose otherwise, so that there's a sequence $(x_j, y_j) \in \epi f \to (x, f(x) - 1/i)$. Choose $N$ big enough so that any $j > N$ $\norm{x_j - x} < \frac{1}{2 K i}$ where $K$ is the local Lipschitz constant, then
+      $$
+      \abs{f(x_j) - f(x)} \le K \abs{x_j - x} < \frac{1}{2i}
+      $$
+      so that $f(x_j) \in f(x) + \frac{1}{2i} \B$ so that $f(x_j) \not\to f(x) - 1/i$, hence we find a contradiction and so we can use the logic from Theorem 4.16 to see for $w \in \epi f$, $v_i = (x, f(x) - 1/i) - \pp{\epi f}{(x, f(x) - 1/i)}$ with $\hat{v_i} = \frac{v_i}{\norm{v_i}}$
+      $$
+      \iprod{\hat{v_i}}{w} \le \iprod{\hat{v_i}}{(x, f(x) - 1/i)} - \norm{v_i}
+      $$
+      Since $\hat{v_i} \in \B$ there's a convergent subsequence $\hat{v_{i_k}} \to \hat{v} \in \B$. Using the fact that
+      $$
+      \norm{v_i} = \norm{(x, f(x) - 1/i) - \pp{\epi f}{(x, f(x) - 1/i)}} \to 0
+      $$
+      we can see
+      $$
+      \iprod{\hat{v}}{w} \le \iprod{v}{(x, f(x))} \iff \iprod{(\hat{v}_1, \hat{v}_2)}{(w_1 - x, w_2 - f(x))} \le 0
+      $$
+      where $(\hat{v}_1, \hat{v}_2) \in \R{n} \times R$, $(w_1, w_2) \in \epi f$. I claim $\hat{v}_2 \ne 0$; suppose for contradiction this isn't the case. By the construction $\norm{\hat{v}} = 1$ so then $\hat{v}_1 \ne 0$. Since $x \in \inte \dom f$ there's $\epsilon > 0$ so that $f$ is finite on $x + \epsilon \B$. Notably
+      $$
+      q := x + \epsilon \frac{\hat{v}_1}{\norm{\hat{v}_1}} \in x + \epsilon \B
+      $$
+      Since $f(q)$ is finite, that means $(q, f(q)) \in \epi f$ and so
+      $$
+      0 \ge \iprod{(\hat{v}_1, \hat{v}_2)}{(q - x, f(q) - f(x))} = \iprod{\hat{v}_1}{x + \epsilon \frac{\hat{v}_1}{\norm{\hat{v}_1}} - x} = \epsilon \norm{\hat{v}_1} > 0
+      $$
+      drawing a contradiction, so indeed $\hat{v}_2 \ne 0$. Additionally, since $f(x)$ is finite $(x, f(x)+1) \in \epi f$ so we know
+      $$
+      0 \ge \iprod{(\hat{v}_1, \hat{v}_2)}{(x-x, f(x) + 1 - f(x))} = \hat{v}_2
+      $$
+      and so $\hat{v}_2 < 0$. This means we can divide the limiting separation inequality to find
+      $$
+      \frac{1}{\hat{v}_2}\iprod{\hat{v}_1}{w_1 - x} + \parens{f(w_1) - f(x)} \ge 0 \implies f(w_1) \ge f(x) + \iprod{\frac{-\hat{v}_1}{\hat{v}_2}}{w_1 - x}
+      $$
+      for any $w_1 \in \dom f$. If $w_1 \not\in \dom f$ then $f(w_1) = \infty$ and so the above inequality also holds, so that indeed
+      $$
+      \frac{-\hat{v}_1}{\hat{v}_2} \in \partial f(x)
+      $$
+    \item
+      If $f$ is differentiable at $\xb$ then it's continuous and so $\xb \in \inte \dom f$, hence by above $\partial f(x)$ is non-empty. Let $v \in \partial f(\xb)$ and suppose $v \ne \nabla f(\xb)$, then in particular the directional derivative in the direction of $v - \nabla f(\xb)$ exists, i.e.
+      $$
+      \iprod{\nabla f(\xb)}{v - \nabla f(\xb)} = \lim_{\epsilon \to 0} \frac{f(\xb + \epsilon (v - \nabla f(\xb))) - f(\xb)}{\epsilon}
+      $$
+      On the other hand, we know for small $\epsilon > 0$
+      $$
+      f(\xb + \epsilon (v - \nabla f(\xb))) - f(x) \ge \iprod{v}{\xb + \epsilon (v - \nabla f(\xb)) - \xb} = \epsilon \iprod{v}{v - \nabla f(\xb)}
+      $$
+      so that for every $\epsilon > 0$
+      $$
+      \frac{f(\xb + \epsilon (v - \nabla f(\xb))) - f(x)}{\epsilon} \ge \iprod{v}{v - \nabla f(\xb)}
+      $$
+      Taking the limit as $\epsilon \to 0$ gives us from the above definition of directional derivative
+      $$
+      \iprod{\nabla f(\xb)}{v - \nabla f(\xb)} \ge \iprod{v}{v - \nabla f(\xb)} \implies \iprod{\nabla f(\xb) - v}{v - \nabla f(\xb)} \ge 0 \implies \norm{v - \nabla f(\xb)} \le 0
+      $$
+      so that $v = \nabla f(\xb)$.
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{7.22} %;
+  $$
+  f(x) = \max \braces{x_1 + x_2, x_1 - x_2, -x_1 + x_2, -x_1 - x_2}
+  $$
+  \begin{itemize}
+    \item At $(0, 0)$ the maximum is attained by all four functions so
+      $$
+      \partial f((0, 0)) = \con \braces{ (1, 1), (1, -1), (-1, 1), (-1, -1) }
+      $$
+      which is a square with sides of length $2$ centered at the origin.
+    \item
+      At $(5, 0)$ the maximum of $5$ is attained by the first two functions so
+      $$
+      \partial f((5, 0)) = \con \braces{ (1, 1), (1, -1) }
+      $$
+      which is the line segment from $(1, 1)$ to $(1, -1)$.
+    \item 
+      At $(0, 7)$ the maximum of $7$ is achieved by the first and third functions so
+      $$
+      \partial f((0, 7)) = \con \braces{ (1, 1), (-1, 1) }
+      $$
+      which is the line segment from $(1, 1)$ to $(-1, 1)$.
+  \end{itemize}
+\end{ex} %:
+\begin{ex}{7.24} %;
+  \begin{enumerate}[label=(\alph*)] \, \\
+    \item
+      First order of business: I saw your message in the email: I greatly appreciate your candor. I probably have seen this proof before, but I don't remember it. I've been feeling dumb math-wise recently, but I don't believe myself to be that dumb, mathwise at least, so I felt it necessary to prove to myself I could whip up this proof.
+
+      Showing $x$ is a minimizer of $f$ over all of $C$ is the same as showing $x$ is a global minimizer on all of $\R{n}$ of $f$ extended to all of $\R{n}$ by taking $\infty$ outside of $C$. Notably this extension is still convex because $C$ is convex. For the below I'll work with this extended $f$.
+
+      Since $x \in \inte \dom f$, Exercise 7.20 (c) tells us $\exists v \in \partial f(x)$ which means for every $y \in \R{n}$
+      $$
+      \iprod{v}{y} \le f(x+y) - f(x)
+      $$
+      For each $y$ $\exists \epsilon \in (0, 1)$ so that $x + \epsilon y \in U$. By local minimality we know
+      $$
+      0 \le \frac{1}{2\epsilon} \parens{f(x + \epsilon y) - f(x)}
+      $$
+      Dividing the initial inequality by $2$ and using the previous we see
+      $$
+      \iprod{\frac{v}{2}}{y} \le \frac{1}{2} \parens{f(x+y) - f(x)} \le \frac{1}{2\epsilon} \parens{\epsilon f(x+y) - (\epsilon+1)f(x) + f(x + \epsilon y)}
+      $$
+      Convexity of $f$ tells us
+      $$
+      f(x + \epsilon y) = f((1-\epsilon)x + \epsilon(x+y)) \le (1-\epsilon)f(x) + \epsilon f(x+y)
+      $$
+      Combining the previous two inequalities gives us
+      $$
+      \iprod{\frac{v}{2}}{y} \le \frac{1}{2\epsilon} \parens{\epsilon f(x+y) - (\epsilon+1)f(x) + (1-\epsilon)f(x) + \epsilon f(x+y)} = \frac{1}{2\epsilon} \parens{2\epsilon f(x+y) - 2\epsilon f(x)} = f(x+y) - f(x)
+      $$
+      Hence $2^{-1}v \in \partial f(x)$. Since $v$ was arbitrary we can find a sequence $v_n := 2^{-n} v \in \partial f(x)$ and so Exercise 7.20 (a) tells us $0 = \lim_n v_n \in \partial f(x)$ so that
+      $$
+      f(x+y) \ge f(x) \; \forall y \in \R{n},
+      $$
+      or in other words $f(x)$ is a global minimizer on $\R{n}$ and thus on $C$. \, \\
+
+      And as has been demonstrated, I'm not the best at reading because I found your hint after coming up with the above. At least the above argument is fun, for with an appropriate definition of fun.
+    \item
+      If there's less than $2$ minimizers then the set of minimizers is trivially/vacuously convex. Otherwise let $x, y$ minimize $f$ and $\lambda \in [0, 1]$ then $\lambda x + (1-\lambda)y \in C$ and
+      $$
+      f(\lambda x + (1-\lambda)y) \le \lambda f(x) + (1-\lambda)f(y) = \min_{x \in C} f(x)
+      $$
+      so that $\lambda x + (1-\lambda)y$ is also a minimizer.
+
+      If $f$ is strictly convex and the set of minimizers isn't empty, then suppose there're 2 minimizers $x, y$. Similar to above we know
+      $$
+      f(2^{-1}x + 2^{-1}y) < 2^{-1}f(x) + 2^{-1}f(y) = \min_{x \in C} f(x)
+      $$
+      which is a contradiction because $f(2^{-1}x + 2^{-1}y)$ is smaller than the supposed minimizers.
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{7.27} %;
+  Skipped (thank you, seems complicated. Would love a quick 'this is the point' in person or over email if thats possible to do succinctly)
+\end{ex} %:
+\begin{ex}{7.31} %;
+  Let $x, y \in \R{n}$ and $\lambda \in [0, 1]$. Construct $w_i \in U(x), v_i \in U(y)$ so that
+  $$
+  p(x, w_i) \to \inf_{u \in U(x)} p(x, u), \; p(y, v_i) \to \inf_{u \in U(y) p(y, u)}
+  $$
+  Since the graph of $U$ is convex we know for every $i$ $\lambda (x, w_i) + (1-\lambda)(y, v_i) \in \gph U$ so that $\lambda w_i + (1-\lambda) v_i \in U(\lambda x + (1-\lambda)y)$. This means
+  $$
+  \inf_{u \in U(\lambda x + (1-\lambda)y)} p(\lambda x + (1-\lambda)y, u) \le p(\lambda x + (1-\lambda)y, \lambda w_i + (1-\lambda) v_i) \le \lambda p(x, w_i) + (1-\lambda)p(y, v_i)
+  $$
+  where the last inequality used convexity of $p$. Finally taking $i \to \infty$ gives us the desired property. \, \\
+
+  To show $M(x)$ is convex: if $p(x, u) = \infty$ then $M(x) = U(x)$ and so convexity of $\gph U$ gives us our result. Otherwise if $p(x, u) \ne \infty$ for some $u \in U(x)$, define $f : U(x) \to \R{} \cup \{\infty\}$ by $f(u) = p(x, u)$, so that $f$ is convex (from $p$'s convexity). Because $U(x)$ is convex, restricting $f$ to its effective domain keeps it convex, and its effective domain also convex. Now we can apply the first half of Exercise 7.24 (b) to see the set of minimizers of restricted $f$ is convex. This set is the same as the set of minimizers of unrestricted $f$, which in turn is exactly $M(x)$. \, \\
+
+  After writing all that I see it may have been quicker just to copy and paste the proof from Exercise 7.24 (b) instead of setting up the right $f$...
+\end{ex} %:
+\end{document}

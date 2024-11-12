@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\title{Chapter 8 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{amssymb} % \rightrightarrows
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\inte}{int}
+\DeclareMathOperator*{\con}{con}
+\DeclareMathOperator*{\epi}{epi}
+\newcommand{\clo}[1]{\overline{#1}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+\newcommand{\idot}[2]{#1 \cdot #2}
+\newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+
+\begin{document}
+\begin{ex}{8.5} %;
+  Let $(x, y) \not\in \gph M$ so that $y \ne Qx$. Let $e$ be a unit eigen vector of $Q$ with corresponding eigen value $\lambda \ge 0$ (we know it's non-negative because $Q$ is positive). Fix $0 < \epsilon < \lambda^{-1} \abs{\iprod{e}{y-Qx}}$ (possible because $y \ne Qx$). Also put
+  $$
+  q = -\epsilon \sgn \iprod{e}{y - Qx} e
+  $$
+  Then we have
+  $$
+  \iprod{x - (x - q)}{y - Q(x - q)} = \iprod{q}{y - Mx} + \iprod{q}{Qq} = -\epsilon \abs{\iprod{e}{y - Qx}} + \epsilon^2 \lambda = \epsilon \parens{ \epsilon \lambda - \abs{\iprod{e}{y - Qx}} } < 0
+  $$
+  so that including $(x, y)$ in the graph breaks monotonicity, hence $M$ is maximal.
+\end{ex} %:
+\begin{ex}{8.11} %;
+\end{ex} %:
+\begin{ex}{8.12} %;
+\end{ex} %:
+\begin{ex}{8.16} %;
+\end{ex} %:
+\begin{ex}{8.18} %;
+\end{ex} %:
+\begin{ex}{8.19} %;
+\end{ex} %:
+\begin{ex}{8.20} %;
+\end{ex} %:
+\begin{ex}{8.22} %;
+\end{ex} %:
+\begin{ex}{8.24} %;
+\end{ex} %:
+\begin{ex}{8.25} %;
+\end{ex} %:
+\begin{ex}{8.26} %;
+\end{ex} %:
+\begin{ex}{8.27} %;
+\end{ex} %:
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\title{Chapter 6 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{amssymb} % \rightrightarrows
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\inte}{Int}
+\DeclareMathOperator*{\con}{con}
+\newcommand{\clo}[1]{\overline{#1}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+\newcommand{\idot}[2]{#1 \cdot #2}
+\newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+
+\begin{document}
+\begin{ex}{6.1} %;
+  We have
+  $$
+  \nabla V(x) = \begin{pmatrix} 4x_1 \\ x_2 \end{pmatrix} \implies \nabla V(x) \cdot f(x) = -4x_1^2 + 4x_1^2 x_2 -2x_2^2 - 4x_1^2x_2 = -4x_1^2 - 2x_2^2 \le 0
+  $$
+  We also know $2x_1^2 + \frac{1}{2}x_2^2 = 0 \implies x_1 = x_2 = 0$, so that $V(x) = 0 \iff x = 0$. Lastly for $x \not\in \B$, $V(x) \not\in \frac{1}{2} \norm{x} \B$ so that $V(x) \to \infty$ as $\norm{x} \to \infty$, showing that $V$ is Lyapunov for $f$. \, \\
+
+  Considering $V(x) = x_1^2 + x_2^2$ we have
+  $$
+  \nabla V(x) = \begin{pmatrix} 2x_1 \\ 2x_2 \end{pmatrix} = 2x \implies \nabla V(x) \cdot f(x) = 2 \parens{ -x_1^2 + x_1^2x_2 - 2x_2^2 - 4x_1^2x_2 } = 2\parens{ -x_1^2 - 2x_2^2 - 3x_1^2x_2 }
+  $$
+  But when $x_1 = x_2 = -2$
+  $$
+  \nabla V(x) \cdot f(x) = 2 \parens{ -4 - 8 + 3\cdot 4 \cdot 2 } = 24 > 0
+  $$
+  so that $V$ is not Lyapunov for $f$.
+\end{ex} %:
+\end{document}
