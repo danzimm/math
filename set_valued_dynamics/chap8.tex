@@ -26,6 +26,8 @@
 \newcommand{\mr}{\mathcal{R}}
 \newcommand{\idot}[2]{#1 \cdot #2}
 \newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+\newcommand{\xb}{\overline{x}}
+\newcommand{\yb}{\overline{y}}
 
 \begin{document}
 \begin{ex}{8.5} %;
@@ -40,25 +42,203 @@
   so that including $(x, y)$ in the graph breaks monotonicity, hence $M$ is maximal.
 \end{ex} %:
 \begin{ex}{8.11} %;
+  By hypothesis $\exists \xb \in \argmin f$. Let $\phi$ be the forward complete solution to (8.10). We have
+  $$
+  \frac{d}{dt} \norm{\phi(t) - \xb}^2 = 2\iprod{\phi(t) - \xb}{\dot{\phi}(t)} \le 2\parens{f(\xb) - f(\phi(t))} \le 0
+  $$
+  where the last inequality comes from the fact that $\xb$ is a minimizer and the first from the fact that $\phi$ is a solution, i.e.
+  $$
+  \dot{\phi}(t) \in -\partial f(\phi(t)) \implies f(\xb) \ge f(\phi(t)) - \iprod{\dot{\phi}(t)}{\xb - \phi(t)}
+  $$
+
+  I claim $\exists t_k \to \infty$ so that $f(\phi(t_k)) \to f(\xb)$. If there isn't, then for large $t$ $f(\phi(t)) \ge f(\xb) + \delta$ for some $\delta > 0$. This would mean for large $t$ $f(\xb) - f(\phi(t)) \le -\delta$, and so from above, for large $t$, we'd have $\frac{d}{dt} \norm{\phi(t) - \xb}^2 \le -2\delta$. This draws a contradiction because that means $\norm{\phi(t) - \xb} \to -\infty$, but Fact 8.7 tells us $\partial f$ is maximal montone, and so Prop 8.9 (a) tells us $\norm{\phi(t) - \xb}$ is bounded (because $\xb$ as a constant function is a solution to (8.10)). \, \\
+
+  Quick question: Do I really need to invoke Prop 8.9 here? In Prop 1.12 you state that going to $-\infty$ is absurd, but I can't see how to show it's "absurd" in this case without effectively showing $\phi$ is bounded, which I think I need Prop 8.9 for? Not sure, seems pretty heavy weight. Anyway, back to the proof... \, \\
+
+  Since $\norm{\phi(t) - \xb}$ is bounded, we know $\phi(t_k)$ is bounded and hence $\phi(t_{k_i}) \to \yb$ for some subsequence $t_{k_i}$. Because $f$ is lsc we know
+  $$
+  f(\yb) = f\parens{\lim_{i \to \infty} \phi(t_{k_i})} \le \liminf_{i \to \infty} f(\phi(t_{k_i})) = f(\xb)
+  $$
+  and so $\yb \in \argmin f$. All that's left is to show $\phi(t) \to \yb$ (i.e. without a sequence). Again we can use Fact 8.7 combined with Prop 8.9 (a), this time to see $\norm{\phi(t) - \yb}$ is nonincreasing, since $\yb$ as a constrant function is a solution to (8.10). Combined with $\phi(t_{k_i}) \to \yb$ gives us $\phi(t) \to \yb$.
 \end{ex} %:
 \begin{ex}{8.12} %;
+  In 1.12 we have $f(x, y) = 2x + y$ and
+  $$
+  C = \braces{ (x, y) \mid x \ge 0, \, y \ge 0, \, 2x + y \ge 2 }
+  $$
+  This gives us
+  $$
+  \nabla f(x, y) = (2, 1), \; N_C(x, y) = \begin{cases}
+    \{(0, 0)\} & (x, y) \in \inte C, \\
+    \{0\} \times (-\infty, 0] & x > 1, \, y = 0, \\
+    (-\infty, 0] \times \{0\} & x = 0, \, y > 2, \\
+    (-2, -1)[0, \infty) & 2x + y = 2, \, x \ne 0, \, y \ne 0, \\
+    \con N_C(1.5, 0) \cup N_C(0.5, 1) & x = 1, \, y = 0, \\
+    \con N_C(0, 2.5) \cup N_C(0, 5, 1) & x =0, \, y = 2, \\
+    \emptyset & (x, y) \not\in C
+  \end{cases}
+  $$
+  And so we have
+  $$
+  -\nabla f(x, y) - N_C(x, y) = \begin{cases}
+    \{(-2, -1)\} & (x, y) \in \inte C, \\
+    \{-2\} \times [-1, \infty) & x > 1, \, y = 0, \\
+    [-2, \infty) \times \{-1\}, & x =0, \, y > 2, \\
+    (-2, -1) + (2, 1)[0, \infty) & 2x + y = 2, \, x \ne 0, \, y \ne 0, \\
+    (-2, -1) - \con N_C(1.5, 0) \cup N_C(0.5, 1) & x = 1, \, y = 0, \\
+    (-2, -1) - \con N_C(0, 2.5) \cup N_C(0, 5, 1) & x =0, \, y = 2, \\
+    \emptyset & (x, y) \not\in C
+  \end{cases}
+  $$
+  In each case above we have
+  \begin{align*}
+    m(\{(-2, -1)\}) &= (-2, -1) \\
+    m( \{-2\} \times [-1, \infty) ) &= (-2, 0) \\
+    m( [-2, \infty) \times \{-1\} ) &= (0, -1) \\
+    m( (-2, -1) + (2, 1)[0, \infty) ) &= (0, 0)
+  \end{align*}
+  And the last two cases are the same as $m( (-2, -1) + (2, 1)[0, \infty) )$ (because of the union). Plugging along this gives us
+  $$
+  m\parens{ -\nabla f(x) - N_C(x) } = \begin{cases}
+    (-2, -1) & (x, y) \in\inte C \\
+    (-2, 0) & x > 1, \, y = 0, \\
+    (0, -1) & x = 0, \, y > 2, \\
+    (0, 0) & 2x + y = 2, \\
+    \infty & x \not\in C,
+  \end{cases}
+  $$
+  which matches exactly the diff eq in 1.13, so indeed the dynamics match (8.12). \, \\
+
+  Now to show (8.13) matches as well we need to compute the tangent cone, which I've done below with the help of Proposition 7.11 (tangent and normal cones are polar to one another)
+  $$
+  T_C(x, y) = \begin{cases}
+    \R{n} & (x, y) \in\inte C, \\
+    \R{} \times [0, \infty) & x > 1,  \, y = 0, \\
+    [0, \infty) \times \R{} & x = 0, \, y > 2, \\
+    \braces{ (x, y) \mid y \ge -2x } & 2x + y = 2, \, x \ne 0, \, y \ne 0, \\
+    T_C(1.5, 0) \cap T_C(0.5, 1) & x = 1, \, y = 0, \\
+    T_C(0, 2.5) \cap T_C(0.5, 1) & x = 0, \, y = 2, \\
+    \emptyset & (x, y) \not\in C,
+  \end{cases}
+  $$
+  Thankfully $-\nabla f(x) = (-2, -1)$ is constant, so it's easy to see (after drawing some pictures, which I've elided because tikz is hard)
+  $$
+  P_{T_C(x, y)}(-\nabla f(x)) = P_{T_C(x, y)}(-2, -1) = \begin{cases}
+    (-2, -1) & (x, y) \in \inte C, \\
+    (-2, 0) & x > 1, \, y = 0, \\
+    (0, -1) & x = 0, \, y  > 2, \\
+    (0, 0) & 2x + y = 2,
+  \end{cases}
+  $$
+  This matches exactly the dynamics in 1.13, so we've shown the dynamics match (8.13).
 \end{ex} %:
 \begin{ex}{8.16} %;
+  If we consider (8.5) a system of two equations, fixing $u_1 = z, u_2 = \dot{z}$ then solving (8.5) is the same as solving
+  $$
+  \begin{pmatrix}
+    \dot{u_1} \\
+    \dot{u_2}
+  \end{pmatrix} \in \begin{pmatrix}
+    u_2 \\
+    -\frac{k}{m} u_1 - \frac{d}{m} u_2 - \frac{c_{max}}{m} \partial \abs{u_2}
+  \end{pmatrix} := F(u_1, u_2)
+  $$
+  It's easy to check the opposite of the righthand side isn't monotone, hence not maximal monotone. \, \\
+
+  To show a solution exists we need to show $F$ satisfies the basic assumptions:
+  \begin{itemize}
+    \item[(osc)] $F$ is a matrix plus a subdifferential of a finite lsc convex function composed with a projection: Fact 8.7 combined with Prop 8.6 gives us the subdifferential is osc, the rest of the operations are osc and locally bounded as they're single valued (classically) continuous operations, so the composition is osc, so Prop 2.26 gives us the whole operation is osc.
+    \item[(loc bdd)] This is trivial to see as, again, $F$ is a matrix plus a subdifferential, the latter being bounded by $\frac{c_{max}}{m}\B$.
+    \item[(convex)] The righthand side gets its mass (i.e. is non-single-valued) from the subdifferential, which is convex, hence $F$ takes on convex values.
+  \end{itemize}
+  With this, we can invoke Theorem 5.11 to get a solution $\phi : [0, T] \to \R{2}$ from any $u_0 \in \R{2}$, for some $T > 0$.
 \end{ex} %:
 \begin{ex}{8.18} %;
+  To show $\xb$ is constant I'll show the derivative vanishes:
+  $$
+  \dot{\xb} = \frac{1}{l} \sum_{i=1}^l \dot{x_i} = \frac{1}{l} \sum_{i=1}^l \parens{ \frac{1}{l} \sum_{j=1}^l x_j - x_i } = \frac{1}{l} \parens{ \sum_{j=1}^l x_j - \sum_{i=1}^l x_i } = 0
+  $$
+
+  For the second part of the problem fix $\psi_i(t) = \norm{\phi_i(t) - \xb}$ then
+  $$
+  \frac{d}{dt} \psi_i(t) = \frac{1}{2 \psi_i(t)} \cdot 2 \iprod{\phi_i(t) - \xb}{\dot{\phi_i}(t)} = \frac{\iprod{\phi_i(t) - \xb}{\xb - \phi_i(t)}}{\psi_i(t)} = - \frac{(\psi_i(t))^2}{\psi_i(t)} = -\psi_i(t)
+  $$
+  and solving this we see
+  $$
+  \norm{\phi_i(t) - \xb} = \psi_i(t) = \psi_i(0) e^{-t} = \norm{\phi_i(0) - \xb} e^{-t}
+  $$
 \end{ex} %:
 \begin{ex}{8.19} %;
+  I'll show $\xb$ is constant by showing its derivative is $0$:
+  $$
+  l \dot{\xb} = \sum_{i=1}^l \sum_{j=1}^l a_{ij} \parens{x_j - x_i} = \sum_{i=1}^l \sum_{j=1}^l a_{ij} x_j - \sum_{i=1}^l x_i \sum_{j=1}^l a_{ij} = \sum_{j=1}^l x_j \sum_{i=1}^l a_{ij} - \sum_{i=1}^l x_i \sum_{j=1}^l a_{ij} = \sum_{j=1}^l x_j \sum_{i=1}^l a_{ij} - \sum_{i=1}^l x_i \sum_{j=1}^l a_{ji} = 0
+  $$
+  where the second to last equality comes from $a_{ij} = a_{ji}$ and the last equality can be seen by swapping i/j in the right most double sum.
 \end{ex} %:
+\newpage
 \begin{ex}{8.20} %;
-\end{ex} %:
-\begin{ex}{8.22} %;
-\end{ex} %:
-\begin{ex}{8.24} %;
-\end{ex} %:
-\begin{ex}{8.25} %;
+  Before jumping in I want to introduce some notation: $e_q$ is the $q$th standard basis vector, $x_{k,q}$ denotes the $q$th coordinate of the $k$th vector in $x$ and $\delta_{i,j}$ is the kronecker delta, i.e. it vanishes when $i \ne j$ and is $1$ otherwise. Using these together for some $x \in \R{n}$ $\frac{\partial}{\partial x_{k,q}} \norm{x_i}^2 = 2 \delta_{i,k} x_{i,q}$. Now I'm ready to calculate the following:
+  \begin{align*}
+    \frac{\partial f(x)}{\partial x_{k,q}} &= \frac{1}{4} \sum_{i,j=1}^l a_{ij} \frac{\partial}{\partial x_{k, q}} \parens{ \norm{x_i}^2 + \norm{x_j}^2 - 2\iprod{x_i}{x_j} } \\
+    &= \frac{1}{4} \sum_{i=1}^l \sum_{j=1}^l a_{ij} \parens{ 2 \delta_{i,k} x_{i,q} + 2\delta_{j,k} x_{j,q} - 2 \delta_{i,k} x_{j,q} - 2\delta_{j,k} x_{i,q} } \\
+    &= \frac{1}{2} \sum_{i=1}^l \sum_{j=1}^l a_{ij} \parens{ \delta_{i,k} \parens{ x_{i,q} - x_{j,q} } + \delta_{j, k} \parens{ x_{j,q} - x_{i,q} } } \\
+    &= \frac{1}{2} \parens{ \sum_{j=1}^l a_{kj} \parens{ x_{k,q} - x_{j,q} } + \sum_{i=1}^l a_{ik} \parens{ x_{k,q} - x_{i,q} } } \\
+    &= \frac{1}{2} \parens{ \sum_{i=1}^l a_{ik} \parens{ x_{k,q} - x_{i,q} } + \sum_{i=1}^l a_{ik} \parens{ x_{k,q} - x_{i,q} } } = \parens{ \sum_{i=1}^l a_{ik} \parens{ x_k - x_i } } \cdot e_q
+  \end{align*}
+  Now if we solve $\dot{x} = -\nabla f(x)$ then we're solving for every $k = 1,2, ..., l$ and $q = 1, 2, ..., m$
+  $$
+  \dot{x_{k,q}} = -\frac{\partial f(x)}{\partial x_{k,q}} = \parens{ \sum_{j=1}^l a_{jk} \parens{ x_j - x_k } } \cdot e_q
+  $$
+  which equivalently can be put as solving for every $i = 1, 2, ..., l$
+  $$
+  \dot{x_i} = \sum_{j=1}^l a_{ji} \parens{ x_j - x_i } = \sum_{j=1}^l a_{ij} \parens{ x_j - x_i }
+  $$
+  which is exactly (8.26). \, \\
+
+  In order to show $\argmin f = A$ we only need to show $\argmin f \subset A$, which we'll do inductively. Specifically we'll induct on the following hypothesis for $2 < n \le l$ \, \\
+
+
+  \begin{claim}
+    If the first $n$ agents are the only ones connected, then $x \in \argmin f \implies x_1 = x_2 = \cdots x_n$, where $n \le l$.
+  \end{claim}
+
+
+  For the base case $a_{12} > 0$ and $a_{ij} = 0$ otherwise. By above equivalence
+  $$
+  x \in \argmin f \implies \nabla f(x) = 0 \implies 0 = \dot{x}_1 = \sum_{j=3}^l a_{1j} (x_j - x_1) + a_{12}( x_2 - x_1 ) = a_{12} ( x_2 - x_1 ) \implies x_1 = x_2
+  $$
+  For the inductive step we assume the claim holds for $n$ connected agents and must show the claim holds for $n+1$. To that end, suppose the first $n+1$ agents are the only connected agents so that $a_{jk} = 0 \, \forall j > n+1, \forall k$ and there's some $1 \le k < n+1$ so that $a_{(n+1)k} > 0$. Now, again using the above equivalence if $x \in \argmin f$
+  $$
+  0 = \sum_{j=1}^l a_{(n+1)l} (x_l - x_{n+1}) = \sum_{j=1}^n a_{(n+1)l} (x_l - x_{n+1}) = \sum_{j=1}^n a_{(n+1)l} (x_j - x_k) + a_{(n+1)l} (x_k - x_{n+1}) = (x_k - x_{n+1}) \sum_{j=1}^n a_{(n+1)l}
+  $$
+  where the last equality is found by the inductive hypothesis (i.e. the first $n$ agents are connected, so $x_j = x_k \, \forall j \le n$). Since $a_{(n+1)k} > 0$ and $a_{(n+1)j} \ge 0$ otherwise, this means $x_k = x_{n+1}$. \, \\
+
+  Since the above holds for all $n \le l$, it holds in particular for $n = l$, and so if all $l$ agents are connected,
+  $$
+  x \in \argmin f \implies x_1 = x_2 = \cdots = x_l \implies x \in A
+  $$
+  so the original claim has been proven.
 \end{ex} %:
 \begin{ex}{8.26} %;
-\end{ex} %:
-\begin{ex}{8.27} %;
+  The solution is given by
+  $$
+  \phi(t) = \begin{cases}
+    \parens{ 2 + \frac{t}{5}, 1 - \frac{2t}{5} } & 0 \le t \le \frac{5}{2} \\
+    (t, 0) & t > \frac{5}{2}
+  \end{cases}
+  $$
+  To show this, first note that
+  $$
+  -N_{C(t)}(x, y) = \braces{ w \mid w \cdot (x' + t - x, y' - y) \ge 0 \, \forall (x', y') \in C }
+  $$
+  Then for $0 \le t \le \frac{5}{2}$ $\dot{\phi}(t) = \frac{1}{5}(1, -2)$ and we have
+  $$
+  \frac{1}{5}(1, -2) \cdot \parens{x' + t - 2 - \frac{t}{5}, y' - 1 + \frac{2t}{5}} = \frac{1}{5}\parens{ x' + t -2 - \frac{t}{5} - 2y' + 2 - \frac{4t}{5} } = \frac{1}{5}(x' - 2y') \ge 0
+  $$
+  whenever $x', y' \in C$, and so $\dot{\phi}(t) \in - N_{C(t)}(\phi(t))$. When $t > \frac{5}{2}$ $\dot{\phi}(t) = (1, 0)$ and
+  $$
+  (1, 0) \cdot (x' + t - t, y') = x' \ge 0
+  $$
+  for any $x' \in C$, so $\dot{\phi}(t) \in -N_{C(t)}(\phi(t))$ again, thus $\phi$ is indeed the full solution.
 \end{ex} %:
 \end{document}
