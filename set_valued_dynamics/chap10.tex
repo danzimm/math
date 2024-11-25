@@ -1,0 +1,105 @@
+\documentclass{article}
+
+\title{Partial Chapter 10 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{amssymb} % \rightrightarrows
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\inte}{int}
+\DeclareMathOperator*{\con}{con}
+\DeclareMathOperator*{\epi}{epi}
+\newcommand{\clo}[1]{\overline{#1}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+\newcommand{\idot}[2]{#1 \cdot #2}
+\newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+\newcommand{\xb}{\overline{x}}
+\newcommand{\yb}{\overline{y}}
+
+\begin{document}
+\begin{ex}{10.8} %;
+  \newcommand{\uw}{\underline{\omega}}
+  \newcommand{\w}{\omega}
+  Let $x, z, y \in O$ and $y_k \in O$ s.t. $y_k \to y$.
+  By the definition of $\inf$ and the triangle inequality we know
+  $$
+  \uw(z) \le \w(y_k) + \norm{z - y_k} \le \w(y_k) + \norm{z - x} + \norm{x - y_k} \implies \uw(z) \le \liminf_k \w(y_k) + \norm{z - x} + \norm{x - y}
+  $$
+  where the implication comes from taking $\liminf$ of the rhs. Lsc of $\w$ tells us $-\w(y) \le -\liminf_k \w(y_k)$ so
+  $$
+  \uw(z) - \w(y) \le \norm{z - x} + \norm{x - y} \implies \uw(z) \le \norm{z - x} + \w(y) + \norm{x - y}
+  $$
+  Since this inequality holds for all $y$ it holds for $\inf$ over $y$ and hence $\uw(z) \le \norm{z - x} + \uw(x)$. Symmetry gives us the same inequality but with $x$ and $z$ flipped so that
+  $$
+  \abs{\uw(z) - \uw(x)} \le \norm{z - x}
+  $$
+  hence $\uw$ is Lipschitz with constant $1$.
+\end{ex} %:
+\begin{ex}{10.14} %;
+  I'm somewhat confused here, and am thinking maybe I should skip this one so I can get onto more convex analysis? \, \\
+
+  My confusion: I'm not sure how to determine whether $A$ being asymptotically stable for $F$ means $A$ is asymptotically stable for $F_K$ (naively I think this implication shouldn't hold, since there are potentially more solutions to the regularization than there were to the original inclusion). If $A$ is asymptotically stable, then I think we can use Fact 10.13 above to get our desired functions for $F_K$, but these functions also apply for $F$ since $F(x) \subset F_K(x)$ for every $x$. \, \\
+
+  I don't understand how the hint plays into any of this either, but I'm guessing it addresses my above confusion, somehow?
+\end{ex} %:
+\begin{ex}{10.16} %;
+  Put $A = \braces{ v \mid v \cdot \nabla f(\xb) \le 0 }$. Let $v \in T_C(\xb)$ then $\exists \lambda \searrow 0$ and $x_i \in C$ s.t. $x_i \to x$ where $\frac{x_i - x}{\lambda_i} \to v$. We have
+  $$
+  x_i = \xb + \lambda_i \frac{x_i - x}{\lambda_i}
+  $$
+  and so because $f$ is continuously differentiable
+  $$
+  \lim_{i \to \infty} \frac{f(x_i) - f(\xb)}{\lambda_i} = \nabla f(\xb) \cdot v
+  $$
+  Since $x_i \in C$ $f(x_i) \le f(\xb)$ so that $f(x_i) - f(\xb) \le 0$ and thus $\nabla f(\xb) \cdot v \le 0$ so that $v \in A$. \, \\
+
+  Now let $v \in A$. If $v \cdot \nabla f(\xb) < 0$ then
+  $$
+  \frac{f(\xb + h v) - f(\xb)}{h} < 0
+  $$
+  for small enough $h$. Form a sequence $h_i \to 0$ of these small enough $h$ and put $x_i = \xb + h_i v$ then $f(x_i) < f(\xb)$ so that $x_i \in C$, $h_i \searrow 0$ and
+  $$
+  \frac{x_i - \xb}{h_i} = \frac{\xb + h_i v - \xb}{h_i} = v
+  $$
+  so that $v \in T_C(\xb)$. If $v \cdot \nabla f(\xb) = 0$ then, because $\nabla f(\xb) \ne 0$ there's a direction $w$ so that $w \cdot \nabla f(\xb) < 0$. Put $\psi : [0, 1] \to \R{}$ given by
+  $$
+  \psi(\lambda) = \parens{ (1-\lambda)w + \lambda v } \cdot \nabla f(\xb)
+  $$
+  then $\psi$ is continuous and $\psi(0) < 0$ and $\psi(1) = 0$. By IVT $\psi$ achieves each value in between $\psi(0)$ and $\psi(1)$ so we can find $\lambda_i \to 1$ so that $\psi(\lambda_i)$ is negative, increasing and converges to $0$.Because $\parens{ (1-\lambda_i)w + \lambda_i v } \cdot \nabla f(\xb) < 0$ we know $(1-\lambda_i)w + \lambda_i v \in T_C(\xb)$. Since $T_C(\xb)$ is closed we know $v = \lim_i (1-\lambda_i)w + \lambda_i v \in C$, completing the proof. \, \\
+  \pagehline
+
+  If $\nabla f(\xb) = 0$ then the above equality breaks at saddle points. For example $f(x) = x^3$, $f'(0) = 0$ and $T_C(0) = \R{-}$, but $1 \cdot f'(0) = 0 \implies 1 \in A$, so that $T_C(0) \ne A$.
+\end{ex} %:
+\begin{ex}{10.17} %;
+  Trivially if $x \not\in C$ then neither side of the $\iff$ can ever be true, so that vacuously the $\iff$ holds. For $x \in \inte C$ $T_C(x) = \R{n}$, so we only need to show the right hand implication holds for any $v$. For small enough $h$ $x + hv \in C$ so that $d_C(x + hv) = 0$, thus the right hand $\liminf$ vanishes, so the claim holds. Lastly consider $x \in \partial C$. If $v \in T_C(x)$ then $\exists x_i \in C \to x$ and $\lambda_i \searrow 0$ so that
+  $$
+  0 = \lim_{i \to \infty} \norm{\frac{x_i - x}{\lambda_i} - v} = \lim_{i \to \infty} \frac{\norm{x_i - x - \lambda_iv}}{\lambda_i} \ge \lim_{i \to \infty} \frac{d_C(x + \lambda_i v)} \ge \liminf_{h \searrow 0} \frac{d_C(x + hv)}{h} \ge 0
+  $$
+  thus the right hand side holds. For the reverse implication we know $\exists \lambda_i \searrow 0$ so that
+  $$
+  0 = \liminf_{h \searrow 0} \frac{d_C(x + hv)}{h} = \lim_{i \to \infty} \frac{d_C(x + \lambda_i v)}{\lambda_i}
+  $$
+  And for each $i$ by definition $\exists x_{i,k} \in C$ so that $\lim_{k \to \infty} \norm{x + \lambda_i v - x_{i,k}} \to d_C(x+ \lambda_i v)$. Notably
+  $$
+  \norm{x - x_{i,i}} \le \norm{x + \lambda_i v - x_{i, i}} + \lambda_i \norm{v} \to 0 \text{ as } i \to \infty
+  $$
+  so that $x_{i, i} \to x$ and
+  $$
+  0 = \lim_{i \to \infty} \frac{d_C(x + \lambda_i v)}{\lambda_i} = \lim_{i \to \infty} \frac{\norm{x + \lambda_i v - x_{i,i}}}{\lambda_i} = \lim_{i \to \infty} \norm{\frac{x_{i,i} - x}{\lambda_i} - v}
+  $$
+  so that $\frac{x_{i,i} - x}{\lambda_i} \to v$, thus $v \in T_C(x)$.
+\end{ex} %:
+\end{document}
