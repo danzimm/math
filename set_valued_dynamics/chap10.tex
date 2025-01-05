@@ -33,20 +33,22 @@
 \begin{ex}{10.8} %;
   \newcommand{\uw}{\underline{\omega}}
   \newcommand{\w}{\omega}
-  Let $x, z, y \in O$ and $y_k \in O$ s.t. $y_k \to y$.
-  By the definition of $\inf$ and the triangle inequality we know
+
+  Let $x, z \in O$. By construction $\uw(x), \uw(z)$ are finite. Let $y_k \in O$ s.t. $\w(y_k) + \norm{x - y_k} \to \uw(x)$. Then by definition of $\inf$ and the triangle inequality
   $$
-  \uw(z) \le \w(y_k) + \norm{z - y_k} \le \w(y_k) + \norm{z - x} + \norm{x - y_k} \implies \uw(z) \le \liminf_k \w(y_k) + \norm{z - x} + \norm{x - y}
+  \uw(z) \le \w(y_k) + \norm{z - y_k} \le \w(y_k) + \norm{x - y_k} + \norm{z - x}
   $$
-  where the implication comes from taking $\liminf$ of the rhs. Lsc of $\w$ tells us $-\w(y) \le -\liminf_k \w(y_k)$ so
+  Since this holds for every $k$ we know
   $$
-  \uw(z) - \w(y) \le \norm{z - x} + \norm{x - y} \implies \uw(z) \le \norm{z - x} + \w(y) + \norm{x - y}
+  \uw(z) \le \lim_k \w(y_k) + \norm{x - y_k} + \norm{z - x} = \uw(x) + \norm{z - x} \implies \uw(z) - \uw(x) \le \norm{z - x}
   $$
-  Since this inequality holds for all $y$ it holds for $\inf$ over $y$ and hence $\uw(z) \le \norm{z - x} + \uw(x)$. Symmetry gives us the same inequality but with $x$ and $z$ flipped so that
+  By symmetry we get $\uw(x) - \uw(z) \le \norm{z - x}$ so that $\uw$ is Lipschitz with constant $1$. \, \\
+
+  Notably $\uw(x) = \inf_y \braces{ \w(y) + \norm{x - y} } \le \w(x) + \norm{x - x} = \w(x)$. Lastly, we know $\uw(x) \ge 0$ since both summed elements are non-negative. For contradiction suppose $\uw(x) = 0$ for some $x$, then there's $y_k$ so that $\w(y_k) + \norm{x - y_k} \to 0$. Because both terms summed are positive we must have $\liminf$ of each term vanish, too. In particular this means $y_k \to x$ and
   $$
-  \abs{\uw(z) - \uw(x)} \le \norm{z - x}
+  0 = \liminf_k \w(y_k) \ge \w(x) > 0
   $$
-  hence $\uw$ is Lipschitz with constant $1$.
+  a constradiction so that $\uw(x) > 0$.
 \end{ex} %:
 \begin{ex}{10.14} %;
   I'm somewhat confused here, and am thinking maybe I should skip this one so I can get onto more convex analysis? \, \\
@@ -56,15 +58,24 @@
   I don't understand how the hint plays into any of this either, but I'm guessing it addresses my above confusion, somehow?
 \end{ex} %:
 \begin{ex}{10.16} %;
-  Put $A = \braces{ v \mid v \cdot \nabla f(\xb) \le 0 }$. Let $v \in T_C(\xb)$ then $\exists \lambda \searrow 0$ and $x_i \in C$ s.t. $x_i \to x$ where $\frac{x_i - x}{\lambda_i} \to v$. We have
+  Put $A = \braces{ v \mid v \cdot \nabla f(\xb) \le 0 }$. Let $v \in T_C(\xb)$ then $\exists \lambda_i \searrow 0$ and $x_i \in C$ s.t. $x_i \to x$ where $\frac{x_i - x}{\lambda_i} \to v$. First I'll work to show
   $$
-  x_i = \xb + \lambda_i \frac{x_i - x}{\lambda_i}
+  \frac{f(x_i) - f(\xb)}{\lambda_i} \to \nabla f(\xb) \cdot v
   $$
-  and so because $f$ is continuously differentiable
+  Let $\epsilon > 0$ be given, we know from continuous differentiability for any $j$ $\exists N$ so that $i > N$ gives us
   $$
-  \lim_{i \to \infty} \frac{f(x_i) - f(\xb)}{\lambda_i} = \nabla f(\xb) \cdot v
+  \abs{\frac{f\parens{\xb + \lambda_i \frac{x_j - \xb}{\lambda_j}} - f(\xb)}{\lambda_i} - \nabla f(\xb) \cdot \frac{x_j - \xb}{\lambda_j}} < \epsilon / 2
   $$
-  Since $x_i \in C$ $f(x_i) \le f(\xb)$ so that $f(x_i) - f(\xb) \le 0$ and thus $\nabla f(\xb) \cdot v \le 0$ so that $v \in A$. \, \\
+  Similarly, since the dot product is continuous, $\exists M$ so that for any $j > M$
+  $$
+  \abs{\nabla f(\xb) \cdot \frac{x_j - \xb}{\lambda_j} - \nabla f(x) \cdot v} < \epsilon / 2
+  $$
+  This means for any $i > \max\braces{M,N}$
+  \begin{align*}
+    \abs{\frac{f(x_i) - f(\xb)}{\lambda_i} - \nabla f(\xb) \cdot v} &= \abs{\frac{f\parens{\xb + \lambda_i \frac{x_i - \xb}{\lambda_i}} - f(\xb)}{\lambda_i} - \nabla f(\xb)} \\
+    &\le \abs{\frac{f\parens{\xb + \lambda_i \frac{x_i - \xb}{\lambda_i}} - f(\xb)}{\lambda_i} - \nabla f(\xb) \cdot \frac{x_i - \xb}{\lambda_i}} + \abs{\nabla f(\xb) \cdot \frac{x_i - \xb}{\lambda_i} - \nabla f(x) \cdot v} < \epsilon
+  \end{align*}
+  Since $x_i \in C$ $f(x_i) \le f(\xb)$ for every $i$ so that $f(x_i) - f(\xb) \le 0$ and thus $\nabla f(\xb) \cdot v \le 0$ so that $v \in A$. \, \\
 
   Now let $v \in A$. If $v \cdot \nabla f(\xb) < 0$ then
   $$

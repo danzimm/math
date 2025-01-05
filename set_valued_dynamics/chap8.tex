@@ -159,13 +159,13 @@
   \dot{\xb} = \frac{1}{l} \sum_{i=1}^l \dot{x_i} = \frac{1}{l} \sum_{i=1}^l \parens{ \frac{1}{l} \sum_{j=1}^l x_j - x_i } = \frac{1}{l} \parens{ \sum_{j=1}^l x_j - \sum_{i=1}^l x_i } = 0
   $$
 
-  For the second part of the problem fix $\psi_i(t) = \norm{\phi_i(t) - \xb}$ then
+  For the second part of the problem fix $\psi_i(t) = \norm{\phi_i(t) - \xb}^2$ then when $\phi_i(t) \ne \xb$
   $$
-  \frac{d}{dt} \psi_i(t) = \frac{1}{2 \psi_i(t)} \cdot 2 \iprod{\phi_i(t) - \xb}{\dot{\phi_i}(t)} = \frac{\iprod{\phi_i(t) - \xb}{\xb - \phi_i(t)}}{\psi_i(t)} = - \frac{(\psi_i(t))^2}{\psi_i(t)} = -\psi_i(t)
+  \frac{d}{dt} \psi_i(t) = 2 \iprod{\phi_i(t) - \xb}{\dot{\phi_i}(t)} = 2 \iprod{\phi_i(t) - \xb}{\xb - \phi_i(t)} = - 2 \psi_i(t)
   $$
-  and solving this we see
+  and solving this we get $\psi_i(t) = \norm{\phi_i(0) - \xb}^2 e^{-2t}$ so
   $$
-  \norm{\phi_i(t) - \xb} = \psi_i(t) = \psi_i(0) e^{-t} = \norm{\phi_i(0) - \xb} e^{-t}
+  \norm{\phi_i(t) - \xb}^2 = \psi_i(t) = \psi_i(0) e^{-2t} = \norm{\phi_i(0) - \xb}^2 e^{-2t} \implies \norm{\phi_i(t) - \xb} = \norm{\phi_i(0) - \xb} e^{-t}
   $$
 \end{ex} %:
 \begin{ex}{8.19} %;
@@ -195,11 +195,22 @@
   $$
   which is exactly (8.26). \, \\
 
+  In order to show $\argmin f = A$ we only need to show $\argmin f \subset A$. Let $x \in \argmin f$, then $f(x) = 0$.
+  \begin{quote}
+    I'm unsure why, but this fact escaped me for far too long. But, I'm glad to admit: this wasn't a reading comprehension issue, this time I was in fact struggling to do math.
+  \end{quote}
+  For $j \ne 1$ there is a finite path $k_1, k_2, \ldots, k_q$ from $k_1=1$ to $k_q=j$ where $a_{k_p k_{p+1}} > 0$ (by connectedness). Because $f(x) = 0$ we must have $\norm{x_{k_p} - x_{k_{p+1}}} = 0$ (since the sum is over non-negative values, each summed element must vanish, so the positivity of the scalar causes the norm to vanish). This means that $x_1 = x_{k_2} = \cdots = x_j$. Since $j$ was arbitrary we know $x_1 = x_2 = \cdots = x_l$ so that $x \in A$.
+
+  \pagehline
+
+  Leaving old proof here for historical record:
+  \, \\
+
   In order to show $\argmin f = A$ we only need to show $\argmin f \subset A$, which we'll do inductively. Specifically we'll induct on the following hypothesis for $2 < n \le l$ \, \\
 
 
   \begin{claim}
-    If the first $n$ agents are the only ones connected, then $x \in \argmin f \implies x_1 = x_2 = \cdots x_n$, where $n \le l$.
+    If $n$ agents are connected, then $x \in \argmin f \implies x_i = x_j$ for all $n$ connected agents indexed by $i,j$
   \end{claim}
 
 
@@ -207,17 +218,19 @@
   $$
   x \in \argmin f \implies \nabla f(x) = 0 \implies 0 = \dot{x}_1 = \sum_{j=3}^l a_{1j} (x_j - x_1) + a_{12}( x_2 - x_1 ) = a_{12} ( x_2 - x_1 ) \implies x_1 = x_2
   $$
-  For the inductive step we assume the claim holds for $n$ connected agents and must show the claim holds for $n+1$. To that end, suppose the first $n+1$ agents are the only connected agents so that $a_{jk} = 0 \, \forall j > n+1, \forall k$ and there's some $1 \le k < n+1$ so that $a_{(n+1)k} > 0$. Now, again using the above equivalence if $x \in \argmin f$
-  $$
-  0 = \sum_{j=1}^l a_{(n+1)l} (x_l - x_{n+1}) = \sum_{j=1}^n a_{(n+1)l} (x_l - x_{n+1}) = \sum_{j=1}^n a_{(n+1)l} (x_j - x_k) + a_{(n+1)l} (x_k - x_{n+1}) = (x_k - x_{n+1}) \sum_{j=1}^n a_{(n+1)l}
-  $$
-  where the last equality is found by the inductive hypothesis (i.e. the first $n$ agents are connected, so $x_j = x_k \, \forall j \le n$). Since $a_{(n+1)k} > 0$ and $a_{(n+1)j} \ge 0$ otherwise, this means $x_k = x_{n+1}$. \, \\
+  For the inductive step we assume the claim holds for $n$ connected agents and must show the claim holds for $n+1$. W.l.o.g. suppose the first $n+1$ agents are connected so that $a_{jk} = 0 \, \forall j > n+1, \forall k$ and there's some $k < n+1$ so that $a_{(n+1)k} > 0$. Now, again using the above equivalence if $x \in \argmin f$
+  \begin{align*}
+    0 = \dot{x}_{n+1} &= \sum_{j=1}^l a_{(n+1)j} (x_j - x_{n+1}) \\
+    &= \sum_{j=1}^n a_{(n+1)j} (x_j - x_{n+1}) \\
+    &= \sum_{j=1}^n a_{(n+1)j} (x_j - x_k) + a_{(n+1)j} (x_k - x_{n+1}) \\
+    &= (x_k - x_{n+1}) \sum_{j=1}^n a_{(n+1)j}
+  \end{align*}
+  where the last equality is found by the inductive hypothesis (i.e. the first $n$ agents are connected, so $x_j = x_k \, \forall j \le n$). Since $a_{(n+1)k} > 0$ and $a_{(n+1)j} \ge 0$ otherwise $\sum_{j=1}^n a_{(n+1)j} > 0$, so $x_k = x_{n+1}$. \, \\
 
   Since the above holds for all $n \le l$, it holds in particular for $n = l$, and so if all $l$ agents are connected,
   $$
   x \in \argmin f \implies x_1 = x_2 = \cdots = x_l \implies x \in A
   $$
-  so the original claim has been proven.
 \end{ex} %:
 \begin{ex}{8.26} %;
   The solution is given by
