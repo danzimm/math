@@ -1,0 +1,204 @@
+\documentclass{article}
+
+\title{Partial Chapter 11 Exercises}
+\usepackage{dztex}
+\usepackage{cleveref}
+\usepackage{amssymb} % \rightrightarrows
+
+\fancyhead[L]{Set-Valued, Convex and Nonsmooth Analysis in Dynamics and Control \vspace{1mm}}
+
+\newenvironment{ex}[1]
+  {\renewcommand\theexercise{#1}\exercise}
+  {\endexercise}
+
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ik}{i_k}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\gph}{gph}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\inte}{int}
+\DeclareMathOperator*{\con}{con}
+\DeclareMathOperator*{\epi}{epi}
+\newcommand{\clo}[1]{\overline{#1}}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+\newcommand{\mr}{\mathcal{R}}
+\newcommand{\idot}[2]{#1 \cdot #2}
+\newcommand{\pdot}[2]{\parens{#1 \cdot #2}}
+\newcommand{\xb}{\overline{x}}
+\newcommand{\yb}{\overline{y}}
+
+\begin{document}
+\begin{ex}{11.2} %;
+  \, \\
+  \begin{itemize}
+    \item
+      For fixed $y$ we know $-g(x) := e^x - y \cdot x$ is differentiable with $-g'(x) = e^x - y$, which is trivially non-decreasing, hence convex. This says $g(x) := y \cdot x - e^x$ is concave and so its maximum is achieved and occurs when $g'(x) = 0$, i.e. when $x = \ln y$. This tells us for $f(x) = e^x$
+      $$
+      f^*(y) := \sup_{x \in \R{}} \braces{ y \cdot x - e^x } = y \ln y - 1
+      $$
+    \item
+      For fixed $y$
+      $$
+      g(x) := y \cdot x - \abs{x} = \begin{cases}
+        x \parens{ y - 1 } & x \ge 0 \\
+        x \parens{ y + 1 } & x < 0
+      \end{cases}
+      $$
+      When $y > 1$ so $y - 1 > 0$ and thus $\sup_x g(x) = +\infty$ by the first case. When $y < -1$ $y + 1 < 0$ so that $\sup_x g(x) = +\infty$ by the second case. When $y \in [-1, 0]$ $y - 1 \le 0$ so that $\sup$ over the first case is $0$. On the other hand, $y + 1 \ge 0$ so that $\sup$ of the second case is also $0$. A similar argument is made for $y \in [0, 1]$ so that for $f(x) = \abs{x}$
+      $$
+      f^*(y) = \sup_x g(x) = \begin{cases}
+        0 & y \in [-1, 1] \\
+        +\infty & \text{ otherwise}
+      \end{cases}
+      $$
+    \item
+      Using the alternate characterization of the dual, for $f(x) = x^3$ we have
+      $$
+      -f^*(y) = \sup\parens{ b \in \R{} \mid x^3 \ge y \cdot x + b \, \forall x \in \R{} }
+      $$
+      Notably $x^3 \to -\infty$ as $x \to -\infty$ so that for every finite fixed $b$ it is not true that $x^3 \ge y \cdot x + b$, i.e. $-f^*(y) = -\infty \implies f^*(y) = +\infty$.
+  \end{itemize}
+\end{ex} %:
+\begin{ex}{11.7} %;
+  Taking the hint, we can leverage proposition 7.36. Take the $V$, $\gamma$ that it gives you and square both quantities so that, because both are non-negative we have
+  $$
+  V^2(g) \le \gamma^2 V^2(x)
+  $$
+  Notably $\gamma \in (0, 1)$ so $\gamma^2 \in (0, 1)$ and it's very easy to see that $V^2$ is positively homogeneous of degree $2$ (since positive scalars can be pulled out of both the norm and the $\sup$). Finally if $x = 0$ it's clear $V^2(x) = 0$. On the other hand if $V^2(x) = 0$ then, since $e^kj > 0$ we must have the contents of the norm vanish, which only occurs if $x = 0$.
+  \, \\
+
+  I thought this was the end of the problem, but now that I'm typing it up I'm realizing there might be a flaw with the last statement: what if product of the matrices result in the $0$ matrix? As far as I can tell there aren't any restrictions on the matrices.. but maybe (probably) I'm missing why this is a "trivial" case where $V$ can be taken as the $0$ function, or something?
+\end{ex} %:
+\begin{ex}{11.8} %;
+  \, \\
+  \begin{enumerate}[label=(\alph*)]
+    \item Let $s \ge 0$ then
+      \begin{align*}
+        f^*(s y) &= \sup_x \braces{ s y \cdot x - f(x) } = \sup_{sx} \braces{ s y \cdot x - f(x) } \\
+        &= \sup_x \braces{ s^2 y \cdot x - f(sx) }= \sup_x \braces{s^2 \parens{ y \cdot x - f(x) } } \\
+        & = s^2 \sup_x \braces{y \cdot x - f(x) } = s^2 f^*(y)
+      \end{align*}
+    \item
+      Suppose $f$ is positive definite then by $11.4$ $f^*$ is proper. If $f^*(y) = +\infty$ then $\exists x_k$ so that $y \cdot x_k - f(x_k) \nearrow +\infty$. Because $f$ is positive definite this means $y \cdot x_k \nearrow +\infty$ so that $\norm{x_k} \to \infty$. Because $f$ is positively homogeneous of degree $2$ we know
+      $$
+      f(x_k) = f\parens{ \norm{x_k} \frac{x_k}{\norm{x_k}} } = \norm{x_k}^2 f\parens{\frac{x_k}{\norm{x_k}}}
+      $$
+      and so
+      $$
+      y\cdot x_k - f(x_k) = y \cdot x_k - \norm{x_k}^2 f\parens{\frac{x_k}{\norm{x_k}}} \le \norm{y} \norm{x_k} - \norm{x_k}^2 f\parens{\frac{x_k}{\norm{x_k}}} = \norm{x_k} \parens{ \norm{y} - \norm{x_k} f\parens{\frac{x_k}{\norm{x_k}}} }
+      $$
+      Since $y \cdot x_k - f(x_k) \nearrow +\infty$ and $\norm{x_k} \to +\infty$ it must be the case that
+      $$
+      f\parens{\frac{x_k}{\norm{x_k}}} \to 0
+      $$
+      Notably there must be a convergent subsequence of $\frac{x_k}{\norm{x_k}}$, which we'll use without relabeling going forward, and whose limit is $\bar{x}$. By lsc of $f$ we know
+      $$
+      0 = \liminf_k f\parens{\frac{x_k}{\norm{x_k}}} \ge f(\bar{x}) \ge 0
+      $$
+      where the right most inequality comes from the positive-definiteness assumption. This means $\bar{x} = 0$, but by its construction we must have $\norm{\bar{x}} = 1$, a contradiction so that $f^*$ must be finite. \, \\
+
+      Now suppose $f^*$ is finite so that there's some $M$ where $\abs{f^*(y)} \le M$. Suppose $\exists x$ s.t. $f(x) < 0$. This means for any $s > 0$ and fixed $y$ where $y \cdot x \ge 0$
+      $$
+      s y \cdot x - f(sx) = s y \cdot x - s^2 f(x) \nearrow +\infty \text{ as } s \nearrow +\infty \implies f^*(y) = +\infty
+      $$
+      which is a contradiction with our initial assumption. \, \\
+
+      Now if $f(x) = 0$ then $y \cdot x - f(x) = y \cdot x$ and so for any $y \ne 0$ we must have $x = 0$, otherwise $f^*(y) \nearrow +\infty$. On the other hand if $x = 0$ but $f(x) \ne 0$ then $y \cdot x - f(0) = -s^2 f(0)$ for any positive $s$. This means $f^*(y) = \pm \infty$ depending on the sign of $f(0)$, so that we get a contradiction with our assumption hence $f(0) = 0$.
+  \end{enumerate}
+\end{ex} %:
+\begin{ex}{11.11} %;
+  \, \\
+  \begin{itemize}
+    \item
+      We'll use the fact that $x \in \partial g(y) \iff y$ is a minimizer of a lsc convex function. For this situation we're analyzing, for a fixed $x$
+      $$
+      g(y) := \abs{y} + \frac{1}{2\alpha} \norm{x - y}^2,
+      $$
+      which is easily seen as convex from properties from chapter 7. For $y \ne 0$ $g$ is differentiable and so
+      $$
+      \partial g(y) = g'(y) = \sgn y + \frac{1}{\alpha} (y - x)
+      $$
+      Next we want to set this expression equal to $0$ and solve for $y$ (if such a $y$ exists). First for $y > 0$ $y = x - \alpha$, so that a minimum occurs there as long as $x > \alpha$. Similarly for $y < 0$ we get $y = x + \alpha$, so that a minimum occurs there as long as $x < -\alpha$. \, \\
+
+      For $x \in [-\alpha, \alpha]$ and $y < 0$ $g'(y) = -1 + \frac{y}{\alpha} - \frac{x}{\alpha} < 0$ so that $g$ is decreasing. A similar calculation can be shown for $y > 0$, but that $g'(y) > 0$ so that it's increasing. Because $g$ is lsc this tells us $g(0)$ is a minimum, for $x \in [-\alpha, \alpha]$. \, \\
+
+      Putting this all together we get
+      $$
+      e_\alpha f(x) = \inf_y \braces{ \abs{y} + \frac{1}{2\alpha} \abs{x - y}^2 } = \begin{cases}
+        \frac{x^2}{2\alpha} & x \in [-\alpha, \alpha] \\
+        x - \alpha + \frac{\alpha}{2} & x > \alpha \\
+        - x - \alpha + \frac{\alpha}{2} & x < \alpha
+      \end{cases}
+      $$
+    \item
+      Since $f(x)$ is smooth and convex then $g(y) := f(y) + \frac{1}{2\alpha} \norm{x-y}^2$ is smooth and convex so that the minimum occurs when $\nabla g (y) = 0$, i.e. when
+      $$
+      0 = \nabla g(y) = y + \frac{1}{\alpha} (y - x) \implies y = \frac{x}{\alpha + 1}
+      $$
+      so that
+      $$
+      e_\alpha f(x) = \inf_y \braces{ \frac{1}{2}\norm{y}^2 + \frac{1}{2\alpha} \norm{x - y}^2 } = \frac{1}{2(\alpha + 1)^2}\norm{x}^2 + \frac{\alpha}{2(\alpha+1)^2} \norm{x}^2 = \frac{1}{2(\alpha + 1)} \norm{x}^2
+      $$
+  \end{itemize}
+\end{ex} %:
+\begin{ex}{11.12} %;
+  \newcommand{\icon}[2]{\parens{#1 \underset{\tiny \inf}{\ast} #2}}
+  First let $g, h$ be functions on $\R{n}$ taking $\R{} \cup \{\infty\}$ values and consider
+  $$
+  \icon{g}{h}(x) := \inf_y g(y) + h(x-y)
+  $$
+  I aim to show $\icon{g}{h}^*(y) = g^* + h^*$. By definition
+  \begin{align*}
+    \icon{g}{h}^*(y) &= \sup_x \braces{ y \cdot x - \inf_z \braces{ g(z) + h(x - z) } } \\
+    &= \sup_x \sup_z \braces{ y \cdot x - g(z) - h(x - z) } \\
+    &= \sup_x \sup_z \braces{ y \cdot z - g(z) + y\cdot (x - z) - h(x - z) } \\
+    &= \sup_w \sup_z \braces{ y \cdot z - g(z) + y \cdot w - h(w) } \\
+    &= \sup_w \braces{ g^*(y) + y \cdot w - h(w) } \\
+    &= g^*(y) + h^*(y)
+  \end{align*}
+  The variable change in the 4th line comes by setting $w := x - z$, which can be done because $x$ is unconstrained. \, \\
+
+  Now our job is to compute the dual of $\frac{1}{2\alpha} \norm{x}^2$. Since this function is smooth and convex we can use the characterization that a the maximum of a concave function occurs when the gradient vanishes. That is, when
+  $$
+    0 = \nabla_x \parens{ y\cdot x - \frac{1}{2\alpha} \norm{x}^2 } = y - \frac{1}{\alpha} x \implies x = \alpha y
+  $$
+  This gives us, for $h(x) := \frac{1}{2\alpha} \norm{x}^2$
+  $$
+  h^*(y) = \sup_x \braces{ y\cdot x - \frac{1}{2\alpha} \norm{x}^2 } = \frac{\alpha}{2} \norm{y}^2
+  $$
+  Combining this result with the above we find
+  $$
+  \parens{e_\alpha f}^*(y) = \inf_y \braces{ f(y) + \frac{1}{2\alpha} \norm{x - y}^2 } = \icon{f}{h}^*(y) = f^*(y) + \frac{\alpha}{2} \norm{y}^2
+  $$
+\end{ex} %:
+\begin{ex}{11.14} %;
+  \, \\
+  \begin{enumerate}[label=(\alph*)]
+    \item
+      Let $x \in \argmin f$, then $0 \in \partial_x f(x)$. Now we know (by smoothness) that
+      $$
+      \partial_y \parens{ f(y) + \frac{\alpha}{2} \norm{x- y}^2 } = \partial_y f(y) + \nabla_y \parens{ \frac{\alpha}{2} \norm{x-y}^2 } = \partial_y f(y) + \frac{1}{\alpha} (y-x)
+      $$
+      This means when $y = x$ $0 \in \partial_y \parens{ f(y) + \frac{\alpha}{2} \norm{x- y}^2 }$ and so $e_\alpha f(x) = f(x)$ (by plugging in $y = x$ into the definition). \, \\
+
+      Now let $z \ne x$. Because $x \in \argmin f$ we know for any $y$ that
+      $$
+      f(x) \le f(y) + \frac{1}{2\alpha} \norm{y - z}^2 \implies e_\alpha f(x) = f(x) \le \inf_y f(y) + \frac{1}{2\alpha} \norm{y - z}^2 = e_\alpha f(z)
+      $$
+      so that $e_\alpha f(x)$ is a minimum, thus $x \in \argmin e_\alpha f$. \, \\
+
+      Now let $x \in \argmin e_\alpha f$. By lemma 11.13 we know the inf in the definition of $e_\alpha f$ is achieved, fix $y$ where it's achieved so that
+      $$
+      f(y) + \frac{1}{2\alpha} \norm{x - y}^2 = e_\alpha f(x) \le e_\alpha f(y) \le f(y) \implies x = y
+      $$
+      This tells us $e_\alpha f(x) = f(x)$. Now fix an arbitrary $z$, then
+      $$
+      f(x) = e_\alpha f(x) \le e_\alpha f(z) \le f(z)
+      $$
+      so that $x \in \argmin f$.
+    \item
+  \end{enumerate}
+\end{ex} %:
+\end{document}
