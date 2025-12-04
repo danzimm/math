@@ -11,6 +11,7 @@
 \usepackage{setspace}
 \usepackage{titling}
 \usepackage{ifthen}
+\usepackage{amssymb}
 \usetikzlibrary{arrows.meta,arrows,positioning}
 
 \usepackage{pgfplots}
@@ -20,7 +21,7 @@
 %:
 
 %; Commands
-\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\sfdefault}
 \DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\hm}{\mathcal{H}}
 \DeclareMathOperator{\betop}{\mathcal{B}}
@@ -49,8 +50,8 @@
 \newcommand{\Et}[1]{\mathcal{E}_2\optparens{#1}}
 \newcommand{\Eo}[1]{\mathcal{E}_1\optparens{#1}}
 \newcommand{\A}{\mathcal{A}^{+}}
-\newcommand{\Ae}{\A_{\textup{Even}}}
-\newcommand{\Ao}{\A_{\textup{Odd}}}
+\newcommand{\Ae}{\A_{Even}}
+\newcommand{\Ao}{\A_{Odd}}
 \newcommand{\C}{\mathcal{C}}
 \newcommand{\ks}{\kappa_\sigma}
 \newcommand{\B}[1]{B\parens{#1}}
@@ -84,14 +85,14 @@
 \begin{document}
 
 %; Title, Abstract, TOC
-\title{\Huge Non-local Curvature of Curves}
+\title{Behaviors of Seguinian nonlocal curvature}
 \author{Dan Zimmerman, Brian Seguin}
 \date{}
 \setlength{\droptitle}{-6em}
 \maketitle
 
 \begin{abstract}
-  Here we study the non-local curvature of a curve and show that there's a natural asymptotic convergence to classical curvature. Concretely, we first study the asymptotics of circles with arbitrary radii, show that, with the right normalization constant, there's an asymptotic relationship to the inverse of the radius, i.e. the classical curvature of a circle. Next we show that the non-curvature of an arbitrary curve can be approximated by the nonlocal curvature of a circle. Finally we show that arbitrary curves' non-local curvature converge to the curve's classical curvature under the right conditions.
+  We study the Seguinian notion nonlocal curvature of a curve and show that to classical signed curvature can be recovered under an appropriate limit, akin to other nonlocal recovery results. It's also shown that Seguinian nonlocal curvature of a curve in a $k$ dimensional subspace is also lives in the same $k$ dimensional subspace, further showing parallels between Seguinian nonlocal and classical signed curvature.
 \end{abstract}
 
 \doublespacing
@@ -102,11 +103,46 @@
 
 \section{Introduction}%;
 \subsection{Background}%;
-Continuing from \cite{seguin:2020}, we aim to determine the appropriate conditions needed to recover classical curvature $\kappa$ from non-local curvature $\kappa_\sigma$ as $\sigma \to 1$. Concretely, this means, for a given curve $\mathcal{C}$ in $n$ dimensions we want to analyze
+Seguinian nonlocal curvature of curves was introduced by Seguin \cite{seguin:2020} who defined the $\sigma-length$ for $\sigma \in (0, 1)$ of a curve $\C$ relative to an open, bounded set with smooth boundary $\Omega \subset \R{n}$ by
+$$
+\mathrm{Len}_\sigma(\C, \Omega) := \int_{\D{\C}} r^{1-n-\sigma} \sup_{v \in \U{} \cap \braces{u}^\perp} \chi_\Omega(p + rv) d\haus{2n}{p, u, r}.
+$$
+It was shown the corresponding Euler-Lagrange is
+$$
+\parens{\int_{\aeven} - \int_{\aodd}} \frac{\pdot{a}{t(z)} b - \pdot{b}{t(z)}a}{r^{1+\sigma}} \, d\haus{2n-2}{a, b, r}, \qquad \textup{for all } z \in \C,
+$$
+which, since the minimization of classical length occurs when classical curvature vanishes, motivated the Seguinian notion of nonlocal curvature as
 \begin{equation}
-  \kappa_\sigma(z) := \parens{\int_{\aeven} - \int_{\aodd}} \frac{\pdot{a}{t(z)} b - \pdot{b}{t(z)}a}{r^{1+\sigma}} \, d\haus{2n-2}{a, b, r}, \label{def:non-local-curv}
+  \kappa_\sigma(z) := \parens{\int_{\aeven} - \int_{\aodd}} \frac{\pdot{a}{t(z)} b - \pdot{b}{t(z)}a}{r^{1+\sigma}} \, d\haus{2n-2}{a, b, r}, \qquad \textup{for all } z \in \C. \label{def:non-local-curv}
 \end{equation}
-where $t(z)$ is the unit tangent of $\mathcal{C}$ at $z$, and understand the asymptotics as $\sigma \to 1$.
+
+This definition is analogous to Abatangelo and Valdinoci's \cite{abaval:2014} a notion of nonlocal mean curvature of an surface $E \subset \R{n}$
+$$
+H_\sigma(z) := \frac{1}{\omega_{n-2}} \int_{\R{n}} \frac{\chi_E - \chi_{E^c}}{\abs{z - x}^{n+\sigma}} dx \qquad \textup{for all } z \in \partial E.
+$$
+
+Abatangelo and Valdinoci showed classical mean curvature can be recovered under an appropriate limit, that is
+$$
+\lim_{\sigma \uparrow 1} \parens{1-\sigma} H_\sigma(z) = H(z).
+$$
+These two notions of curvature match, up to a multiplicative constant, in $\R{2}$. Consequently its known, with appropriate scaling classical signed curvature is recovered from Seguinian nonlocal curvature via the above limit relation in $\R{2}$.
+%:
+\subsection{Motivation}%;
+The above result in $\R{2}$ motivates finding the appropriate scaling factor $\Lambda_{2,\sigma}$ to recover classical curvature. Further, it makes sense to extend this result to $\R{n}$ so that the signed curvature of any $C^2$ curve $\C \subset \R{n}$ with non-vanishing signed curvature can be recovered via
+$$
+\lim_{\sigma \uparrow 1} \parens{1-\sigma} \Lambda_{n,\sigma} \kappa_\sigma(z) = \kappa(z) \qquad \textup{for all } z \in \C.
+$$
+Motivated by the relationship between classical curvature of a curve $\C$ and the osculating circle at a point $z \in \C$ $\textup{osc}(z)$, we'll show Seguinian curvature abides by
+$$
+\lim_{\sigma \uparrow 1} \abs{\kappa_{\sigma}^{\textup{osc}}(z) - \kappa_{\sigma}^{\C}(z)} = 0.
+$$
+Using the calculation of Seguinian curvature of a circle of arbitrary radius we'll be able to define
+$$
+\Lambda_{n, \sigma} := \frac{2^{1/2} \pi^{n-1}}{\sigma R^\sigma} \frac{\G{1+\sigma/2} \G{(1-\sigma)/2}}{\G{(n+1)/2}\G{(n+\sigma)/2}\G{1-\sigma/2}}.
+$$
+Together these results will give us the limit relation stated above.
+
+The calculation of the Seguinian curvature of a circle in $\R{n}$ will reveal a relationship to the Seguinian curvature of a circle in $\R{2}$. This motivates showing a curve in a $k$ dimensional subspace has Seguinian curvature spanned by the same $k$ dimensional subspace.
 %:
 \subsection{Notation}%;
 In the following, we always use:
@@ -144,8 +180,46 @@ In the following, we always use:
 %:
 
 \newpage
-\section{Non-local Curvature of Circle in 2D}%;
-\begin{theorem}
+\section{Vanishing non-normal components of Seguinian curvature}%;
+Classically it's trivial to show the signed curvature of a curve at a point $z$ is parallel to $n(z)$. Seguinian curvature the same property, which is easy to see in $\R{2}$ since
+$$
+  \dot{\ks(z)}{t} = \parens{\int_{\Ae} - \int_{\Ao}} \frac{\pdot{a}{t}\pdot{b}{t} - \pdot{b}{t}\pdot{a}{t}}{r^{1+\sigma}} \, d\haus{2}{a,b,r} = 0.
+$$
+The following result extends this to $\R{n}$.
+\begin{lemma}\label{lem:circnparallel}%;
+  For a curve $\C \in \R{n}$ $\ks(z) = \parens{n \otimes n} \ks(z)$.
+\end{lemma}
+
+\begin{proof}
+  Just as in the 2D case it's trivial to see $\pdot{\ks(z)}{t} = 0$. Now for $m \in \U{\braces{n,t}^\perp}$ consider the transformation $R_m := I - 2(m \otimes m)$ and put $\Phi : \A(z) \to \A(z)$ given by
+  $$
+  \Phi(a, b, r) = (R_m a, R_m b, r).
+  $$
+  It's easy to see $\Phi$ is an isometric diffeomorphism of $\A(z)$. Fix the integrand of $\dot{\ks(z)}{m}$ by
+  $$
+    J(a, b, r) := \frac{\pdot{a}{m}\pdot{b}{m} - \pdot{b}{m}\pdot{a}{m}}{r^{1+\sigma}}
+  $$
+  and notice
+  \begin{IEEEeqnarray*}{rCl}
+    r^{1+\sigma} J(R_m a, R_m, b, r) &=& \pdot{R_m a}{t}\pdot{R_m b}{m} - \pdot{R_m b}{t}\pdot{R_m a}{m} \\
+    &=& \pdot{\parens{a - 2\pdot{a}{m}m}}{t}\pdot{\parens{b - 2\pdot{b}{m}m}}{m} - \pdot{\parens{b - 2\pdot{b}{m}m}}{t}\pdot{\parens{a - 2\pdot{a}{m}m}}{m} \\
+    &=& \parens{\pdot{a}{t} - 2\pdot{a}{m}\pdot{m}{t}}\parens{\pdot{b}{m} - 2\pdot{b}{m}} - \parens{\pdot{b}{t} - 2\pdot{b}{m}\pdot{m}{t}}\parens{\pdot{a}{m} - 2\pdot{a}{m}} \\
+    &=& \parens{\pdot{a}{t}}\parens{-\pdot{b}{m}} - \parens{\pdot{b}{t}}\parens{-\pdot{a}{m}} \\
+    &=& -\pdot{a}{t}\pdot{b}{m} + \pdot{b}{t}\pdot{a}{m} = -r^{1+\sigma} J(a, b, r).
+  \end{IEEEeqnarray*}
+  That is, $\Phi$ is an isometric diffeomorphism which the integrand is odd over, so that
+  \begin{equation}
+    \ks(z) \cdot m = \parens{\int_{\Ae} - \int_{\Ao}} \frac{\pdot{a}{m}\pdot{b}{m} - \pdot{b}{m}\pdot{a}{m}}{r^{1+\sigma}} \, d\haus{2}{a,b,r} = 0.
+  \end{equation}
+\end{proof}
+%:
+%:
+
+\section{Seguinian curvature of circles}%;
+
+To get a feel for the geometry of Seguinian curvature we calculate $\ks(z)$ of a circle of arbitrary radius. A circle's symmetry allows us to ignore which $z$ we're analyzing, i.e. $\ks := \ks(0) = \ks(z)$, so for the rest of this section we'll simplify notation and focus on $\ks$. Our initial result in $\R{2}$ illuminates the fundamental geometries behind the definition, and provides a result we can reuse in $\R{n}$.
+
+\begin{theorem}\label{thm:circr2}%;
 For a circle of radius $R$ in $\R{2}$
 $$
   \ks(z) = \frac{2\sqrt{2}}{\sigma R^\sigma} \B{\frac{1}{2}, \frac{1-\sigma}{2}} n(z)
@@ -226,7 +300,6 @@ $$
     -1 & \textup{otherwise}
   \end{cases}.
   \end{equation} \label{eq:2:chit}
-  \newpage
   The picture also gives us helps us characterize $b$ in terms of $a$. Since we only care about the $b$ such that $\pdot{b}{t} > 0$, $\pdot{a}{n} > 0 \implies b = a^\perp$, i.e. $b$ is $a$ rotated clockwise. Otherwise, $b$ is a counterclockwise rotation so that $b = -a^\perp$, thus
   \begin{equation}
     b = \sgn{\dot{a}{n}} a^\perp. \label{eq:2:ba}
@@ -296,41 +369,28 @@ $$
   \dot{\ks}{n} = -2^{\sigma+1/2}\int_{\R{2}} \frac{\chit{\Pu}{u}\sgn{\dot{u}{n}}}{\abs{u}^{2+\sigma}} \, d\haus{2}{u} = -2^{\sigma+1/2} \frac{-2^{1-\sigma}}{\sigma R^{\sigma}} \B{\frac{1}{2},\frac{1-\sigma}{2}} = \frac{2^{3/2}}{\sigma R^\sigma} \B{\frac{1}{2}, \frac{1-\sigma}{2}}.
   $$
 
-\end{proof}
-%:
+\end{proof}%:
 
-\section{Non-local Curvature of a Circle in N-D}%;
-\begin{theorem}
+\noindent Now we're prepared to calculate the Seguinian curvature of a circle in $\R{n}$, with our strategy as follows:
+\begin{enumerate}[label=\roman*.]
+  \item Recognize the \hyperref[lem:pu]{similarity with the 2D case} and \hyperref[nd:def:psi]{slice the domain along each $u$} intersecting $\S := \lsp{t, n}$.
+  \item \hyperref[nd:def:phi]{Slice the domain along each radius $r$}.
+  \item Show the domain of the inner-most integral with $u, r$ fixed is \hyperref[nd:eq:5]{a pair of spheres}.
+  \item \hyperref[nd:eq:11]{Evaluate} the final integrals.
+\end{enumerate}
+
+\begin{theorem}\label{thm:circrn}%;
   For a circle of radius $R$ in $\R{n}$
   $$
-    \ks(z) = \frac{2^{1/2} \pi^{n-1}}{\sigma R^\sigma} \frac{\G{1+\sigma/2} \G{(1-\sigma)/2}}{\G{(n+1)/2}\G{(n+\sigma)/2}\G{1-\sigma/2}} n(z)
+  \ks =
+  \frac{\omega_{n-3}^2}{\sigma R^\sigma \sqrt{2}} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}} \B{\frac{1}{2}, \frac{1-\sigma}{2}}
+  n(z).
   $$
 \end{theorem}
 \begin{proof}
-  Our strategy for this proof is as follows
-  \begin{itemize}
-    \item[\ref{nd:sect:2d}] Recognize the similarity with the 2D case and slice the domain along each $u$ in \eqref{lem:pu}.
-    \item[\ref{nd:sect:norm}] Show $\ks \cdot m = 0 \, \forall m \in \{n\}^\perp$ so that we can focus on $\ks \cdot n$.
-    \item[\ref{nd:sect:radii}] Slice along each radius $r$ to further simplify the computation.
-    \item[\ref{nd:sect:sphere}] Show the domain of the inner-most integral with $u, r$ fixed is a pair of spheres.
-    \item[\ref{nd:sect:eval}] Evaluate the final integrals.
-  \end{itemize}
-
-  \noindent As with the 2D case, due to symmetry we know $\ks(z) = \ks$, and
-  \begin{IEEEeqnarray}{ll}
-    \frac{\omega_{n-3}^2}{\sigma R^\sigma \sqrt{2}} &\B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}} \B{\frac{1}{2}, \frac{1-\sigma}{2}} \label{nd:eq:0} \\
-    &= \frac{1}{\sigma R^\sigma \sqrt{2}} \parens{\frac{2\pi^{n/2 -1}}{\G{n/2-1}}}^2 \frac{\G{3/2}\G{n/2-1}}{\G{(n+1)/2}} \frac{\G{\sigma/2+1}\G{n/2-1}}{\G{(n+\sigma)/2}} \frac{\G{1/2}\G{(1-\sigma)/2}}{\G{1-\sigma/2}} \nonumber \\
-    &= \frac{2^{3/2} \pi^{n-2}}{\sigma R^\sigma} \frac{\G{3/2}\G{1/2}\G{1+\sigma/2} \G{(1-\sigma)/2}}{\G{(n+1)/2}\G{(n+\sigma)/2}\G{1-\sigma/2}} \nonumber \\
-    &= \frac{2^{1/2} \pi^{n-1}}{\sigma R^\sigma} \frac{\G{1+\sigma/2} \G{(1-\sigma)/2}}{\G{(n+1)/2}\G{(n+\sigma)/2}\G{1-\sigma/2}}, \nonumber
-  \end{IEEEeqnarray}
-  so that our task is to show
+  First notice that the number of times a disk intersects $\C$ is completely determined by the projection of that disk into $\lsp{t, n}$. This motivates using the co-area formula to slice the domain into the line segments $\D{ra, b, r} \cap \S$ where $\S := \lsp{t, n}$. To that end, put $\Psi : \mathcal{A}^+ \to \mathbb{R}^2$  so that
   $$
-  \ks = \frac{\omega_{n-3}^2}{\sigma R^\sigma \sqrt{2}} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}} \B{\frac{1}{2}, \frac{1-\sigma}{2}} n(z).
-  $$
-  \subsection{Similarity to 2D} \label{nd:sect:2d}%;
-  Since $\C \subset \lsp{t, n}$, we can simplify our calculation by slicing at each $u \in \R{2}$ representing $\D{ra, b, r} \cap \S$. To that end, put $\Psi : \mathcal{A}^+ \to \mathbb{R}^2$  so that
-  $$
-  \D{ra, b, r} \cap S = \braces{ t \Psi(a, b, r) \mid t \in [0, 1] }.
+  \D{ra, b, r} \cap \S = \braces{ t \Psi(a, b, r) \mid t \in [0, 1] }.
   $$
   In order to to determine an exact formula for $\Psi$, note the following, where $u := \Psi(a, b, r)$:
 \begin{itemize}
@@ -347,7 +407,6 @@ $$
 \begin{equation}
   0 = \dot{b}{u} = b_tu_t + b_nu_n \implies u_t = \frac{-b_n u_n}{b_t}. \label{nd:e1}
 \end{equation}
-
 Substituting this back into \eqref{nd:c1} we have
 \begin{IEEEeqnarray*}{rCl}
   2ra_nu_n - 2r a_t \frac{b_n u_n}{b_t} = u_n^2 + \frac{b_n^2 u_n^2}{b_t^2} &\implies& u_n^2 \parens{1 + \frac{b_n^2}{b_t^2}} + 2r u_n \parens{\frac{a_t b_n}{b_t} - a_n} = 0\\
@@ -361,20 +420,11 @@ $$
 $$
   \Psi(a, b, r) = 2r \frac{a_n b_t - a_t b_n}{\Prsbpa^2} \parens{b_t n - b_n t} = 2r \frac{a_t b_n - a_n b_t}{\Prsbpa^2} \Prsbp
 $$
-  We can further rewrite this by noticing
-$$
-  \dot{\Prsbp}{a} = \dot{\parens{b_t t + b_n n}^\perp}{a} = \dot{\parens{b_n t - b_t n}}{a} = b_n a_t - b_t a_n,
-$$
-  and putting
-  \begin{equation}
-  p(b) = \frac{\Prsbp}{\Prsbpa}, \label{nd:def:p}
-  \end{equation}
-  so that
+  We can further rewrite this by noticing $\dot{\Prsbp}{a} = \dot{\parens{b_t t + b_n n}^\perp}{a} = \dot{\parens{b_n t - b_t n}}{a} = b_n a_t - b_t a_n$, and putting $p(b) = \frac{\Prsbp}{\Prsbpa}$, so that
 \begin{equation}
   \Psi(a, b, r) = 2r \frac{\dot{\Prsbp}{a}}{\Prsbpa^2} \mathcal{P}_S b^\perp = 2r \pdot{p(b)}{a} p(b) = 2r \parens{p(b) \otimes p(b)}a. \label{nd:def:psi}
 \end{equation}
-
-Put $\E{u} := \Psi^{-1}(\braces{u})$, with \ref{lem:co:psi} we see
+With $\E{u} := \Psi^{-1}(\braces{u})$, and \ref{lem:co:psi} we see
 $$
   \ks
   = \frac{1}{\sqrt{2}} \int_{\mathbb{R}^2} \frac{1}{\abs{u}} \int_{\E{u}}
@@ -382,48 +432,21 @@ $$
   \frac{\Prsbpa}{\sqrt{2 - \frac{\abs{u}^2}{4r^2}} \sqrt{r^2 - \parens{r^2-1} \frac{\abs{u}^2}{4r^2} }}
   \, d\haus{2n-4}{a, b, r} \, d\haus{2}{u}.
 $$
-As noticed above $\C \in \S$ so $\chit{\A}{a,b,r}$ must only depend on where $\D{a,b,r} \cap \S$, i.e. $u$. Putting
+As noticed above $\C \in \S$ so $\chit{\A}{a,b,r}$ must only depend on where $\D{a,b,r} \cap \S$, i.e. $u$. Putting\footnote{$\Pu$ is notably the same as in the 2D case. This comes from the inherent geometry of the circle, i.e. this set includes all $u$ who point below the circle (i.e. $\pdot{u}{n} < 0$), or $u$ that lie within the interior of the circle, i.e. $\abs{u} < 2R\sin\theta$ where $\theta$ is the angle between $t$ and $u$.}
 $$\Pu := \braces{ u \in \S \mid \pdot{u}{n} < 0 \textup{ or } \frac{\abs{u}}{2} < R\parens{\frac{u}{\abs{u}} \cdot n} }$$
-we must have $\chit{\A}{a,b,r} = \chit{\Pu}{u}$\footnote{$\Pu$ is notably the same as in the 2D case. This comes from the inherent geometry of the circle, i.e. this set includes all $u$ who point below the circle (i.e. $\pdot{u}{n} < 0$), or $u$ that lie within the interior of the circle, i.e. $\abs{u} < 2R\sin\theta$ where $\theta$ is the angle between $t$ and $u$.}, and so
+we must have $\chit{\A}{a,b,r} = \chit{\Pu}{u}$ and so
 \begin{equation}
   \ks
   = \frac{1}{\sqrt{2}} \int_{\mathbb{R}^2} \frac{\chit{\Pu}{u}}{\abs{u}} \int_{\E{u}}
   \frac{\pdot{a}{t}b - \pdot{b}{t}a}{r^{1+\sigma}}
   \frac{\Prsbpa}{\sqrt{2 - \frac{\abs{u}^2}{4r^2}} \sqrt{r^2 - \parens{r^2-1} \frac{\abs{u}^2}{4r^2} }}
   \, d\haus{2n-4}{a, b, r} \, d\haus{2}{u}. \label{nd:eq:1}
-\end{equation}%:
-\subsection{Normal Component Projection} \label{nd:sect:norm}%;
-  We want to show $\ks = \parens{n \otimes n}\ks$. Just as with the 2D case it's trivial to see $\pdot{\ks}{t} = 0$. In order to show $\pdot{\ks}{m} = 0$ for $m \in \U{\braces{n,t}^\perp}$, we'll show that the integrand of \eqref{nd:eq:1} dotted with $m$
-  \begin{equation}
-    \frac{\chit{\Pu}{u}}{\abs{u}} \frac{\pdot{a}{t}\pdot{b}{m} - \pdot{b}{t}\pdot{a}{m}}{r^{1+\sigma}} \frac{\Prsbpa}{\sqrt{2 - \frac{\abs{u}^2}{4r^2}} \sqrt{r^2 - \parens{r^2-1} \frac{\abs{u}^2}{4r^2} }}, \label{nd:eq:normintegrand}
-  \end{equation}
-  is odd over a symmetric domain.
-
-  Specifically, we hope to show, for $R_m := I - 2(m \otimes m)$, $(u, a, b, r) \to (u, R_m a, R_m b, r)$ is an isomorphism that the integrand is odd under. From \eqref{nd:def:p} $p(R_m b) = p(b)$ and thus \eqref{nd:def:psi} says
-  $$
-  \Psi(R_m a, R_m b, r) = 2r \pdot{p(R_m b)}{R_m a}p(R_m b) = 2r \pdot{p(b)}{R_m a}p(b) = 2r \pdot{p(b)}{a} p(b) = \Psi(a, b, r).
-  $$
-  This tells us that $u$ is invariant under $(a, b) \to (R_m a, R_m b)$ transformation. By a similar observation $\Prsbpa$ is invariant under a $b \to R_m b$ transformation, and thus the task of showing \eqref{nd:eq:normintegrand} is odd under $(u, a, b, r) \to (u, R_m a, R_m b, r)$ reduces to showing
-  $$
-  J(a, b) := \pdot{a}{t}\pdot{b}{m} - \pdot{b}{t}\pdot{a}{m}
-  $$
-  is odd under the $(a, b) \to (R_m a, R_m b)$ transformation. Indeed we can see
-  \begin{IEEEeqnarray*}{rCl}
-    J( R_m a, R_m b) &=& \pdot{R_m a}{t}\pdot{R_m b}{m} - \pdot{R_m b}{t}\pdot{R_m a}{m} \\
-    &=& \pdot{\parens{a - 2\pdot{a}{m}m}}{t}\pdot{\parens{b - 2\pdot{b}{m}m}}{m} - \pdot{\parens{b - 2\pdot{b}{m}m}}{t}\pdot{\parens{a - 2\pdot{a}{m}m}}{m} \\
-    &=& \parens{\pdot{a}{t} - 2\pdot{a}{m}\pdot{m}{t}}\parens{\pdot{b}{m} - 2\pdot{b}{m}} - \parens{\pdot{b}{t} - 2\pdot{b}{m}\pdot{m}{t}}\parens{\pdot{a}{m} - 2\pdot{a}{m}} \\
-    &=& \parens{\pdot{a}{t} - 0}\parens{-\pdot{b}{m}} - \parens{\pdot{b}{t} - 0}\parens{-\pdot{a}{m}} \\
-    &=& -\pdot{a}{t}\pdot{b}{m} + \pdot{b}{t}\pdot{a}{m} = - J(a, b, r).
-  \end{IEEEeqnarray*}
-  Lastly due to the invariance of $u$, the fact that $R_m$ is an isomorphism, $\pdot{R_m b}{t} = \pdot{b}{t}$ and
-  $$
-  \pdot{R_m a}{R_m b} = \pdot{\parens{a - 2\pdot{m}{a}m}}{\parens{b - 2\pdot{m}{b}m}} = \pdot{a}{b}
-  $$
-  we have $(a, b, r) \in \E{u} \iff (R_m a, R_m b, r) \in \E{u}$. Thus, for the rest of the proof we may focus on $\dot{\ks}{n}$. Before expanding our integral, notice
-  $$
+\end{equation}
+From \eqref{lem:circnparallel} we known we can focus on $\ks \cdot n$. It's also true
+$$
   \pdot{a}{t}\pdot{b}{n} - \pdot{b}{t}\pdot{a}{n} = \dot{\parens{\pdot{b}{n}t - \pdot{b}{t}n}}{a} = \dot{- \Prsbp}{a}
-  $$
-  and since $u = \frac{2r}{\Prsbpa^2} \pdot{\Prsbp}{a} \Prsbp \implies \abs{\dot{\Prsbp}{a}} = \frac{\abs{u}\Prsbpa}{2r}$, $\sgn{\dot{\Prsbp}{a}} = \sgn{\dot{\Prsbp}{u}}$ we have
+$$
+and since $u = \frac{2r}{\Prsbpa^2} \pdot{\Prsbp}{a} \Prsbp \implies \abs{\dot{\Prsbp}{a}} = \frac{\abs{u}\Prsbpa}{2r}$, $\sgn{\dot{\Prsbp}{a}} = \sgn{\dot{\Prsbp}{u}}$ we have
   \begin{equation}
     \dot{\ks}{n}
     = \frac{-1}{2\sqrt{2}} \int_{\mathbb{R}^2} \chit{\Pu}{u} \int_{\E{u}}
@@ -431,14 +454,11 @@ we must have $\chit{\A}{a,b,r} = \chit{\Pu}{u}$\footnote{$\Pu$ is notably the sa
     \frac{\sgn{\dot{\Prsbp}{u}} \Prsbpa^2}{\sqrt{2 - \frac{\abs{u}^2}{4r^2}} \sqrt{r^2 - \parens{r^2-1} \frac{\abs{u}^2}{4r^2} }}
     \, d\haus{2n-4}{a, b, r} \, d\haus{2}{u}. \label{nd:eq:2}
   \end{equation}
-  %:
-\subsection{Slicing Along Radii} \label{nd:sect:radii}%;
-Next, to further simplify \eqref{nd:eq:2}, let's slice along each $r$, i.e. put $\Phi : \E{u} \to \R{+}$ given by
+We can slice the domain of the inner integral along each $r$, i.e. for $\Phi : \E{u} \to \R{+}$ given by
 \begin{equation}
-  \Phi(a, b, r) = r. \label{nd:def:phi}
+  \Phi(a, b, r) = r, \label{nd:def:phi}
 \end{equation}
-
-Put $\E{u, r} = \Phi^{-1}(\{r\})$, so that with the co-area calculation in \ref{lem:co:phi} we find \eqref{nd:eq:2} becomes
+\noindent put $\E{u, r} = \Phi^{-1}(\{r\})$, so that with the co-area calculation in \ref{lem:co:phi} we find
 \begin{IEEEeqnarray}{ll}
   \frac{-1}{2\sqrt{2}} &\int_{\mathbb{R}^2} \chit{\Pu}{u} \int_{\E{u}}
   \frac{1}{r^{2+\sigma}}
@@ -454,19 +474,13 @@ Put $\E{u, r} = \Phi^{-1}(\{r\})$, so that with the co-area calculation in \ref{
   \int_{\mathbb{R}^2} \chit{\Pu}{u}
   \int_{\Phi(\E{u})} \frac{1}{r^{3+\sigma} \sqrt{2 - \frac{\abs{u}^2}{4r^2}} \sqrt{1-\frac{\abs{u}^2}{4r^2}}}
   \int_{\E{u, r}} \sgn{\dot{\Prsbp}{u}} \Prsbpa^2
-  \, d\haus{2n-5}{a, b} \, dr \, d\haus{2}{u} \nonumber \\ & \label{nd:eq:3}
+  \, d\haus{2n-5}{a, b} \, dr \, d\haus{2}{u} \nonumber
 \end{IEEEeqnarray}
-%:
-\subsection{Splitting Spheres} \label{nd:sect:sphere} %;
-Since the inner most integrand in \eqref{nd:eq:3} only depends on $b$, and by the uniform nature of
-$$
-\E{u, r} = \braces{ (a, b) \in \UTP{} \mid \dot{b}{t} > 0, \, \dot{u}{b} = 0 \textup{ and } 2r\pdot{u}{a} = \pdot{u}{u} },
-$$
-it's natural to slice on each $b$, so put $\Xi : \E{u, r} \to \Et{u, r}$ where $\Xi(a, b) = b$. With the calculation done in \ref{lem:co:xi} we can see, after putting $\E{u, r, b} = \Xi^{-1}(b)$ and including \ref{lem:co:xi}, \ref{lem:measure:eurb}, \eqref{nd:eq:3} becomes
+Since the inner most integrand only depends on $b$ it's natural to slice on each $b$. Put $\Xi : \E{u, r} \to \Et{u, r}$ where $\Xi(a, b) = b$. With the co-area calculation from \ref{lem:co:xi}, after putting $\E{u, r, b} = \Xi^{-1}(b)$ and including the result from \ref{lem:measure:eurb}, the above integral becomes
 \begin{IEEEeqnarray}{ll}
   &\frac{-1}{2\sqrt{2}}
   \int_{\mathbb{R}^2} \chit{\Pu}{u}
-  \int_{\Phi(\E{u})} \frac{}{r^{3+\sigma} \sqrt{2 - \frac{\abs{u}^2}{4r^2}} \sqrt{1-\frac{\abs{u}^2}{4r^2}}}
+  \int_{\Phi(\E{u})} \frac{1}{r^{3+\sigma} \sqrt{2 - \frac{\abs{u}^2}{4r^2}} \sqrt{1-\frac{\abs{u}^2}{4r^2}}}
   \int_{\Et{u, r}} \sgn{\dot{\Prsbp}{u}} \Prsbpa^2
   \frac{\haus{n-3}{\E{u, r, b}}}{\parens{2 - \frac{\abs{u}^2}{4r^2}}^{-1/2}}
   \, d\haus{n-2}{b} \, dr \, d\haus{2}{u} \nonumber \\
@@ -501,7 +515,7 @@ Combining \eqref{nd:eq:6}, \eqref{nd:eq:7} and \ref{lem:co:zeta}, the inner most
   \int_{\Et{u, r}} \sgn{\dot{\Prsbp}{u}} \Prsbpa^2 \, d\haus{n-2}{b} &=& \int_{\zeta\parens{\Et{u,r}}} \sgn{\dot{-v \frac{u}{\abs{u^\perp}}}{u}} v^2 \, \frac{\haus{n-3}{\zeta^{-1}(v)}}{\sqrt{1-v^2}} \, dv \nonumber \\
   &=& - \omega_{n-3} \int_{\zeta\parens{\Et{u, r}}} \sgn{v} v^2 \parens{1 - v^2}^{(n-4)/2} \, dv. \label{nd:eq:8}
 \end{IEEEeqnarray}
-To better understand $\zeta\parens{\Et{u,r}}$ notice $b \in \Et{u, r} \implies \dot{b}{t} > 0$, so
+To understand $\zeta\parens{\Et{u,r}}$ notice $b \in \Et{u, r} \implies \dot{b}{t} > 0$, so
 $$
 0 < b \cdot t = \parens{b \cdot \frac{u}{\abs{u}}} \parens{t \cdot \frac{u}{\abs{u}}} + \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} \parens{t \cdot \frac{u^\perp}{\abs{u^\perp}}} = \parens{b \cdot \frac{u^\perp}{\abs{u^\perp}}} \parens{t \cdot \frac{u^\perp}{\abs{u^\perp}}},
 $$
@@ -512,7 +526,7 @@ i.e. $\zeta\parens{\Et{u, r}} = [-1, 0]$ if $\sgn{\dot{t}{u^\perp}} = -1$ and $[
   &=& \frac{\sgn{\dot{n}{u}} \omega_{n-3}}{2} \B{\frac{3}{2}, \frac{n-2}{2}} \label{nd:eq:9}
 \end{IEEEeqnarray}
 
-Putting \eqref{nd:eq:9} back into \eqref{nd:eq:5} our calculation becomes
+\noindent Putting \eqref{nd:eq:9} back into \eqref{nd:eq:5} our calculation becomes
 \begin{equation}
   \dot{\ks}{n} = \frac{-\omega_{n-3}^2}{4\sqrt{2}} \B{\frac{3}{2}, \frac{n-2}{2}}
   \int_{\R{2}} \chit{\Pu}{u} \sgn{\dot{n}{u}}
@@ -520,9 +534,8 @@ Putting \eqref{nd:eq:9} back into \eqref{nd:eq:5} our calculation becomes
   \, dr \, d\haus{2}{u}.
   \label{nd:eq:10}
 \end{equation}
-%:
-\subsection{Evaluating Integrals} \label{nd:sect:eval}%;
-To evaluate the final integrals we recall $\E{u} = \Psi^{-1}\parens{\braces{u}}$ where $\Psi$ is given in \eqref{nd:def:psi}. By definition of $\Phi$ in \eqref{nd:def:phi} we have
+
+\noindent To evaluate the final integrals we recall $\E{u} = \Psi^{-1}\parens{\braces{u}}$ where $\Psi$ is given in \eqref{nd:def:psi}. By definition of $\Phi$ in \eqref{nd:def:phi} we have
 $$
 \Phi\parens{\E{u}} = \Phi\parens{\Psi^{-1}\parens{\braces{u}}} = \braces{ r \mid 2r \pdot{p(b)}{a} p(b) = u \textup{ for some } (a, b, r) \in \A} = \braces{r \mid r \ge \abs{u}{2} },
 $$
@@ -546,10 +559,27 @@ Plugging \eqref{nd:eq:11} back into \eqref{nd:eq:10} our calculation simplifies 
   &=& -2^{\sigma-3/2} \omega_{n-3}^2 \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}} \frac{-2^{1-\sigma}}{\sigma R^\sigma} \B{\frac{1}{2}, \frac{1-\sigma}{2}} \label{nd:eq:12} \\
   &=& \frac{\omega_{n-3}^2}{\sigma R^\sigma\sqrt{2}} \B{\frac{3}{2}, \frac{n-2}{2}} \B{\frac{\sigma+2}{2}, \frac{n-2}{2}} \B{\frac{1}{2}, \frac{1-\sigma}{2}}, \label{nd:eq:13}
 \end{IEEEeqnarray}
-where in \eqref{nd:eq:12} we leveraged \ref{lem:pu}. Finally our desired equality follows after combining \eqref{nd:eq:13} with \eqref{nd:eq:0}.
-%:
+where in \eqref{nd:eq:12} we leveraged \ref{lem:pu}.
 \end{proof}
 %:
+
+\noindent With the main calculation out of the way we're ready to show the first asymptotic relationship in $\R{n}$.
+\begin{theorem} \label{thm:circlim}%;
+  For a circle of radius $R$
+  $$
+    \lim_{\sigma \uparrow 1} \parens{1 - \sigma} \Lambda_{n, \sigma} \ks = \frac{1}{R} n
+  $$
+  where $n$ is the unit normal and
+  \begin{equation}
+    \Lambda_{n,\sigma} = TODO. \label{def:lambda}
+  \end{equation}
+  That is, classical curvature of a circle is recovered in the canonical nonlocal limit.
+\end{theorem}
+\begin{proof}
+  By \eqref{lem:circnparallel} we know $\ks$ only has a normal component so our goal is to show $\ks \cdot n \rightsquigarrow \frac{1}{R}$.
+
+  TODO
+\end{proof}%:
 
 \section{Appendix}%;
 

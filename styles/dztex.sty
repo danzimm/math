@@ -122,6 +122,8 @@
   \setlist[dzenum,1]{label={\color{dzcol} (\alph*)}}
   \setlist[dzenum,2]{label={\color{dzcol} (\roman*)}}
 
+  \renewcommand{\thesection}{\arabic{section}}
+  \renewcommand{\thesubsection}{\arabic{subsection}}
 }
 
 % My colors
@@ -166,13 +168,23 @@
 \makeatother
 
 
-\renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\arabic{subsection}}
 
+
+\theoremstyle{dzlemmanonum}
+\newtheorem{lem}{Lemma}
+
+\theoremstyle{dzexercise}
+\newtheorem{exercise}{Exercise}
+
+% Use subsection number when numbering
+\checkfor{dznopagestyle}{
+  \newtheorem{theorem}{Theorem}[section]
+  \newtheorem{lemma}[theorem]{Lemma}
+}{
 \newtheoremstyle{dztheorem}
 {\topsep}             % Space above
 {\topsep}             % Space below
-{\slshape}        % Theorem body font % (default is "\upshape")
+{\upshape}        % Theorem body font % (default is "\upshape")
 {}                % Indent amount
 {\bfseries\sffamily}       % Theorem head font % (default is \mdseries)
 {}                % Punctuation after theorem head % default: no punctuation
@@ -231,19 +243,6 @@
     }%
   }%
 }                % Theorem head spec
-
-\theoremstyle{dzlemmanonum}
-\newtheorem{lem}{Lemma}
-
-\theoremstyle{dzexercise}
-\newtheorem{exercise}{Exercise}
-
-% Use subsection number when numbering
-\checkfor{dznopagestyle}{
-  \newtheorem{theorem}{Theorem}[section]
-  \newtheorem{lemma}[theorem]{Lemma}
-}{
-
   \theoremstyle{dztheorem}
   \newtheorem{theorem}{Theorem}
   \theoremstyle{dzlemma}
